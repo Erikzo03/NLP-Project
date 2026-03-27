@@ -1,0 +1,45 @@
+% filepath: /Users/erikaymerich/Desktop/Data Science/4 semester/NLP and deep learning/Semester project /NLP-Project/latex/main.tex
+\documentclass[11pt]{article}
+\usepackage[review]{acl}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage{microtype}
+
+\title{Cross-Lingual NER Transfer from English to Danish using BERT-based Models}
+\author{Your Name \and Teammate Name \\ IT University of Copenhagen \\ \texttt{\{you,teammate\}@itu.dk}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We propose a Named Entity Recognition (NER) project that starts with an English BERT baseline on EWT and extends to Danish via cross-lingual transfer. We compare zero-shot transfer, English-initialized Danish fine-tuning, and Danish-only training, and evaluate with strict span-level F1.
+\end{abstract}
+
+\section{Topic and Current State}
+Transformer models (e.g., BERT, mBERT, XLM-R) are standard for NER. Performance is strong in high-resource languages such as English, while lower-resource languages often suffer from limited annotation. Prior work shows multilingual encoders can transfer entity knowledge across languages, but gains vary by language similarity, label schema, and domain.
+
+\section{New Part of Our Project}
+Our novelty is a controlled English$\rightarrow$Danish transfer study grounded in the course baseline pipeline. We first build a reproducible English baseline (\texttt{bert-base-cased}) on EWT in IOB2 format. We then test multilingual transfer strategies for Danish:
+(i) zero-shot English-trained multilingual model on Danish,
+(ii) English-initialized model with Danish fine-tuning,
+(iii) Danish-only baseline.
+We also include a low-resource setting (10\%, 25\%, 50\% Danish train data).
+
+\section{Research Question}
+To what extent does English supervision improve Danish NER through cross-lingual transfer compared with Danish-only fine-tuning?  
+Sub-questions:
+\begin{itemize}
+    \item How strong is the English baseline?
+    \item How effective is zero-shot transfer?
+    \item Does English initialization improve Danish performance under limited data?
+\end{itemize}
+
+\section{Method and Feasibility}
+We use token classification with aligned subword labels and evaluate with precision, recall, and strict span F1 (\texttt{seqeval} + course scorer). The project is feasible within the course timeline because the baseline code already runs, and transfer experiments reuse the same training/evaluation pipeline.
+
+\bibliographystyle{acl_natbib}
+\bibliography{references}
+
+\end{document}
