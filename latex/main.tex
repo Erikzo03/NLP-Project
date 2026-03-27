@@ -1,4 +1,3 @@
-% filepath: /Users/erikaymerich/Desktop/Data Science/4 semester/NLP and deep learning/Semester project /NLP-Project/latex/main.tex
 \documentclass[11pt]{article}
 \usepackage{acl}
 \usepackage[T1]{fontenc}
@@ -19,49 +18,33 @@
 \maketitle
 
 \begin{abstract}
-We propose a Named Entity Recognition (NER) project that starts with an English BERT baseline on EWT and extends to Danish via cross-lingual transfer. We compare zero-shot transfer, English-initialized Danish fine-tuning, and Danish-only training, and evaluate with strict span-level F1.
+This project studies how to improve Danish Named Entity Recognition (NER) by transferring knowledge from English with BERT-based models. Because Danish has less labeled data, we compare zero-shot transfer, transfer plus Danish fine-tuning, and a Danish-only baseline. We use mBERT and XLM-R for transfer and include an English BERT baseline. We also test whether English and Danish being related Indo-European languages gives a practical transfer advantage.
 \end{abstract}
 
-\section{Problem Statement}
-The Named Entity Recognition (NER) model attains high performance in resource-rich languages like English but tends to perform poorly in resource-poor languages like Danish. This project seeks to explore the possibility of transferring learning from English NER to improve the performance of the model in the Danish language.
+\section{Introduction and Background}
+NER needs labeled data, which is abundant for English but limited for Danish. This makes Danish NER harder to train with only supervised data. A practical solution is transfer learning: train on English first, then adapt to Danish.
 
-\section{Research Question}
-The main research question is: \textit{How far can cross-lingual transfer from English improve Danish NER performance?} Three sub-aspects of this main research question are:
+Earlier work supports this idea. \citet{plank2020danish} reported English-to-Danish transfer with zero-shot F1 around 58--61\%, and above 70\% when small Danish labeled sets were added. \citet{fu2023heterogeneous} found transfer is usually stronger for related languages, and \citet{sohn2024zeroshot} showed that surface similarity also helps. Since English and Danish are related Indo-European languages, this pair is a strong test case.
+
+\section{Research Questions}
+Our main question is: \textit{How much can English-to-Danish transfer improve Danish NER with multilingual BERT-based models?} We focus on three sub-questions:
 \begin{itemize}
-    \item How good is a Danish BERT baseline in English?
-    \item How good is a zero-shot transfer from English to Danish?
-    \item Is a sequence of transfer learning from English to Danish better than a model trained on Danish data only?
+  \item How well do simple monolingual English and Danish BERT baselines perform?
+  \item How much performance do we lose in zero-shot English-to-Danish transfer compared with supervised Danish training?
+  \item Is two-step training (first English, then Danish) better than both zero-shot transfer and Danish-only training?
 \end{itemize}
-
-\section{Hypotheses}
-We anticipate that a monolingual English model (\texttt{bert-base-cased}) will have good performance in terms of F1 score on English. Zero-shot transfer learning on Danish is expected to have lower performance than supervised learning on Danish, but better than trivial performance due to shared representations. Finally, we anticipate that transfer learning using a multilingual model pre-trained on English and fine-tuned on Danish will have better performance than Danish monolingual pre-training.
-
-\section{Data}
-The project is based on using the English EWT NER dataset and a Danish NER dataset. It has a standard IOB2 format and a standard train/development/test split. In preprocessing, validation of label format and mapping of tokens to their corresponding subword representations using transformer-based models is performed.
+We also test whether English and Danish being related languages gives a measurable transfer advantage, in line with the findings of \citet{fu2023heterogeneous}.
 
 \section{Methodology}
-Our approach to NER follows a token classification paradigm, where we employ transformer-based architectures. We begin by establishing a baseline in the monolingual case by fine-tuning the pre-trained \texttt{bert-base-cased} model on English and measuring its performance. We also examine cross-lingual transfer by utilizing multilingual models such as \texttt{bert-base-multilingual-cased} (mBERT) and \texttt{xlm-roberta-base} (XLM-R), pre-trained on a variety of languages.
+We use token classification with transformer encoders in four setups: (1) an English baseline with \texttt{bert-base-cased}, (2) zero-shot transfer to Danish with mBERT and XLM-R trained on English, (3) transfer fine-tuning where those models are further trained on Danish, and (4) a Danish-only baseline. This design lets us separate three effects: pure transfer, transfer plus target-language adaptation, and fully local Danish training.
 
-There are primarily three different experimental setups that we compare in our experiments:
+To study data efficiency, we also fine-tune with 10\%, 25\%, and 50\% of Danish training data.
 
-\paragraph{Zero-shot.} The multilingual model is trained on English and evaluated directly on Danish to examine its cross-lingual transfer ability.
+We report entity-level F1, precision, and recall, and we include per-label and error analysis (boundary mistakes, label confusion, and tokenization issues). For reproducibility, we keep random seeds fixed and log all hyperparameters.
 
-\paragraph{Transfer fine-tuning.} The same multilingual model is trained on English and then fine-tuned on the Danish dataset.
+\section{Expected Outcome}
+We expect zero-shot transfer to be below fully supervised Danish training but above a weak baseline. We expect transfer fine-tuning to give the best Danish results, especially with limited Danish data.
 
-\paragraph{Danish baseline.} A Danish baseline is established by fine-tuning the pre-trained model directly on the Danish dataset.
-
-In addition to the above experiments, we also optionally examine the robustness of the cross-lingual transfer ability by fine-tuning the multilingual models on smaller Danish datasets (10\%, 25\%, 50\%).
-
-\section{Evaluation Plan}
-The performance is mainly evaluated using a stringent F1 score on a per-entity basis, accompanied by precision and recall. Further evaluation is conducted using per-label evaluation and qualitative evaluation based on boundary detection errors, entity type ambiguity, and tokenization errors. Reproducibility is ensured using a constant random seed and logging of hyperparameters and results.
-
-\section{Expected Contributions}
-This project offers a systematic comparison of cross-lingual NER approaches and assesses the utility of transfer learning for Danish. It also offers a reproducible experimental framework and new knowledge about multilingual representation learning for low-resource NLP tasks.
-
-\section{Risks and Mitigation}
-Potential challenges include mismatched label schemas between datasets, weak zero-shot transfer performance, and computational constraints. These are addressed through careful preprocessing, emphasis on transfer fine-tuning experiments, and efficient training configurations such as reduced batch sizes or sequence lengths.
-
-\bibliographystyle{acl_natbib}
 \bibliography{references}
 
 \end{document}
