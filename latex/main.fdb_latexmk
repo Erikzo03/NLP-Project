@@ -1,13 +1,14 @@
 # Fdb version 4
-["bibtex main"] 1775216810.54157 "main.aux" "main.bbl" "main" 1775216811.16417 0
+["bibtex main"] 1775219574.3843 "main.aux" "main.bbl" "main" 1775219574.99331 0
   "./acl_natbib.bst" 1775215010.91749 45186 3d1af46d62cc9172ef6e42b56c1cd613 ""
   "./references.bib" 1775216805.25708 2434 3e79c5874a74d7e22996f75d0650eb7a ""
-  "main.aux" 1775216810.98624 1581 ad612fd93afeb25fe7404ad3de270e3e "pdflatex"
+  "main.aux" 1775219574.82472 1581 ad612fd93afeb25fe7404ad3de270e3e "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1775216810.61345 "main.tex" "main.pdf" "main" 1775216811.16427 0
+["pdflatex"] 1775219574.45633 "/Users/erikaymerich/Desktop/Data Science/4 semester/NLP and deep learning/Semester project /NLP-Project/latex/main.tex" "main.pdf" "main" 1775219574.99341 0
+  "/Users/erikaymerich/Desktop/Data Science/4 semester/NLP and deep learning/Semester project /NLP-Project/latex/main.tex" 1775216798.9101 5337 250886db6020c93ebd2e07f1af2de0b3 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/adobe/courier/pcrr8r.tfm" 1136768653 1292 bd42be2f344128bff6d35d98474adfe3 ""
@@ -106,9 +107,9 @@
   "/usr/local/texlive/2026/texmf-var/web2c/pdftex/pdflatex.fmt" 1773392685 3636769 9ca43a58a524ecf353589a17e61f4c70 ""
   "/usr/local/texlive/2026/texmf.cnf" 1772409725 577 648cd9f92f9c0eac486f4c71c85cfbbe ""
   "acl.sty" 1775215010.91736 11615 e2c027f483aa40e577ed34264c8b0655 ""
-  "main.aux" 1775216810.98624 1581 ad612fd93afeb25fe7404ad3de270e3e "pdflatex"
-  "main.bbl" 1775216810.61196 2384 da622a9d25189c500014ed3b192ba186 "bibtex main"
-  "main.out" 1775216810.98655 996 0c69fcdfa25d66aaf6006289eefb567e "pdflatex"
+  "main.aux" 1775219574.82472 1581 ad612fd93afeb25fe7404ad3de270e3e "pdflatex"
+  "main.bbl" 1775219574.4548 2346 6f7b07361b28d10030feeacee4dc5027 "bibtex main"
+  "main.out" 1775219574.82505 996 0c69fcdfa25d66aaf6006289eefb567e "pdflatex"
   "main.tex" 1775216798.9101 5337 250886db6020c93ebd2e07f1af2de0b3 ""
   (generated)
   "main.aux"
