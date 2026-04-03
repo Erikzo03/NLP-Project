@@ -6,6 +6,50 @@ This repo now includes a baseline training script:
 
 - `train_english_bert_baseline.py`
 
+## Baselines folder (English, Danish, Norwegian)
+
+All baseline training entrypoints are now grouped in:
+
+- `Baselines/train_english_baseline.py`
+- `Baselines/train_danish_baseline.py`
+- `Baselines/train_norwegian_baseline.py`
+
+Shared training logic is in:
+
+- `Baselines/train_ner_baseline.py`
+
+Each baseline writes output to its own folder under `outputs/`.
+
+Run English baseline:
+
+```bash
+python Baselines/train_english_baseline.py
+```
+
+Model default in this launcher: `bert-base-multilingual-cased`.
+
+Run Danish baseline:
+
+```bash
+python Baselines/train_danish_baseline.py
+```
+
+Run Norwegian baseline:
+
+```bash
+python Baselines/train_norwegian_baseline.py
+```
+
+To verify if labels are consistent across English, Danish, and Norwegian datasets:
+
+```bash
+python Baselines/check_label_consistency.py
+```
+
+This produces:
+
+- `Baselines/reports/label_consistency_report.json`
+
 It trains a token-classification BERT model on:
 
 - `Datasets/en_ewt-ud-train.iob2`
