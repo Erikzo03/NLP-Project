@@ -1,0 +1,50 @@
+{
+  "labels_by_language": {
+    "english": [
+      "B-LOC",
+      "B-ORG",
+      "B-PER",
+      "I-LOC",
+      "I-ORG",
+      "I-PER",
+      "O"
+    ],
+    "danish": [
+      "B-LOC",
+      "B-ORG",
+      "B-PER",
+      "I-LOC",
+      "I-ORG",
+      "I-PER",
+      "O"
+    ],
+    "norwegian": [
+      "B-LOC",
+      "B-ORG",
+      "B-PER",
+      "I-LOC",
+      "I-ORG",
+      "I-PER",
+      "O"
+    ]
+  },
+  "num_labels_by_language": {
+    "english": 7,
+    "danish": 7,
+    "norwegian": 7
+  },
+  "consistent_with_english": {
+    "danish": true,
+    "norwegian": true
+  },
+  "differences_vs_english": {
+    "danish": {
+      "missing_from_language": [],
+      "extra_in_language": []
+    },
+    "norwegian": {
+      "missing_from_language": [],
+      "extra_in_language": []
+    }
+  }
+}

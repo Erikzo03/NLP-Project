@@ -3,7 +3,7 @@ import json
 import os
 import random
 from dataclasses import dataclass
-from typing import Dict, List, Sequence, Tuple, Union
+from typing import Dict, List, Optional, Sequence, Tuple, Union
 
 import numpy as np
 from datasets import Dataset
@@ -160,7 +160,9 @@ def write_predictions_iob2(
     predicted_labels: Sequence[Sequence[str]],
     output_path: str,
 ) -> None:
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    output_dir = os.path.dirname(output_path)
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
 
     with open(output_path, "w", encoding="utf-8") as outfile:
         for sent, pred in zip(source_sentences, predicted_labels):
@@ -189,27 +191,29 @@ def write_predictions_iob2(
             outfile.write("\n")
 
 
-def parse_args():
-    parser = argparse.ArgumentParser(description="English-only BERT baseline for NER")
-    parser.add_argument("--train_file", default="Datasets/English/en_ewt-ud-train.iob2")
-    parser.add_argument("--dev_file", default="Datasets/English/en_ewt-ud-dev.iob2")
-    parser.add_argument("--test_file", default="Datasets/English/en_ewt-ud-test-masked.iob2")
-    parser.add_argument("--model_name", default="bert-base-cased")
-    parser.add_argument("--output_dir", default="outputs/english_bert_baseline")
-    parser.add_argument("--max_length", type=int, default=256)
-    parser.add_argument("--learning_rate", type=float, default=2e-5)
-    parser.add_argument("--train_batch_size", type=int, default=8)
-    parser.add_argument("--eval_batch_size", type=int, default=16)
-    parser.add_argument("--gradient_accumulation_steps", type=int, default=1)
-    parser.add_argument("--num_train_epochs", type=float, default=4.0)
-    parser.add_argument("--weight_decay", type=float, default=0.01)
-    parser.add_argument("--seed", type=int, default=42)
+def parse_args(defaults: Optional[Dict[str, Union[str, int, float]]] = None):
+    defaults = defaults or {}
+    parser = argparse.ArgumentParser(description="Monolingual BERT NER baseline for IOB2 datasets")
+    parser.add_argument("--train_file", default=defaults.get("train_file", "Datasets/English/en_ewt-ud-train.iob2"))
+    parser.add_argument("--dev_file", default=defaults.get("dev_file", "Datasets/English/en_ewt-ud-dev.iob2"))
+    parser.add_argument("--test_file", default=defaults.get("test_file", "Datasets/English/en_ewt-ud-test-masked.iob2"))
+    parser.add_argument("--model_name", default=defaults.get("model_name", "bert-base-cased"))
+    parser.add_argument("--output_dir", default=defaults.get("output_dir", "outputs/english_bert_baseline"))
+    parser.add_argument("--max_length", type=int, default=int(defaults.get("max_length", 256)))
+    parser.add_argument("--learning_rate", type=float, default=float(defaults.get("learning_rate", 2e-5)))
+    parser.add_argument("--train_batch_size", type=int, default=int(defaults.get("train_batch_size", 8)))
+    parser.add_argument("--eval_batch_size", type=int, default=int(defaults.get("eval_batch_size", 16)))
+    parser.add_argument("--gradient_accumulation_steps", type=int, default=int(defaults.get("gradient_accumulation_steps", 1)))
+    parser.add_argument("--num_train_epochs", type=float, default=float(defaults.get("num_train_epochs", 4.0)))
+    parser.add_argument("--weight_decay", type=float, default=float(defaults.get("weight_decay", 0.01)))
+    parser.add_argument("--seed", type=int, default=int(defaults.get("seed", 42)))
     parser.add_argument("--fp16", action="store_true")
+    parser.add_argument("--label_report_path", default=defaults.get("label_report_path", ""))
     return parser.parse_args()
 
 
-def main():
-    args = parse_args()
+def main(defaults: Optional[Dict[str, Union[str, int, float]]] = None):
+    args = parse_args(defaults)
     set_seed(args.seed)
     random.seed(args.seed)
     np.random.seed(args.seed)
@@ -221,6 +225,13 @@ def main():
     label_list = build_label_list(train_data, dev_data)
     label_to_id = {label: idx for idx, label in enumerate(label_list)}
     id_to_label = {idx: label for label, idx in label_to_id.items()}
+
+    if args.label_report_path:
+        report_dir = os.path.dirname(args.label_report_path)
+        if report_dir:
+            os.makedirs(report_dir, exist_ok=True)
+        with open(args.label_report_path, "w", encoding="utf-8") as out:
+            json.dump({"labels": label_list, "num_labels": len(label_list)}, out, indent=2)
 
     train_ds = to_hf_dataset(train_data, label_to_id)
     dev_ds = to_hf_dataset(dev_data, label_to_id)
@@ -300,7 +311,7 @@ def main():
     print(f"Dev metrics written to: {os.path.join(args.output_dir, 'dev_metrics.json')}")
     print(f"Dev predictions written to: {dev_pred_path}")
     print(f"Test predictions written to: {test_pred_path}")
-    print("Evaluate dev file with: python span_f1.py Datasets/English/en_ewt-ud-dev.iob2 <dev_predictions.iob2>")
+    print(f"Evaluate dev file with: python span_f1.py {args.dev_file} <dev_predictions.iob2>")
 
 
 if __name__ == "__main__":

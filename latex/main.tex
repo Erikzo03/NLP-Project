@@ -6,7 +6,7 @@
 \usepackage{latexsym}
 \usepackage{microtype}
 
-\title{Cross-Lingual NER Transfer from English to Danish using BERT-based Models}
+\title{Cross-Lingual NER Transfer to Danish: English vs Norwegian with Linguistic Distance Analysis}
 \author{Akos Benjamin Doborhegyi \\
   \texttt{akdo@itu.dk} \And
   Erik Aymerich \\
@@ -18,32 +18,46 @@
 \maketitle
 
 \begin{abstract}
-This project studies how to improve Danish Named Entity Recognition (NER) by transferring knowledge from English with BERT-based models. Because Danish has less labeled data, we compare zero-shot transfer, transfer plus Danish fine-tuning, and a Danish-only baseline. We use mBERT and XLM-R for transfer and include an English BERT baseline. We also test whether English and Danish being related Indo-European languages gives a practical transfer advantage.
+This project studies how to improve Danish Named Entity Recognition (NER) by cross-lingual transfer with BERT-based models. We compare two source languages, English and Norwegian, to test whether a more closely related source language improves transfer to Danish. Because Danish has less labeled data, we compare zero-shot transfer, transfer plus Danish fine-tuning, and a Danish-only baseline under matched data budgets. We use mBERT and XLM-R for transfer, and we include monolingual source baselines. We also introduce an explicit linguistic-distance analysis using URIEL+ and DistALS to test whether smaller source-target distance aligns with higher Danish transfer gain.
 \end{abstract}
 
 \section{Introduction and Background}
-NER needs labeled data, which is abundant for English but limited for Danish. This makes Danish NER harder to train with only supervised data. A practical solution is transfer learning: train on English first, then adapt to Danish.
+NER needs labeled data, which is abundant for English but limited for Danish. This makes Danish NER harder to train with only supervised data. A practical solution is transfer learning: train on a high-resource source language, then adapt to Danish.
 
-Earlier work supports this idea. \citet{plank2020danish} reported English-to-Danish transfer with zero-shot F1 around 58--61\%, and above 70\% when small Danish labeled sets were added. \citet{fu2023heterogeneous} found transfer is usually stronger for related languages, and \citet{sohn2024zeroshot} showed that surface similarity also helps. Since English and Danish are related Indo-European languages, this pair is a strong test case.
+Earlier work supports this idea. \citet{plank2020danish} reported English-to-Danish transfer with zero-shot F1 around 58--61\%, and above 70\% when small Danish labeled sets were added. \citet{fu2023heterogeneous} found transfer is usually stronger for related languages, and \citet{sohn2024zeroshot} showed that surface similarity also helps. We therefore broaden scope from one transfer route (English$\rightarrow$Danish) to a comparison between English$\rightarrow$Danish and Norwegian$\rightarrow$Danish.
 
 \section{Research Questions}
-Our main question is: \textit{How much can English-to-Danish transfer improve Danish NER with multilingual BERT-based models?} We focus on three sub-questions:
+Our main question is: \textit{How much can transfer from English and Norwegian improve Danish NER with multilingual BERT-based models?} We focus on three sub-questions:
 \begin{itemize}
-  \item How well do simple monolingual English and Danish BERT baselines perform?
-  \item How much performance do we lose in zero-shot English-to-Danish transfer compared with supervised Danish training?
-  \item Is two-step training (first English, then Danish) better than both zero-shot transfer and Danish-only training?
+  \item How do monolingual baselines and cross-lingual transfer routes compare (English$\rightarrow$Danish vs Norwegian$\rightarrow$Danish)?
+  \item How much performance is lost in zero-shot transfer compared with supervised Danish training, and how much is recovered by Danish fine-tuning?
+  \item Does lower linguistic distance to Danish align with larger transfer gain?
 \end{itemize}
-We also test whether English and Danish being related languages gives a measurable transfer advantage, in line with the findings of \citet{fu2023heterogeneous}.
+We test the transfer-distance link directly, in line with the broader findings of \citet{fu2023heterogeneous}.
 
 \section{Methodology}
-We use token classification with transformer encoders in four setups: (1) an English baseline with \texttt{bert-base-cased}, (2) zero-shot transfer to Danish with mBERT and XLM-R trained on English, (3) transfer fine-tuning where those models are further trained on Danish, and (4) a Danish-only baseline. This design lets us separate three effects: pure transfer, transfer plus target-language adaptation, and fully local Danish training.
+We use token classification with transformer encoders in five setups: (1) monolingual source baselines for English and Norwegian, (2) zero-shot transfer to Danish from English with mBERT and XLM-R, (3) zero-shot transfer to Danish from Norwegian with mBERT and XLM-R, (4) transfer fine-tuning where cross-lingual models are further trained on Danish, and (5) a Danish-only baseline. This design separates pure transfer, transfer plus target-language adaptation, and fully local Danish training while directly comparing two source languages.
+
+\subsection{Datasets and label consistency}
+Our primary corpus family is WikiANN for English, Norwegian, and Danish. We will report train/validation/test split sizes for each language and keep a unified IOB2 token-label format across experiments.
+
+Before training, we will explicitly verify whether label inventories are identical across languages. If any mismatch is found, we will apply a deterministic normalization map and report it in the paper so all systems are compared on a consistent label space.
 
 To study data efficiency, we also fine-tune with 10\%, 25\%, and 50\% of Danish training data.
 
-We report entity-level F1, precision, and recall, and we include per-label and error analysis (boundary mistakes, label confusion, and tokenization issues). For reproducibility, we keep random seeds fixed and log all hyperparameters.
+\subsection{Evaluation and linguistic distance}
+We report entity-level F1, precision, and recall, and include per-label and error analysis (boundary mistakes, label confusion, and tokenization issues). For reproducibility, we keep random seeds fixed, run multiple seeds, and log all hyperparameters.
+
+To operationalize linguistic relatedness, we compute source-target distance features for English-Danish and Norwegian-Danish with URIEL+ \citep{khan2025urielplus} and DistALS \citep{goot2025distals}. We focus on interpretable families of measures (for example, genealogical and typological distance), and we compare them against observed transfer gain.
+
+We define transfer gain for source language $s$ as:
+\[
+\Delta F1_{s\rightarrow DA} = F1_{transfer(s\rightarrow DA)} - F1_{DA-only}
+\]
+under the same Danish supervision budget. Because this scope currently includes two source languages, we present descriptive evidence about whether the closer language yields higher gain, rather than making strong inferential claims.
 
 \section{Expected Outcome}
-We expect zero-shot transfer to be below fully supervised Danish training but above a weak baseline. We expect transfer fine-tuning to give the best Danish results, especially with limited Danish data.
+We expect zero-shot transfer to be below fully supervised Danish training but above weak baselines. We expect transfer fine-tuning to improve Danish results, especially with limited Danish data. Our hypothesis is that Norwegian$\rightarrow$Danish will outperform English$\rightarrow$Danish under matched conditions, and that this pattern will be consistent with the linguistic-distance measures we report.
 
 \bibliography{references}
 

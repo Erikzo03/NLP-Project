@@ -1,7 +1,6 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.13)  27 MAR 2026 14:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.13)  3 APR 2026 13:46
 entering extended mode
  restricted \write18 enabled.
- file:line:error style messages enabled.
  %&-line parsing enabled.
 **main.tex
 (./main.tex
@@ -408,43 +407,63 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `pcr' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 27.
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 3
 2.
 
 (/usr/local/texlive/2026/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-) (./main.bbl
+)
+Underfull \hbox (badness 10000) in paragraph at lines 32--33
+[]\T1/ptm/m/n/10.95 (+20) How do mono-lin-gual base-lines and
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 32--33
+\T1/ptm/m/n/10.95 (+20) cross-lingual trans-fer routes com-pare
+ []
+
 [1{/usr/local/texlive/2026/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/l
 ocal/texlive/2026/texmf-dist/fonts/enc/dvips/base/8r.enc}
 
 
 
-]) [2
+]
+Underfull \hbox (badness 2073) in paragraph at lines 51--52
+\T1/ptm/m/n/10.95 (+20) Danish and Norwegian-Danish with URIEL+
+ []
 
-] (./main.aux)
+(./main.bbl) [2] (./main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: CF0C64F11AB5A386BEC2AD6F52B5D581;544.
+(rerunfilecheck)             Checksum: 0C69FCDFA25D66AAF6006289EEFB567E;996.
  ) 
 Here is how much of TeX's memory you used:
- 13210 strings out of 467525
- 210729 string characters out of 5418982
- 675482 words of memory out of 5000000
- 41852 multiletter control sequences out of 15000+600000
- 659185 words of font info for 151 fonts, out of 8000000 for 9000
+ 13271 strings out of 467525
+ 211536 string characters out of 5418982
+ 673675 words of memory out of 5000000
+ 41869 multiletter control sequences out of 15000+600000
+ 664160 words of font info for 180 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 90i,10n,93p,1001b,584s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2026/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/
-local/texlive/2026/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texl
-ive/2026/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2026/t
-exmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (2 pages, 63395 bytes).
+ 90i,10n,93p,1001b,449s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
+></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><
+/usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></u
+sr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/
+local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/l
+ocal/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/loc
+al/texlive/2026/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texli
+ve/2026/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2026/te
+xmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2026/texmf-dist/f
+onts/type1/urw/times/utmri8a.pfb>
+Output written on main.pdf (2 pages, 119116 bytes).
 PDF statistics:
- 77 PDF objects out of 1000 (max. 8388607)
- 64 compressed objects within 1 object stream
- 11 named destinations out of 1000 (max. 500000)
- 33313 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 129 PDF objects out of 1000 (max. 8388607)
+ 103 compressed objects within 2 object streams
+ 15 named destinations out of 1000 (max. 500000)
+ 37425 words of extra memory for PDF output out of 42996 (max. 10000000)
 
