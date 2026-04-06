@@ -4,3 +4,4 @@ datasets>=2.14.0
 seqeval>=1.2.2
 accelerate>=0.20.0
 numpy
+lang2vec>=1.1.2
