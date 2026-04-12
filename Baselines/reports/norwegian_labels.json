@@ -1,0 +1,12 @@
+{
+  "labels": [
+    "O",
+    "B-LOC",
+    "B-ORG",
+    "B-PER",
+    "I-LOC",
+    "I-ORG",
+    "I-PER"
+  ],
+  "num_labels": 7
+}
