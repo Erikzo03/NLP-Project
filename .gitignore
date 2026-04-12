@@ -1,0 +1,8 @@
+# ML outputs - keep local for plots/analysis
+outputs/
+checkpoints/
+predictions/
+logs/
+*.pt *.bin *.pkl *.h5 optimizer.pt
+Datasets/*iob2
+.DS_Store
