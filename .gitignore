@@ -6,3 +6,6 @@ logs/
 *.pt *.bin *.pkl *.h5 optimizer.pt
 Datasets/*iob2
 .DS_Store
+
+# Allow predictions + metrics, ignore checkpoints
+outputs/norwegian_bert_baseline/checkpoint-*/
