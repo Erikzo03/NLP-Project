@@ -9,3 +9,11 @@ Datasets/*iob2
 
 # Allow predictions + metrics, ignore checkpoints
 outputs/norwegian_bert_baseline/checkpoint-*/
+# ML Checkpoints (keep local)
+checkpoint-*/
+*.pt
+optimizer.pt
+pytorch_model.bin
+scheduler.pt
+__pycache__/
+*.sbatch
