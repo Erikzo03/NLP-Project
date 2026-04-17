@@ -73,6 +73,57 @@ Run all XLM-R baselines:
 bash Baselines/run_all_xlmr_baselines.sh
 ```
 
+Run all requested experiments in one command (mBERT monolingual baselines + zero-shot to Danish with mBERT and XLM-R):
+
+```bash
+bash Baselines/run_all_mbert_and_zero_shot_to_danish.sh
+```
+
+If you run on HPC with modules, load your modules first, then run the script.
+
+This unified script runs, in order:
+
+- `Baselines/train_english_baseline.py`
+- `Baselines/train_danish_baseline.py`
+- `Baselines/train_norwegian_baseline.py`
+- `Baselines/train_english_to_danish_zero_shot_baseline.py`
+- `Baselines/train_norwegian_to_danish_zero_shot_baseline.py`
+- `Baselines/train_english_to_danish_xlmr_zero_shot_baseline.py`
+- `Baselines/train_norwegian_to_danish_xlmr_zero_shot_baseline.py`
+
+You can pass shared overrides to all runs, for example:
+
+```bash
+bash Baselines/run_all_mbert_and_zero_shot_to_danish.sh \
+  --num_train_epochs 4 \
+  --train_batch_size 8 \
+  --eval_batch_size 16 \
+  --fp16
+```
+
+Useful runner flags:
+
+- `--quick`: adds fast defaults for smoke testing (`--num_train_epochs 1 --train_batch_size 4 --eval_batch_size 8`).
+- `--skip-mbert-baselines`: skip English/Danish/Norwegian mBERT monolingual runs.
+- `--skip-mbert-zero-shot`: skip mBERT zero-shot runs.
+- `--skip-xlmr-zero-shot`: skip XLM-R zero-shot runs.
+
+Example smoke run:
+
+```bash
+bash Baselines/run_all_mbert_and_zero_shot_to_danish.sh --quick
+```
+
+Expected output folders from this unified run:
+
+- `outputs/english_bert_baseline`
+- `outputs/danish_bert_baseline`
+- `outputs/norwegian_bert_baseline`
+- `outputs/english_to_danish_mbert_zero_shot`
+- `outputs/norwegian_to_danish_mbert_zero_shot`
+- `outputs/english_to_danish_xlmr_zero_shot`
+- `outputs/norwegian_to_danish_xlmr_zero_shot`
+
 To verify if labels are consistent across English, Danish, and Norwegian datasets:
 
 ```bash
