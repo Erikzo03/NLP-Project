@@ -1,20 +1,32 @@
-# ML outputs - keep local for plots/analysis
-outputs/
+# Training artifacts and large binaries
 checkpoints/
 predictions/
 logs/
-*.pt *.bin *.pkl *.h5 optimizer.pt
-Datasets/*iob2
-.DS_Store
-**/.DS_Store
-
-# Allow predictions + metrics, ignore checkpoints
-outputs/norwegian_bert_baseline/checkpoint-*/
-# ML Checkpoints (keep local)
-checkpoint-*/
 *.pt
+*.bin
+*.pkl
+*.h5
 optimizer.pt
 pytorch_model.bin
 scheduler.pt
+training_args.bin
+rng_state.pth
+
+# Python cache
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# OS files
+.DS_Store
+**/.DS_Store
+
+# Slurm / job scripts
 *.sbatch
+
+# Ignore outputs by default, but allow metrics / predictions metadata
+outputs/**
+!outputs/*/
+!outputs/**/*.json
+!outputs/**/*.iob2
