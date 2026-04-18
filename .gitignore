@@ -1,4 +1,13 @@
-# Training artifacts and large binaries
+# Ignore everything under outputs
+outputs/*
+
+# Re-allow subdirectories
+!outputs/*/
+
+# Re-allow files inside subdirectories
+!outputs/**/*.json
+!outputs/**/*.iob2
+
 checkpoints/
 predictions/
 logs/
@@ -6,27 +15,6 @@ logs/
 *.bin
 *.pkl
 *.h5
-optimizer.pt
-pytorch_model.bin
-scheduler.pt
-training_args.bin
-rng_state.pth
-
-# Python cache
 __pycache__/
 *.pyc
-*.pyo
-*.pyd
-
-# OS files
 .DS_Store
-**/.DS_Store
-
-# Slurm / job scripts
-*.sbatch
-
-# Ignore outputs by default, but allow metrics / predictions metadata
-outputs/**
-!outputs/*/
-!outputs/**/*.json
-!outputs/**/*.iob2

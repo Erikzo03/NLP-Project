@@ -1,0 +1,87 @@
+{
+  "best_metric": 0.8274044795783926,
+  "best_model_checkpoint": "/home/onok/NLP-Project/outputs/danish_xlmr_baseline/checkpoint-548",
+  "epoch": 1.0,
+  "global_step": 548,
+  "is_hyper_param_search": false,
+  "is_local_process_zero": true,
+  "is_world_process_zero": true,
+  "log_history": [
+    {
+      "epoch": 0.09,
+      "learning_rate": 1.9543795620437956e-05,
+      "loss": 0.3663,
+      "step": 50
+    },
+    {
+      "epoch": 0.18,
+      "learning_rate": 1.9087591240875915e-05,
+      "loss": 0.1324,
+      "step": 100
+    },
+    {
+      "epoch": 0.27,
+      "learning_rate": 1.863138686131387e-05,
+      "loss": 0.0794,
+      "step": 150
+    },
+    {
+      "epoch": 0.36,
+      "learning_rate": 1.8175182481751824e-05,
+      "loss": 0.0666,
+      "step": 200
+    },
+    {
+      "epoch": 0.46,
+      "learning_rate": 1.7718978102189782e-05,
+      "loss": 0.0569,
+      "step": 250
+    },
+    {
+      "epoch": 0.55,
+      "learning_rate": 1.726277372262774e-05,
+      "loss": 0.0529,
+      "step": 300
+    },
+    {
+      "epoch": 0.64,
+      "learning_rate": 1.6806569343065695e-05,
+      "loss": 0.0378,
+      "step": 350
+    },
+    {
+      "epoch": 0.73,
+      "learning_rate": 1.635036496350365e-05,
+      "loss": 0.0434,
+      "step": 400
+    },
+    {
+      "epoch": 0.82,
+      "learning_rate": 1.589416058394161e-05,
+      "loss": 0.0345,
+      "step": 450
+    },
+    {
+      "epoch": 0.91,
+      "learning_rate": 1.5437956204379563e-05,
+      "loss": 0.0538,
+      "step": 500
+    },
+    {
+      "epoch": 1.0,
+      "eval_f1": 0.8274044795783926,
+      "eval_loss": 0.03922268748283386,
+      "eval_precision": 0.8263157894736842,
+      "eval_recall": 0.8284960422163589,
+      "eval_runtime": 0.9124,
+      "eval_samples_per_second": 618.172,
+      "eval_steps_per_second": 39.458,
+      "step": 548
+    }
+  ],
+  "max_steps": 2192,
+  "num_train_epochs": 4,
+  "total_flos": 129826466908644.0,
+  "trial_name": null,
+  "trial_params": null
+}
