@@ -1,49 +1,0 @@
-  0%|          | 0/13 [00:00<?, ?ba/s]  8%|▊         | 1/13 [00:00<00:03,  3.03ba/s] 23%|██▎       | 3/13 [00:00<00:01,  6.63ba/s] 38%|███▊      | 5/13 [00:00<00:00,  9.15ba/s] 54%|█████▍    | 7/13 [00:00<00:00, 10.37ba/s] 69%|██████▉   | 9/13 [00:00<00:00, 10.32ba/s] 85%|████████▍ | 11/13 [00:01<00:00, 10.64ba/s]100%|██████████| 13/13 [00:01<00:00, 10.73ba/s]100%|██████████| 13/13 [00:01<00:00,  9.56ba/s]
-  0%|          | 0/3 [00:00<?, ?ba/s] 67%|██████▋   | 2/3 [00:00<00:00, 13.78ba/s]100%|██████████| 3/3 [00:00<00:00, 20.23ba/s]
-  0%|          | 0/3 [00:00<?, ?ba/s] 67%|██████▋   | 2/3 [00:00<00:00, 14.43ba/s]100%|██████████| 3/3 [00:00<00:00, 19.63ba/s]
-Some weights of the model checkpoint at bert-base-multilingual-cased were not used when initializing BertForTokenClassification: ['cls.predictions.transform.LayerNorm.weight', 'cls.predictions.transform.LayerNorm.bias', 'cls.predictions.decoder.weight', 'cls.seq_relationship.weight', 'cls.seq_relationship.bias', 'cls.predictions.bias', 'cls.predictions.transform.dense.weight', 'cls.predictions.transform.dense.bias']
-- This IS expected if you are initializing BertForTokenClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
-- This IS NOT expected if you are initializing BertForTokenClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
-Some weights of BertForTokenClassification were not initialized from the model checkpoint at bert-base-multilingual-cased and are newly initialized: ['classifier.bias', 'classifier.weight']
-You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
-/home/onok/ner_env/lib64/python3.6/site-packages/torch/cuda/__init__.py:143: UserWarning: 
-NVIDIA A30 with CUDA capability sm_80 is not compatible with the current PyTorch installation.
-The current PyTorch install supports CUDA capabilities sm_37 sm_50 sm_60 sm_70.
-If you want to use the NVIDIA A30 GPU with PyTorch, please check the instructions at https://pytorch.org/get-started/locally/
-
-  warnings.warn(incompatible_device_warn.format(device_name, capability, " ".join(arch_list), device_name))
-The following columns in the training set  don't have a corresponding argument in `BertForTokenClassification.forward` and have been ignored: ner_tags, tokens. If ner_tags, tokens are not expected by `BertForTokenClassification.forward`,  you can safely ignore this message.
-/home/onok/ner_env/lib64/python3.6/site-packages/transformers/optimization.py:309: FutureWarning: This implementation of AdamW is deprecated and will be removed in a future version. Use the PyTorch implementation torch.optim.AdamW instead, or set `no_deprecation_warning=True` to disable this warning
-  FutureWarning,
-***** Running training *****
-  Num examples = 12543
-  Num Epochs = 4
-  Instantaneous batch size per device = 8
-  Total train batch size (w. parallel, distributed & accumulation) = 8
-  Gradient Accumulation steps = 1
-  Total optimization steps = 6272
-  0%|          | 0/6272 [00:00<?, ?it/s]Traceback (most recent call last):
-  File "Baselines/train_english_baseline.py", line 14, in <module>
-    "label_report_path": os.path.join(BASE_DIR, "Baselines/reports/english_labels.json"),
-  File "/home/onok/NLP-Project/Baselines/train_ner_baseline.py", line 292, in main
-    trainer.train()
-  File "/home/onok/ner_env/lib64/python3.6/site-packages/transformers/trainer.py", line 1422, in train
-    tr_loss_step = self.training_step(model, inputs)
-  File "/home/onok/ner_env/lib64/python3.6/site-packages/transformers/trainer.py", line 2011, in training_step
-    loss = self.compute_loss(model, inputs)
-  File "/home/onok/ner_env/lib64/python3.6/site-packages/transformers/trainer.py", line 2043, in compute_loss
-    outputs = model(**inputs)
-  File "/home/onok/ner_env/lib64/python3.6/site-packages/torch/nn/modules/module.py", line 1102, in _call_impl
-    return forward_call(*input, **kwargs)
-  File "/home/onok/ner_env/lib64/python3.6/site-packages/transformers/models/bert/modeling_bert.py", line 1751, in forward
-    return_dict=return_dict,
-  File "/home/onok/ner_env/lib64/python3.6/site-packages/torch/nn/modules/module.py", line 1102, in _call_impl
-    return forward_call(*input, **kwargs)
-  File "/home/onok/ner_env/lib64/python3.6/site-packages/transformers/models/bert/modeling_bert.py", line 969, in forward
-    extended_attention_mask: torch.Tensor = self.get_extended_attention_mask(attention_mask, input_shape, device)
-  File "/home/onok/ner_env/lib64/python3.6/site-packages/transformers/modeling_utils.py", line 581, in get_extended_attention_mask
-    extended_attention_mask = extended_attention_mask.to(dtype=self.dtype)  # fp16 compatibility
-RuntimeError: CUDA error: no kernel image is available for execution on the device
-CUDA kernel errors might be asynchronously reported at some other API call,so the stacktrace below might be incorrect.
-For debugging consider passing CUDA_LAUNCH_BLOCKING=1.
-  0%|          | 0/6272 [00:01<?, ?it/s]
