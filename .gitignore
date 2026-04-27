@@ -1,20 +1,23 @@
-# Ignore everything under outputs
-outputs/*
-
-# Re-allow subdirectories
-!outputs/*/
-
-# Re-allow files inside subdirectories
-!outputs/**/*.json
-!outputs/**/*.iob2
-
-checkpoints/
-predictions/
-logs/
+# Ignore heavy model files
 *.pt
 *.bin
 *.pkl
 *.h5
+
+# Ignore everything in outputs
+outputs/**
+
+# Allow directories
+!outputs/**/
+
+# Allow ALL json + iob2 files (including checkpoints)
+!outputs/**/*.json
+!outputs/**/*.iob2
+
+# Other ignores
+checkpoints/
+predictions/
+logs/
 __pycache__/
 *.pyc
 .DS_Store
