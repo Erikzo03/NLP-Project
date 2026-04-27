@@ -207,6 +207,7 @@ def parse_args(defaults: Optional[Dict[str, Union[str, int, float]]] = None):
     parser.add_argument("--num_train_epochs", type=float, default=float(defaults.get("num_train_epochs", 4.0)))
     parser.add_argument("--weight_decay", type=float, default=float(defaults.get("weight_decay", 0.01)))
     parser.add_argument("--seed", type=int, default=int(defaults.get("seed", 42)))
+    parser.add_argument("--train_fraction", type=float, default=float(defaults.get("train_fraction", 1.0)))
     parser.add_argument("--fp16", action="store_true")
     parser.add_argument("--label_report_path", default=defaults.get("label_report_path", ""))
     return parser.parse_args()
@@ -221,6 +222,21 @@ def main(defaults: Optional[Dict[str, Union[str, int, float]]] = None):
     train_data = read_iob2_file(args.train_file, use_gold_labels=True)
     dev_data = read_iob2_file(args.dev_file, use_gold_labels=True)
     test_data = read_iob2_file(args.test_file, use_gold_labels=False)
+
+    if not 0 < args.train_fraction <= 1.0:
+        raise ValueError("train_fraction must be in the interval (0, 1].")
+
+    if args.train_fraction < 1.0:
+        original_train_size = len(train_data)
+        subset_size = max(1, int(original_train_size * args.train_fraction))
+        subset_indices = list(range(original_train_size))
+        random.Random(args.seed).shuffle(subset_indices)
+        subset_indices = sorted(subset_indices[:subset_size])
+        train_data = [train_data[i] for i in subset_indices]
+        print(
+            f"Using train subset: {subset_size}/{original_train_size} "
+            f"sentences from {args.train_file} (fraction={args.train_fraction})."
+        )
 
     label_list = build_label_list(train_data, dev_data)
     label_to_id = {label: idx for idx, label in enumerate(label_list)}

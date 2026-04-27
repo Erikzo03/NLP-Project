@@ -1,0 +1,20 @@
+Bootstrap: docker
+From: pytorch/pytorch:2.3.1-cuda12.1-cudnn8-runtime
+
+%labels
+    Author Erik Aymerich
+    Description NLP-Project Apptainer image for NER experiments
+
+%environment
+    export PYTHONUNBUFFERED=1
+    export PIP_NO_CACHE_DIR=1
+    export HF_HOME=/tmp/hf
+    export TRANSFORMERS_CACHE=/tmp/hf/transformers
+    export HF_DATASETS_CACHE=/tmp/hf/datasets
+
+%post
+    python -m pip install --upgrade pip setuptools wheel
+    python -m pip install torch transformers datasets seqeval accelerate numpy lang2vec
+
+%runscript
+    exec "$@"
