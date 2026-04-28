@@ -16,6 +16,7 @@ from transformers import (
     TrainingArguments,
     set_seed,
 )
+import sys
 
 
 @dataclass
@@ -253,7 +254,23 @@ def main(defaults: Optional[Dict[str, Union[str, int, float]]] = None):
     dev_ds = to_hf_dataset(dev_data, label_to_id)
     test_ds = to_hf_dataset(test_data, label_to_id)
 
-    tokenizer = AutoTokenizer.from_pretrained(args.model_name)
+    def _safe_from_pretrained(class_obj, pretrained_name_or_path, **kwargs):
+        try:
+            return class_obj.from_pretrained(pretrained_name_or_path, **kwargs)
+        except Exception as e:
+            print(f"Warning: failed to load '{pretrained_name_or_path}' from hub/cache: {e}")
+            try:
+                print("Retrying with local_files_only=True (load from local cache)...")
+                return class_obj.from_pretrained(pretrained_name_or_path, local_files_only=True, **kwargs)
+            except Exception as e2:
+                print(f"Error: could not load '{pretrained_name_or_path}' from local cache: {e2}")
+                print("If you are on an offline HPC cluster, pre-download the model/tokenizer on a machine with Internet and copy the cache to the cluster.\n")
+                print("Example to pre-download on a connected machine:")
+                print("  python -c \"from transformers import AutoTokenizer, AutoModelForTokenClassification; AutoTokenizer.from_pretrained('MODEL'); AutoModelForTokenClassification.from_pretrained('MODEL')\"")
+                print("Then set the TRANSFORMERS_CACHE env var or pass --model_name pointing to a local model dir.")
+                sys.exit(1)
+
+    tokenizer = _safe_from_pretrained(AutoTokenizer, args.model_name)
     tokenized_train = train_ds.map(
         lambda batch: tokenize_and_align_labels(batch, tokenizer, args.max_length),
         batched=True,
@@ -267,7 +284,8 @@ def main(defaults: Optional[Dict[str, Union[str, int, float]]] = None):
         batched=True,
     )
 
-    model = AutoModelForTokenClassification.from_pretrained(
+    model = _safe_from_pretrained(
+        AutoModelForTokenClassification,
         args.model_name,
         num_labels=len(label_list),
         id2label=id_to_label,
