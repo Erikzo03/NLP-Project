@@ -36,14 +36,14 @@ Our main question is: \textit{How much can transfer from English and Norwegian i
 We test the transfer-distance link directly, in line with the broader findings of \citet{fu2023heterogeneous}.
 
 \section{Methodology}
-We use token classification with transformer encoders in five setups: (1) monolingual source baselines for English and Norwegian, (2) zero-shot transfer to Danish from English with mBERT and XLM-R, (3) zero-shot transfer to Danish from Norwegian with mBERT and XLM-R, (4) transfer fine-tuning where cross-lingual models are further trained on Danish, and (5) a Danish-only baseline. This design separates pure transfer, transfer plus target-language adaptation, and fully local Danish training while directly comparing two source languages.
+We use token classification with transformer encoders in five setups: (1) monolingual source baselines for English and Norwegian, each with both mBERT and XLM-R, (2) zero-shot transfer to Danish from English with mBERT and XLM-R, (3) zero-shot transfer to Danish from Norwegian with mBERT and XLM-R, (4) transfer fine-tuning where cross-lingual models are further trained on Danish, and (5) Danish-only baselines under the same budget splits. This design separates pure transfer, transfer plus target-language adaptation, and fully local Danish training while directly comparing two source languages and two encoder families.
 
 \subsection{Datasets and label consistency}
 Our primary corpus family is WikiANN for English, Norwegian, and Danish. We will report train/validation/test split sizes for each language and keep a unified IOB2 token-label format across experiments.
 
 Before training, we will explicitly verify whether label inventories are identical across languages. If any mismatch is found, we will apply a deterministic normalization map and report it in the paper so all systems are compared on a consistent label space.
 
-To study data efficiency, we also fine-tune with 10\%, 25\%, and 50\% of Danish training data.
+To study data efficiency, we also fine-tune with 10\%, 25\%, and 50\% of Danish training data, and we mirror those budgets for the Danish-only baselines.
 
 \subsection{Evaluation and linguistic distance}
 We report entity-level F1, precision, and recall, and include per-label and error analysis (boundary mistakes, label confusion, and tokenization issues). For reproducibility, we keep random seeds fixed, run multiple seeds, and log all hyperparameters.
