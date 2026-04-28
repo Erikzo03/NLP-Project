@@ -13,8 +13,7 @@ set -euo pipefail
 cd "$HOME/NLP-Project"
 mkdir -p logs
 
-module purge
-module load Anaconda3/2024.06-1
+source ~/ner_env/bin/activate
 
 echo "Host: $(hostname)"
 echo "Job ID: ${SLURM_JOB_ID}"

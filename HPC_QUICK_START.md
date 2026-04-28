@@ -14,10 +14,9 @@ cd NLP-Project
 
 ## 3. Initial setup (first time only)
 
-### Load the Anaconda module
+### Activate the existing HPC environment
 ```bash
-module purge
-module load Anaconda3/2024.06-1
+source ~/ner_env/bin/activate
 ```
 
 ### Verify Python environment
@@ -163,9 +162,9 @@ Each job produces:
 **Results:** `~/NLP-Project/outputs/`
 **SLURM jobs:** `~/NLP-Project/jobs/`
 
-**Module load (add to ~/.bashrc to auto-load)**:
+**Environment activation (add to ~/.bashrc if you want it auto-loaded)**:
 ```bash
-module load Anaconda3/2024.06-1
+source ~/ner_env/bin/activate
 ```
 
 **Check HPC status:**
