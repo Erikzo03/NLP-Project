@@ -306,9 +306,11 @@ def main(defaults: Optional[Dict[str, Union[str, int, float]]] = None):
     )
 
     trainer.train()
+    os.makedirs(args.output_dir, exist_ok=True)
+    trainer.save_model(args.output_dir)
+    tokenizer.save_pretrained(args.output_dir)
     dev_metrics = trainer.evaluate()
 
-    os.makedirs(args.output_dir, exist_ok=True)
     with open(os.path.join(args.output_dir, "dev_metrics.json"), "w", encoding="utf-8") as out_json:
         json.dump(dev_metrics, out_json, indent=2)
 
