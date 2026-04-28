@@ -269,7 +269,9 @@ def main(defaults: Optional[Dict[str, Union[str, int, float]]] = None):
                 print("  python -c \"from transformers import AutoTokenizer, AutoModelForTokenClassification; AutoTokenizer.from_pretrained('MODEL'); AutoModelForTokenClassification.from_pretrained('MODEL')\"")
                 print("Then set the TRANSFORMERS_CACHE env var or pass --model_name pointing to a local model dir.")
                 sys.exit(1)
-
+    print("DEBUG: args.model_name =", repr(args.model_name))
+    print("DEBUG: is None?", args.model_name is None)
+    print("DEBUG: type =", type(args.model_name))
     tokenizer = _safe_from_pretrained(AutoTokenizer, args.model_name)
     tokenized_train = train_ds.map(
         lambda batch: tokenize_and_align_labels(batch, tokenizer, args.max_length),
