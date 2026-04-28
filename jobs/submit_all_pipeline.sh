@@ -90,6 +90,12 @@ echo ""
 echo "[PHASE 4] Submitting independent Danish-only baseline jobs..."
 echo ""
 
+J_NO_MBERT=$(sbatch jobs/norwegian-mbert.slurm | awk '{print $4}')
+echo "✓ Norwegian mBERT baseline:               Job ID ${J_NO_MBERT}"
+
+J_NO_XLMR=$(sbatch jobs/norwegian-xlmr.slurm | awk '{print $4}')
+echo "✓ Norwegian XLM-R baseline:               Job ID ${J_NO_XLMR}"
+
 DA_MBERT_10=$(sbatch jobs/danish-mbert-10.slurm | awk '{print $4}')
 echo "✓ Danish mBERT (10%):  Job ID ${DA_MBERT_10}"
 
@@ -98,6 +104,15 @@ echo "✓ Danish mBERT (25%):  Job ID ${DA_MBERT_25}"
 
 DA_MBERT_50=$(sbatch jobs/danish-mbert-50.slurm | awk '{print $4}')
 echo "✓ Danish mBERT (50%):  Job ID ${DA_MBERT_50}"
+
+DA_XLMR_10=$(sbatch jobs/danish-xlmr-10.slurm | awk '{print $4}')
+echo "✓ Danish XLM-R (10%):  Job ID ${DA_XLMR_10}"
+
+DA_XLMR_25=$(sbatch jobs/danish-xlmr-25.slurm | awk '{print $4}')
+echo "✓ Danish XLM-R (25%):  Job ID ${DA_XLMR_25}"
+
+DA_XLMR_50=$(sbatch jobs/danish-xlmr-50.slurm | awk '{print $4}')
+echo "✓ Danish XLM-R (50%):  Job ID ${DA_XLMR_50}"
 
 echo ""
 echo "============================================"
@@ -114,5 +129,5 @@ echo "To follow a specific job's output (replace JOBID):"
 echo "  tail -f logs/<jobname>-JOBID.out"
 echo ""
 echo "To cancel all jobs from this pipeline:"
-echo "  scancel ${J_EN_MBERT_ZS} ${J_NO_MBERT_ZS} ${J_EN_XLMR_ZS} ${J_NO_XLMR_ZS} ${FT_EN_MBERT} ${FT_NO_MBERT} ${FT_EN_XLMR} ${FT_NO_XLMR}"
+echo "  scancel ${J_EN_MBERT_ZS} ${J_NO_MBERT_ZS} ${J_EN_XLMR_ZS} ${J_NO_XLMR_ZS} ${FT_EN_MBERT} ${FT_NO_MBERT} ${FT_EN_XLMR} ${FT_NO_XLMR} ${J_NO_MBERT} ${J_NO_XLMR} ${DA_MBERT_10} ${DA_MBERT_25} ${DA_MBERT_50} ${DA_XLMR_10} ${DA_XLMR_25} ${DA_XLMR_50}"
 echo ""
