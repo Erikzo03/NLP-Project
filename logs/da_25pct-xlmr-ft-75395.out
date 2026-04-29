@@ -1,0 +1,25 @@
+Using train subset: 1095/4383 sentences from /home/onok/NLP-Project/Datasets/Danish/da_ddt-ud-train.iob2 (fraction=0.25).
+DEBUG: args.model_name = 'xlm-roberta-base'
+DEBUG: is None? False
+DEBUG: type = <class 'str'>
+{'loss': 0.3757, 'learning_rate': 1.8175182481751824e-05, 'epoch': 0.36}
+{'loss': 0.1004, 'learning_rate': 1.635036496350365e-05, 'epoch': 0.73}
+{'eval_loss': 0.06402581930160522, 'eval_precision': 0.6203090507726269, 'eval_recall': 0.741424802110818, 'eval_f1': 0.6754807692307693, 'eval_runtime': 1.5291, 'eval_samples_per_second': 368.847, 'eval_steps_per_second': 23.543, 'epoch': 1.0}
+{'loss': 0.088, 'learning_rate': 1.4525547445255475e-05, 'epoch': 1.09}
+{'loss': 0.0511, 'learning_rate': 1.27007299270073e-05, 'epoch': 1.46}
+{'loss': 0.0416, 'learning_rate': 1.0875912408759123e-05, 'epoch': 1.82}
+{'eval_loss': 0.055387046188116074, 'eval_precision': 0.7475247524752475, 'eval_recall': 0.7968337730870713, 'eval_f1': 0.7713920817369093, 'eval_runtime': 1.4462, 'eval_samples_per_second': 389.99, 'eval_steps_per_second': 24.893, 'epoch': 2.0}
+{'loss': 0.0388, 'learning_rate': 9.05109489051095e-06, 'epoch': 2.19}
+{'loss': 0.0312, 'learning_rate': 7.2262773722627744e-06, 'epoch': 2.55}
+{'loss': 0.0259, 'learning_rate': 5.401459854014599e-06, 'epoch': 2.92}
+{'eval_loss': 0.052150677889585495, 'eval_precision': 0.7915567282321899, 'eval_recall': 0.7915567282321899, 'eval_f1': 0.7915567282321898, 'eval_runtime': 1.4472, 'eval_samples_per_second': 389.71, 'eval_steps_per_second': 24.875, 'epoch': 3.0}
+{'loss': 0.0163, 'learning_rate': 3.576642335766424e-06, 'epoch': 3.28}
+{'loss': 0.0125, 'learning_rate': 1.7518248175182485e-06, 'epoch': 3.65}
+{'eval_loss': 0.046460624784231186, 'eval_precision': 0.8102564102564103, 'eval_recall': 0.8337730870712401, 'eval_f1': 0.8218465539661899, 'eval_runtime': 1.4462, 'eval_samples_per_second': 389.997, 'eval_steps_per_second': 24.893, 'epoch': 4.0}
+{'train_runtime': 287.7582, 'train_samples_per_second': 15.221, 'train_steps_per_second': 1.904, 'train_loss': 0.07321727863193428, 'epoch': 4.0}
+Training complete.
+Best checkpoint: outputs/danish_xlmr_baseline_25pct/checkpoint-548
+Dev metrics written to: outputs/danish_xlmr_baseline_25pct/dev_metrics.json
+Dev predictions written to: outputs/danish_xlmr_baseline_25pct/dev_predictions.iob2
+Test predictions written to: outputs/danish_xlmr_baseline_25pct/test_predictions.iob2
+Evaluate dev file with: python span_f1.py /home/onok/NLP-Project/Datasets/Danish/da_ddt-ud-dev.iob2 <dev_predictions.iob2>
