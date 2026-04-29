@@ -9,7 +9,7 @@ if __name__ == "__main__":
             "train_file": os.path.join(BASE_DIR, "Datasets/Danish/da_ddt-ud-train.iob2"),
             "dev_file": os.path.join(BASE_DIR, "Datasets/Danish/da_ddt-ud-dev.iob2"),
             "test_file": os.path.join(BASE_DIR, "Datasets/Danish/da_ddt-ud-test.iob2"),
-            "model_name": os.path.join(BASE_DIR, "outputs/norwegian_to_danish_xlmr_zero_shot"),
+            "model_name": os.path.join(BASE_DIR, "outputs/norwegian_to_danish_xlmr_zero_shot/checkpoint-3544"),
             "output_dir": os.path.join(BASE_DIR, "outputs/norwegian_to_danish_xlmr_finetuned_danish"),
             "label_report_path": os.path.join(
                 BASE_DIR, "Baselines/reports/norwegian_to_danish_xlmr_finetune_labels.json"
