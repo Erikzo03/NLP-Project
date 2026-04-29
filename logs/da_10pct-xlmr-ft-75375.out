@@ -1,0 +1,19 @@
+Using train subset: 438/4383 sentences from /home/onok/NLP-Project/Datasets/Danish/da_ddt-ud-train.iob2 (fraction=0.1).
+DEBUG: args.model_name = 'xlm-roberta-base'
+DEBUG: is None? False
+DEBUG: type = <class 'str'>
+{'loss': 0.3601, 'learning_rate': 1.5454545454545454e-05, 'epoch': 0.91}
+{'eval_loss': 0.13679051399230957, 'eval_precision': 0, 'eval_recall': 0.0, 'eval_f1': 0, 'eval_runtime': 1.4279, 'eval_samples_per_second': 394.997, 'eval_steps_per_second': 25.213, 'epoch': 1.0}
+{'loss': 0.1227, 'learning_rate': 1.0909090909090909e-05, 'epoch': 1.82}
+{'eval_loss': 0.09080866724252701, 'eval_precision': 0.4966442953020134, 'eval_recall': 0.5857519788918206, 'eval_f1': 0.5375302663438257, 'eval_runtime': 1.4349, 'eval_samples_per_second': 393.068, 'eval_steps_per_second': 25.089, 'epoch': 2.0}
+{'loss': 0.0855, 'learning_rate': 6.363636363636364e-06, 'epoch': 2.73}
+{'eval_loss': 0.0680808499455452, 'eval_precision': 0.6572769953051644, 'eval_recall': 0.7387862796833773, 'eval_f1': 0.6956521739130436, 'eval_runtime': 1.434, 'eval_samples_per_second': 393.314, 'eval_steps_per_second': 25.105, 'epoch': 3.0}
+{'loss': 0.0443, 'learning_rate': 1.8181818181818183e-06, 'epoch': 3.64}
+{'eval_loss': 0.06465296447277069, 'eval_precision': 0.6581986143187067, 'eval_recall': 0.7519788918205804, 'eval_f1': 0.7019704433497537, 'eval_runtime': 1.4367, 'eval_samples_per_second': 392.568, 'eval_steps_per_second': 25.058, 'epoch': 4.0}
+{'train_runtime': 314.3185, 'train_samples_per_second': 5.574, 'train_steps_per_second': 0.7, 'train_loss': 0.1433822436766191, 'epoch': 4.0}
+Training complete.
+Best checkpoint: outputs/danish_xlmr_baseline_10pct/checkpoint-220
+Dev metrics written to: outputs/danish_xlmr_baseline_10pct/dev_metrics.json
+Dev predictions written to: outputs/danish_xlmr_baseline_10pct/dev_predictions.iob2
+Test predictions written to: outputs/danish_xlmr_baseline_10pct/test_predictions.iob2
+Evaluate dev file with: python span_f1.py /home/onok/NLP-Project/Datasets/Danish/da_ddt-ud-dev.iob2 <dev_predictions.iob2>
