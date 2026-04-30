@@ -1,0 +1,9 @@
+\section{Related Work}
+
+Cross-lingual transfer for NER has been studied extensively, especially for low-resource targets. \citet{plank2020danish} showed that English-to-Danish transfer can already be useful in zero-shot settings and improves further with small amounts of Danish supervision. More generally, \citet{fu2023heterogeneous} found that source-target similarity matters, especially when the languages share structural properties.
+
+Multilingual encoders are the main enabler of this transfer. BERT \citep{devlin2019bert} introduced the transformer pretraining recipe that became the foundation for many multilingual systems. XLM-R \citep{conneau2020xlmr} improved on this by scaling data and coverage, which is why it often gives stronger cross-lingual results than mBERT. For Danish NER, this matters because transfer quality is limited by how well the encoder can align source and target representations.
+
+Linguistic distance has also been used to explain transfer behavior. Typological databases such as URIEL+ \citep{khan2025urielplus} and language-distance collections such as DistALS \citep{goot2025distals} provide structured ways to compare languages. \citet{sohn2024zeroshot} further showed that even surface-level language similarity can help in zero-shot NER transfer. Our work extends this line by comparing English and Norwegian directly for Danish and by connecting the measured transfer gap to the expected linguistic-distance gap.
+
+Finally, the dataset setting follows the standard multilingual NER benchmark tradition. WikiANN \citep{mayhew2024universal} gives a consistent IOB2 annotation scheme across languages, which is ideal for transfer experiments because it removes dataset-format confounds.

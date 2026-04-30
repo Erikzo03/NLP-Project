@@ -5,3 +5,6 @@ seqeval
 accelerate
 numpy
 lang2vec
+scipy
+pandas
+matplotlib

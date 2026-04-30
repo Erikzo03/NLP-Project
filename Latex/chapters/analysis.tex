@@ -1,0 +1,9 @@
+\section{Logs and Output Analysis}
+
+We also inspected logs and exported prediction files to check whether the results were internally consistent. Most logs look normal. The warnings about ignored columns such as \texttt{tokens} and \texttt{ner\_tags} are standard Hugging Face token-classification messages and do not indicate a failure. The AdamW deprecation warning is also harmless for these runs.
+
+The label-consistency check did not reveal any schema mismatch. That means the source-language and Danish predictions are being compared in the same BIO space, which is essential for the validity of the transfer results.
+
+One output file is clearly anomalous: \path{outputs/english_to_danish_zero_shot/dev_predictions.iob2}. It contains English sentences even though the saved metrics correspond to Danish development evaluation. The strict span score for that file is near zero, while the stored evaluation F1 is around 79.3. That mismatch is too large to ignore, so we treat it as a stale or misaligned artifact and exclude it from the substantive conclusions.
+
+The metric-gap comparison shows that the other runs have only small differences between strict scoring and saved evaluation metrics. That is what we expect when two compatible evaluation paths are used. The English-to-Danish mBERT zero-shot file is the only major outlier.

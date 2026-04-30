@@ -1,0 +1,20 @@
+\section{Code and Implementation}
+
+The code is organized around a shared training pipeline in \texttt{Baselines/train\_ner\_baseline.py}. The launcher scripts in \texttt{Baselines/} only specify which language to train on, which model to use, and where to save the outputs. This keeps the experiments comparable and reduces the risk of accidental differences between runs.
+
+The shared training script performs the following steps:
+\begin{enumerate}
+  \item read IOB2 data from disk,
+  \item build the label vocabulary,
+  \item tokenize each sentence with a multilingual transformer tokenizer,
+  \item align word-level labels to subword tokens,
+  \item fine-tune the token classification model,
+  \item evaluate on the development set, and
+  \item write predictions and metrics to the output directory.
+\end{enumerate}
+
+The label alignment step is particularly important for NER. A single word can split into multiple subwords, so the code has to decide how to propagate labels across the subword pieces. The implementation follows the standard approach of labeling the first subword and masking the rest when computing the loss. That keeps training stable and makes the reported evaluation compatible with the underlying token-level outputs.
+
+The script also writes \texttt{dev\_metrics.json}, \texttt{dev\_predictions.iob2}, and \texttt{test\_predictions.iob2}. Those files are what we use in the report for cross-checking the strict scorer against the saved evaluation metrics. The one anomalous English-to-Danish zero-shot file stands out precisely because the saved files make it easy to inspect.
+
+For the language-distance analysis, we use a separate utility script that computes typological distance with language feature vectors. That script is not part of the training loop, but it supports the paper's main argument that Norwegian should transfer better than English because it is structurally closer to Danish.

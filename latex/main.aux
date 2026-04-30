@@ -3,22 +3,68 @@
 \providecommand\hyper@newdestlabel[2]{}
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction and Background}{1}{section.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Project Goal}{1}{section.2}\protected@file@percent }
 \citation{plank2020danish}
 \citation{fu2023heterogeneous}
-\citation{sohn2024zeroshot}
-\citation{fu2023heterogeneous}
-\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction and Background}{1}{section.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2}Research Questions}{1}{section.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3}Methodology}{1}{section.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Datasets and label consistency}{1}{subsection.3.1}\protected@file@percent }
+\citation{devlin2019bert}
+\citation{conneau2020xlmr}
 \citation{khan2025urielplus}
 \citation{goot2025distals}
+\citation{sohn2024zeroshot}
+\citation{mayhew2024universal}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces WikiANN split sizes used in the project. English is much larger than the other two languages, which makes it a natural high-resource source language.}}{2}{table.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{tab:dataset_splits}{{1}{2}{WikiANN split sizes used in the project. English is much larger than the other two languages, which makes it a natural high-resource source language}{table.caption.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Dataset}{2}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Related Work}{2}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Research Questions}{2}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Methodology}{3}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Experimental design}{3}{subsection.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Models}{3}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Data}{3}{subsection.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Label consistency}{3}{subsection.6.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5}Training and evaluation}{3}{subsection.6.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.6}Data budgets}{3}{subsection.6.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7}Code and Implementation}{3}{section.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {8}Linguistic Distance Analysis}{4}{section.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Motivation}{4}{subsection.8.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Illustrative language-distance comparison. Norwegian is substantially closer to Danish than English is, which predicts better transfer.}}{4}{table.caption.2}\protected@file@percent }
+\newlabel{tab:language_distance}{{2}{4}{Illustrative language-distance comparison. Norwegian is substantially closer to Danish than English is, which predicts better transfer}{table.caption.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Computation}{4}{subsection.8.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.3}Results}{4}{subsection.8.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4}Interpretation}{4}{subsection.8.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {9}Results}{4}{section.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Main results}{4}{subsection.9.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Selected strict span results. Scores are percentages rounded to one decimal place.}}{5}{table.caption.3}\protected@file@percent }
+\newlabel{tab:selected_results}{{3}{5}{Selected strict span results. Scores are percentages rounded to one decimal place}{table.caption.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Strict span F1 for all completed runs.}}{5}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:strict_comparison}{{1}{5}{Strict span F1 for all completed runs}{figure.caption.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}Figures}{5}{subsection.9.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}Distance and gain}{5}{subsection.9.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {10}Logs and Output Analysis}{5}{section.10}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Danish learning curve for XLM-R and the corresponding zero-shot transfer points.}}{5}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:learning_curve}{{2}{5}{Danish learning curve for XLM-R and the corresponding zero-shot transfer points}{figure.caption.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Strict F1 versus saved evaluation F1. Most experiments cluster near the diagonal; the English-to-Danish zero-shot artifact falls far away from it.}}{5}{figure.caption.6}\protected@file@percent }
+\newlabel{fig:strict_eval_scatter}{{3}{5}{Strict F1 versus saved evaluation F1. Most experiments cluster near the diagonal; the English-to-Danish zero-shot artifact falls far away from it}{figure.caption.6}{}}
 \bibdata{references}
-\bibcite{fu2023heterogeneous}{{1}{2023}{{Fu et~al.}}{{Fu, Lin, Chen, Yang, and Jiang}}}
-\bibcite{khan2025urielplus}{{2}{2025}{{Khan et~al.}}{{Khan, Shipton, Anugraha, Duan, Hoang, Khiu, Dogruoz, and Lee}}}
-\bibcite{plank2020danish}{{3}{2020}{{Plank}}{{}}}
-\bibcite{sohn2024zeroshot}{{4}{2024}{{Sohn et~al.}}{{Sohn, Jung, Cheng, Kang, Du, and Mortensen}}}
-\bibcite{goot2025distals}{{5}{2025}{{Van Der~Goot et~al.}}{{Van Der~Goot, Ploeger, Blaschke, and Samardzic}}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Evaluation and linguistic distance}{2}{subsection.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4}Expected Outcome}{2}{section.4}\protected@file@percent }
-\gdef \@abspage@last{2}
+\bibcite{conneau2020xlmr}{{1}{2020}{{Conneau et~al.}}{{Conneau, Khandelwal, Goyal, Chaudhary, Wenzek, Guzman, Grave, Ott, Zettlemoyer, and Stoyanov}}}
+\bibcite{devlin2019bert}{{2}{2019}{{Devlin et~al.}}{{Devlin, Chang, Lee, and Toutanova}}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Compact overview of baseline and transfer runs.}}{6}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:transfer_overview}{{4}{6}{Compact overview of baseline and transfer runs}{figure.caption.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Linguistic distance versus zero-shot performance. The closer language, Norwegian, is better in both model families.}}{6}{table.caption.8}\protected@file@percent }
+\newlabel{tab:distance_gain}{{4}{6}{Linguistic distance versus zero-shot performance. The closer language, Norwegian, is better in both model families}{table.caption.8}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {11}Discussion}{6}{section.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.1}What the results mean}{6}{subsection.11.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.2}Encoder choice}{6}{subsection.11.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.3}Data efficiency}{6}{subsection.11.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.4}Implications for the proposal question}{6}{subsection.11.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.5}Limitations}{6}{subsection.11.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {12}Conclusion}{6}{section.12}\protected@file@percent }
+\bibcite{fu2023heterogeneous}{{3}{2023}{{Fu et~al.}}{{Fu, Lin, Chen, Yang, and Jiang}}}
+\bibcite{khan2025urielplus}{{4}{2025}{{Khan et~al.}}{{Khan, Shipton, Anugraha, Duan, Hoang, Khiu, Dogruoz, and Lee}}}
+\bibcite{mayhew2024universal}{{5}{2024}{{Mayhew et~al.}}{{Mayhew, Blevins, Liu, Suppa, Gonen, Imperial, Karlsson, Lin, Ljubešic, Miranda, Plank, Riab, and Pinter}}}
+\bibcite{plank2020danish}{{6}{2020}{{Plank}}{{}}}
+\bibcite{sohn2024zeroshot}{{7}{2024}{{Sohn et~al.}}{{Sohn, Jung, Cheng, Kang, Du, and Mortensen}}}
+\bibcite{goot2025distals}{{8}{2025}{{Van Der~Goot et~al.}}{{Van Der~Goot, Ploeger, Blaschke, and Samardzic}}}
+\gdef \@abspage@last{7}

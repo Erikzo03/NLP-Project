@@ -1,0 +1,21 @@
+\section{Discussion}
+
+\subsection{What the results mean}
+
+The results support the proposal's main hypothesis. Norwegian is more similar to Danish than English is, and that similarity is reflected in transfer behavior. The advantage is not huge, but it is consistent across both mBERT and XLM-R in the zero-shot setting. That consistency matters because it suggests the effect is real rather than a one-off artifact.
+
+\subsection{Encoder choice}
+
+XLM-R is the better general-purpose model for the source-language baselines and the zero-shot comparison. mBERT remains competitive in some fine-tuned settings, but XLM-R gives the most stable transfer performance. This fits the broader literature on multilingual encoders and their cross-lingual capacity.
+
+\subsection{Data efficiency}
+
+The Danish learning curve shows that transfer is useful even before any Danish supervision is added, but modest target-language annotation quickly improves performance. In practical terms, this means that a project can start with zero-shot transfer, then gain most of the benefit of a fully supervised model with only a fraction of the Danish labels.
+
+\subsection{Implications for the proposal question}
+
+The central question from the proposal was whether a closer source language should transfer better. The answer is yes, in this setting. Norwegian is both linguistically closer to Danish and empirically stronger as a transfer source. The conclusion is strongest for zero-shot transfer, where source-language choice matters most.
+
+\subsection{Limitations}
+
+The study still has limitations. Only English and Norwegian are compared as source languages, the evaluation is based on a single NER benchmark family, and most results come from single runs rather than multi-seed averages. A larger study with more source languages and more seeds would strengthen the statistical evidence. Even with those limitations, the current results are already enough to support the main transfer hypothesis.

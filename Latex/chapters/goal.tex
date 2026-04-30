@@ -1,0 +1,7 @@
+\section{Project Goal}
+
+The goal of the project is to determine whether Danish named entity recognition can benefit more from transfer learning from Norwegian than from English. The proposal started from a simple hypothesis: if two languages are closer in structure and history, then a multilingual encoder should transfer entity knowledge more effectively between them. This report turns that hypothesis into an empirical comparison.
+
+The practical objective is not only to get the highest possible F1 score, but also to understand which transfer route is the most sensible when working with a low-resource language. If Norwegian transfer is consistently better, then future Danish NER systems should prefer Norwegian as a source language whenever it is available. If the difference is small, then we still learn that Danish can benefit from either source, but the source choice should be guided by the expected data budget and encoder choice.
+
+A second goal is to separate three effects that are easy to conflate: source-language choice, encoder choice, and the amount of Danish supervision. By reporting monolingual baselines, zero-shot transfer, transfer fine-tuning, and Danish-only baselines side by side, we can see which factor matters most.

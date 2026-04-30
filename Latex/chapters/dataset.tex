@@ -1,0 +1,29 @@
+\section{Dataset}
+
+We use WikiANN-style named entity recognition data for English, Norwegian, and Danish. The dataset is sentence-level and token-aligned, which makes it suitable for token classification with transformer models. Each token is labeled using the BIO scheme, so an entity mention is encoded as a beginning tag (B-), one or more inside tags (I-), and outside tokens (O).
+
+The three languages play different roles in the experiments. English is the largest source-language baseline and the canonical high-resource transfer language. Norwegian is the closer Germanic alternative that we test against English. Danish is the target language and the one whose labeled data is intentionally treated as scarce.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lrrr}
+\toprule
+Language & Train & Dev & Test \\
+\midrule
+English & 20,142 & 4,713 & 4,634 \\
+Norwegian & 4,183 & 585 & 719 \\
+Danish & 4,383 & 588 & 709 \\
+\bottomrule
+\end{tabular}
+\caption{WikiANN split sizes used in the project. English is much larger than the other two languages, which makes it a natural high-resource source language.}
+\label{tab:dataset_splits}
+\end{table}
+
+The label inventory is shared across languages and includes person, location, organization, and miscellaneous entities. This is important because it means performance differences come from the language transfer setting rather than from incompatible annotation schemas.
+
+The dataset characteristics are not symmetric across languages. English has the largest training split and therefore acts as the traditional high-resource source language. Danish and Norwegian have much smaller training sets, which makes them realistic low-resource or medium-resource settings for transfer experiments. That asymmetry is part of the motivation for the project: if Danish annotation is expensive, then a strong source language matters.
+
+The data is split into train, development, and test sets. The development set is used for model selection and for reporting the saved validation metrics in the training logs. The test set is reserved for the final prediction files. In the report, we focus mainly on development performance because it is the part that is fully documented in the experiment outputs.
+
+We also checked that the data format is consistent across all languages. The files follow the same token-per-line layout, blank lines separate sentences, and the third column stores the NER label. That consistency is important for the shared training code in the repository because the same loader can be used for English, Norwegian, and Danish without special-case handling.

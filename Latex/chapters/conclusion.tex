@@ -1,0 +1,7 @@
+\section{Conclusion}
+
+This report follows up on the project proposal with a full ACL-style experimental study. The main result is straightforward: Norwegian is the better source language for Danish NER transfer, and the advantage is consistent with the fact that Norwegian is linguistically closer to Danish than English is. XLM-R is the strongest encoder in the source-language and zero-shot settings, while Danish-only supervision remains the most reliable option once enough labeled data is available.
+
+We also checked the logs and prediction files carefully. Most outputs are coherent, but one English-to-Danish zero-shot prediction file is inconsistent with its saved metrics and should be treated as a bad artifact. Aside from that anomaly, the runs support the project proposal's original hypothesis.
+
+The main lesson is that source-language choice matters. If a closer language is available, it is worth testing first. For Danish NER, Norwegian provides the clearest evidence for that claim.

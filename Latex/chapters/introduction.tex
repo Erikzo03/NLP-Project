@@ -1,0 +1,9 @@
+\section{Introduction and Background}
+
+Named entity recognition is a core sequence labeling task that marks mentions of people, locations, organizations, and other entity types in text. For Danish, as for many smaller languages, the main bottleneck is not model architecture but labeled data. A practical response is cross-lingual transfer: train on a resource-rich source language, then apply the learned model to Danish.
+
+The project proposal already framed the central question clearly: if one source language is closer to Danish than another, should that source transfer better? This report follows up on that idea with a full experimental comparison of English and Norwegian as source languages. English is the traditional high-resource transfer source because of its massive pretraining and task data, but Norwegian is structurally closer to Danish. Since both languages can be used with the same multilingual encoder, the setup lets us test whether linguistic proximity actually translates into better downstream NER.
+
+The experiments build on multilingual pre-trained encoders, especially mBERT and XLM-R. These models learn shared representations across languages and can support zero-shot transfer without any Danish supervision. The question we study is not whether transfer works in general, but which source language works better for Danish and how much that choice is explained by language distance.
+
+The report is organized to mirror the proposal while giving a fuller account of the completed work. After the related-work overview, we restate the research questions, describe the datasets and evaluation setup, present the linguistic distance analysis, and then report the main results and error analysis.

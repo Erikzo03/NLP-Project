@@ -1,0 +1,38 @@
+\section{Methodology}
+
+\subsection{Experimental design}
+
+We evaluate five families of experiments:
+\begin{itemize}
+  \item monolingual baselines for English, Norwegian, and Danish,
+  \item zero-shot transfer to Danish from English and Norwegian,
+  \item transfer fine-tuning where a source-trained model is further trained on Danish,
+  \item Danish-only supervision under multiple data budgets, and
+  \item linguistic-distance analysis based on typological and genealogical similarity.
+\end{itemize}
+
+The design keeps the label space fixed and varies only the source language, encoder, and Danish supervision budget. This makes the source-language comparison interpretable.
+
+In practical terms, each run asks the same question under a slightly different condition: how much entity information can a multilingual encoder carry over from a source language to Danish when the target language has no labels, only a few labels, or the full training set. That lets us compare transfer behavior without changing the task itself.
+
+\subsection{Models}
+
+We use two multilingual encoders: mBERT and XLM-R. Both are fine-tuned as token-classification models with a linear output layer for BIO tagging. XLM-R generally provides stronger results because it is trained on more languages and more text, while mBERT remains a useful baseline for checking whether the findings are specific to one encoder family.
+
+\subsection{Data}
+
+The experiments use WikiANN-style NER data in English, Norwegian, and Danish. The annotations follow a shared IOB2 format with entity types such as PER, LOC, ORG, and MISC. This shared setup is important because it removes annotation-format differences from the comparison.
+
+\subsection{Label consistency}
+
+Before training, we verified that the languages use the same BIO inventory. That check is important because transfer results are meaningless if the source and target label schemes do not match. In our case, the inventories were aligned, so no mapping or normalization step was required.
+
+\subsection{Training and evaluation}
+
+All runs use the same general fine-tuning recipe with AdamW optimization, a small learning rate, and early stopping on development performance. Evaluation is performed with strict span-level F1, precision, and recall. We also keep the project scorer \texttt{span\_f1.py} and the saved development metrics from the training pipeline so we can compare strict scoring against the stored evaluation outputs.
+
+The training pipeline also writes prediction files in IOB2 format. This matters for analysis because the predictions can be re-scored independently and inspected manually. In other words, the logs are not just a number dump; they are a reproducible record of the exact model outputs.
+
+\subsection{Data budgets}
+
+To study data efficiency, we fine-tune Danish models with 10\%, 25\%, 50\%, and 100\% of the labeled training data. This mirrors the proposal and lets us see how quickly Danish supervision closes the transfer gap.

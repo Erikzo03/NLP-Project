@@ -1,14 +1,33 @@
 # NLP-Project
 
-## English-only BERT baseline (EWT NER)
+This repository contains the code, data, results, and report for the Danish NER transfer project. The current report is organized in ACL style under `Latex/`, with chapter files in `Latex/chapters/` and the final entry point in `Latex/main.tex`.
 
-This repo now includes a baseline training script:
+## Project Structure
 
-- `train_english_bert_baseline.py`
+- `Baselines/`: shared training code and launchers for monolingual, zero-shot, and fine-tuning experiments.
+- `Datasets/`: language-specific IOB2 data files.
+- `Latex/`: report source, figures, bibliography, and the final PDF.
+- `outputs/`: saved metrics and predictions from completed experiments.
+- `Baseline_predictions/`: reference prediction artifacts.
 
-## Baselines folder (English, Danish, Norwegian)
+## Report Build
 
-All baseline training entrypoints are now grouped in:
+The report uses the ACL style and is split into chapter files for readability. Build it from the `Latex/` directory:
+
+```bash
+cd Latex
+latexmk -pdf main.tex
+```
+
+The report depends on a working TeX installation such as TeX Live or MacTeX. Packages like `graphicx`, `booktabs`, and `hyperref` come from the TeX distribution and are already resolved in the compiled report; they are not Python dependencies.
+
+## Training Scripts
+
+Shared training logic lives in:
+
+- `Baselines/train_ner_baseline.py`
+
+Main baseline launchers:
 
 - `Baselines/train_english_baseline.py`
 - `Baselines/train_danish_baseline.py`
@@ -17,48 +36,17 @@ All baseline training entrypoints are now grouped in:
 - `Baselines/train_danish_xlmr_baseline.py`
 - `Baselines/train_norwegian_xlmr_baseline.py`
 
-Shared training logic is in:
+Cross-lingual launchers:
 
-- `Baselines/train_ner_baseline.py`
+- `Baselines/train_english_to_danish_zero_shot_baseline.py`
+- `Baselines/train_norwegian_to_danish_zero_shot_baseline.py`
+- `Baselines/train_english_to_danish_xlmr_zero_shot_baseline.py`
+- `Baselines/train_norwegian_to_danish_xlmr_zero_shot_baseline.py`
 
-Each baseline writes output to its own folder under `outputs/`.
-
-Run English baseline:
-
-```bash
-python Baselines/train_english_baseline.py
-```
-
-Model default in this launcher: `bert-base-multilingual-cased`.
-
-Run Danish baseline:
-
-```bash
-python Baselines/train_danish_baseline.py
-```
-
-Run Norwegian baseline:
-
-```bash
-python Baselines/train_norwegian_baseline.py
-```
-
-Run English baseline (XLM-R):
+Example run:
 
 ```bash
 python Baselines/train_english_xlmr_baseline.py
-```
-
-Run Danish baseline (XLM-R):
-
-```bash
-python Baselines/train_danish_xlmr_baseline.py
-```
-
-Run Norwegian baseline (XLM-R):
-
-```bash
-python Baselines/train_norwegian_xlmr_baseline.py
 ```
 
 Run all mBERT baselines:
@@ -73,116 +61,32 @@ Run all XLM-R baselines:
 bash Baselines/run_all_xlmr_baselines.sh
 ```
 
-Run all requested experiments in one command (mBERT monolingual baselines + zero-shot to Danish with mBERT and XLM-R):
-
-```bash
-bash Baselines/run_all_mbert_and_zero_shot_to_danish.sh
-```
-
-If you run on HPC with modules, load your modules first, then run the script.
-
-This unified script runs, in order:
-
-- `Baselines/train_english_baseline.py`
-- `Baselines/train_danish_baseline.py`
-- `Baselines/train_norwegian_baseline.py`
-- `Baselines/train_english_to_danish_zero_shot_baseline.py`
-- `Baselines/train_norwegian_to_danish_zero_shot_baseline.py`
-- `Baselines/train_english_to_danish_xlmr_zero_shot_baseline.py`
-- `Baselines/train_norwegian_to_danish_xlmr_zero_shot_baseline.py`
-
-You can pass shared overrides to all runs, for example:
-
-```bash
-bash Baselines/run_all_mbert_and_zero_shot_to_danish.sh \
-  --num_train_epochs 4 \
-  --train_batch_size 8 \
-  --eval_batch_size 16 \
-  --fp16
-```
-
-Useful runner flags:
-
-- `--quick`: adds fast defaults for smoke testing (`--num_train_epochs 1 --train_batch_size 4 --eval_batch_size 8`).
-- `--skip-mbert-baselines`: skip English/Danish/Norwegian mBERT monolingual runs.
-- `--skip-mbert-zero-shot`: skip mBERT zero-shot runs.
-- `--skip-xlmr-zero-shot`: skip XLM-R zero-shot runs.
-
-Example smoke run:
+Run the combined mBERT and zero-shot suite:
 
 ```bash
 bash Baselines/run_all_mbert_and_zero_shot_to_danish.sh --quick
 ```
 
-Expected output folders from this unified run:
+## Validation Utilities
 
-- `outputs/english_bert_baseline`
-- `outputs/danish_bert_baseline`
-- `outputs/norwegian_bert_baseline`
-- `outputs/english_to_danish_mbert_zero_shot`
-- `outputs/norwegian_to_danish_mbert_zero_shot`
-- `outputs/english_to_danish_xlmr_zero_shot`
-- `outputs/norwegian_to_danish_xlmr_zero_shot`
-
-To verify if labels are consistent across English, Danish, and Norwegian datasets:
+Check that the label inventories match across English, Danish, and Norwegian:
 
 ```bash
 python Baselines/check_label_consistency.py
 ```
 
-This produces:
-
-- `Baselines/reports/label_consistency_report.json`
-
-It trains a token-classification BERT model on:
-
-- `Datasets/en_ewt-ud-train.iob2`
-
-and evaluates on:
-
-- `Datasets/en_ewt-ud-dev.iob2`
-
-then exports predictions for:
-
-- `Datasets/en_ewt-ud-test-masked.iob2`
-
-in the same CoNLL-like format required by `span_f1.py`.
-
-## Install
+Evaluate predictions with the project scorer:
 
 ```bash
-pip install torch transformers datasets seqeval accelerate
+python Baselines/span_f1.py Datasets/en_ewt-ud-dev.iob2 outputs/english_bert_baseline/dev_predictions.iob2
 ```
 
-## Run baseline (local)
+## Python Dependencies
+
+Install the Python packages with:
 
 ```bash
-python train_english_bert_baseline.py \
-  --model_name bert-base-cased \
-  --output_dir outputs/english_bert_baseline \
-  --num_train_epochs 4 \
-  --train_batch_size 8 \
-  --eval_batch_size 16
+pip install -r Requirements.txt
 ```
 
-## Evaluate dev predictions
-
-```bash
-python span_f1.py Datasets/en_ewt-ud-dev.iob2 outputs/english_bert_baseline/dev_predictions.iob2
-```
-
-## If you use university/HPC servers
-
-Use the same script and increase efficiency settings, for example:
-
-```bash
-python train_english_bert_baseline.py \
-  --model_name bert-base-cased \
-  --output_dir outputs/english_bert_hpc \
-  --num_train_epochs 5 \
-  --train_batch_size 16 \
-  --eval_batch_size 32 \
-  --fp16
-```
-
-If you later switch to cross-lingual transfer, replace `--model_name` with `bert-base-multilingual-cased`.
+The report plots and distance analysis use `matplotlib`, `pandas`, and `scipy` in addition to the core training stack.

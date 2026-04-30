@@ -1,0 +1,90 @@
+\section{Results}
+
+\subsection{Main results}
+
+Table~\ref{tab:selected_results} summarizes the completed runs. The most important pattern is that Norwegian is consistently better than English in the zero-shot setting, and XLM-R is the strongest encoder for source-language baselines.
+
+\begin{table}[t]
+\centering
+\small
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{p{0.52\linewidth}ccc}
+\toprule
+Setup & Strict F1 & Eval F1 & Note \\
+\midrule
+Norwegian XLM-R baseline & 92.0 & 91.7 & Best overall source baseline \\
+Norwegian BERT baseline & 91.2 & 91.1 & Strong monolingual source run \\
+Danish BERT baseline & 89.0 & 88.9 & Strongest Danish-only BERT result \\
+Danish XLM-R baseline & 88.6 & 88.3 & Slightly below Danish BERT \\
+EN$\rightarrow$DA XLM-R zero-shot & 85.5 & 85.5 & Clean and consistent \\
+NO$\rightarrow$DA XLM-R zero-shot & 86.5 & 86.5 & Best zero-shot transfer \\
+EN$\rightarrow$DA mBERT + Danish FT & 89.4 & 88.9 & Strong fine-tuned transfer \\
+NO$\rightarrow$DA XLM-R + Danish FT & 88.4 & 88.1 & Competitive fine-tuned transfer \\
+Danish XLM-R 50\% & 85.5 & 85.4 & Data-efficiency result \\
+\bottomrule
+\end{tabular}%
+}
+\caption{Selected strict span results. Scores are percentages rounded to one decimal place.}
+\label{tab:selected_results}
+\end{table}
+
+\subsection{Figures}
+
+Figure~\ref{fig:strict_comparison} shows the full spread of strict span F1 across all evaluated runs. Norwegian transfer is consistently slightly stronger than English transfer, which is the pattern the proposal predicted.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{strict_f1_comparison.png}
+  \caption{Strict span F1 for all completed runs.}
+  \label{fig:strict_comparison}
+\end{figure}
+
+Figure~\ref{fig:learning_curve} shows the Danish data-efficiency curve. Performance improves quickly from 10\% to 25\% and again to 50\%, which indicates that a moderate amount of Danish supervision captures a large share of the full-data benefit.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{danish_learning_curve.png}
+  \caption{Danish learning curve for XLM-R and the corresponding zero-shot transfer points.}
+  \label{fig:learning_curve}
+\end{figure}
+
+Figure~\ref{fig:strict_eval_scatter} visualizes the relationship between the strict scorer and the saved evaluation metric. Most points lie close to the diagonal, which indicates that the pipeline is internally consistent.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{strict_vs_eval_scatter.png}
+  \caption{Strict F1 versus saved evaluation F1. Most experiments cluster near the diagonal; the English-to-Danish zero-shot artifact falls far away from it.}
+  \label{fig:strict_eval_scatter}
+\end{figure}
+
+Figure~\ref{fig:transfer_overview} gives a compact overview of the main source and transfer settings in one plot. It makes the Norwegian advantage and the XLM-R baseline strength easy to compare at a glance.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{transfer_overview.png}
+  \caption{Compact overview of baseline and transfer runs.}
+  \label{fig:transfer_overview}
+\end{figure}
+
+\subsection{Distance and gain}
+
+\begin{table}[t]
+\centering
+\small
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lrrr}
+\toprule
+Source & Ling. Distance & Zero-shot F1 & Relative outcome \\
+\midrule
+Norwegian XLM-R & 0.189 & 86.5 & Better transfer \\
+English XLM-R & 0.412 & 85.5 & Weaker transfer \\
+Norwegian mBERT & 0.189 & 82.9 & Better transfer \\
+English mBERT & 0.412 & 81.3 & Weaker transfer \\
+\bottomrule
+\end{tabular}
+}
+\caption{Linguistic distance versus zero-shot performance. The closer language, Norwegian, is better in both model families.}
+\label{tab:distance_gain}
+\end{table}
+
+The distance table supports the main claim: the smaller the source-target distance, the better the Danish transfer.
