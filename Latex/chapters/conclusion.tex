@@ -1,7 +1,18 @@
 \section{Conclusion}
 
-This report follows up on the project proposal with a full ACL-style experimental study. The main result is straightforward: Norwegian is the better source language for Danish NER transfer, and the advantage is consistent with the fact that Norwegian is linguistically closer to Danish than English is. XLM-R is the strongest encoder in the source-language and zero-shot settings, while Danish-only supervision remains the most reliable option once enough labeled data is available.
+This report presents a systematic study of cross-lingual NER transfer to Danish, comparing English and Norwegian as source languages across mBERT and XLM-R, with full development and test evaluation using three span F1 metrics (strict, unlabeled, loose), a paired bootstrap significance test, per-entity-type analysis, and a five-language typological distance analysis.
 
-We also checked the logs and prediction files carefully. Most outputs are coherent, but one English-to-Danish zero-shot prediction file is inconsistent with its saved metrics and should be treated as a bad artifact. Aside from that anomaly, the runs support the project proposal's original hypothesis.
+\paragraph{What the results support.}
+Norwegian shows a directionally consistent advantage over English as a zero-shot transfer source (0.97 dev, 0.60 test, XLM-R). This pattern holds across both encoder families and is consistent with Norwegian being 5.7$\times$ closer to Danish than English in WALS syntactic feature space. The distance gradient (NO $<$ SV $<$ EN $\approx$ DE) follows the expected genealogical ordering of Germanic languages. ORG entities show the most cross-system variation; PER is most consistent; MISC is effectively absent from evaluation due to a data-format quirk.
 
-The main lesson is that source-language choice matters. If a closer language is available, it is worth testing first. For Danish NER, Norwegian provides the clearest evidence for that claim.
+\paragraph{What the results do not support.}
+The paired bootstrap test gives $p=0.58$ (dev) and $p=0.74$ (test) for the NO vs EN XLM-R comparison. The gap is not statistically significant, and multi-seed replication is required before claiming Norwegian is definitively the better source. Additionally, the best fine-tuned transfer result is achieved by English mBERT (89.4 dev, 85.5 test), not a Norwegian model, showing that data volume at the source language and initialisation quality can outweigh typological distance once target-language fine-tuning is applied. The distance hypothesis is clearest in the zero-shot regime.
+
+\paragraph{Data efficiency.}
+The Danish XLM-R learning curve shows that $\sim$50\% of Danish training data is sufficient to match the English zero-shot baseline, and approaches the Norwegian zero-shot reference at the same budget. Zero-shot Norwegian transfer is therefore a practical substitute for roughly half the Danish annotation corpus.
+
+\paragraph{Practical recommendation.}
+When labeled target-language data is unavailable, test the closest available source language first. For Danish NER, Norwegian is the linguistically motivated choice and the directionally stronger performer. If some Danish annotation budget is available, fine-tuning an English mBERT checkpoint on Danish is surprisingly competitive and should not be dismissed. If the full Danish training set is available, Danish-only supervision remains the most reliable option at 89.0 strict F1 (BERT) and 88.6 (XLM-R) on the dev set.
+
+\paragraph{Next steps.}
+The two most impactful improvements would be: (1) running each headline configuration with at least 3 seeds to establish mean $\pm$ standard deviation and confirm whether the NO$>$EN directional advantage is reliable; (2) adding Swedish transfer experiments to test whether the distance gradient predicts a Swedish result between Norwegian and English as the distance values suggest.

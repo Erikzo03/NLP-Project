@@ -6,33 +6,58 @@ We evaluate five families of experiments:
 \begin{itemize}
   \item monolingual baselines for English, Norwegian, and Danish,
   \item zero-shot transfer to Danish from English and Norwegian,
-  \item transfer fine-tuning where a source-trained model is further trained on Danish,
-  \item Danish-only supervision under multiple data budgets, and
-  \item linguistic-distance analysis based on typological and genealogical similarity.
+  \item transfer fine-tuning where a source-trained model is further fine-tuned on Danish,
+  \item Danish-only supervision at multiple data budgets (10\%, 25\%, 50\%, 100\%), and
+  \item linguistic-distance analysis based on WALS typological feature vectors.
 \end{itemize}
 
-The design keeps the label space fixed and varies only the source language, encoder, and Danish supervision budget. This makes the source-language comparison interpretable.
+The design holds the label space, evaluation metric, and Danish target data fixed, varying only the source language, encoder, and Danish supervision budget. This makes the source-language comparison interpretable without confounds.
 
-In practical terms, each run asks the same question under a slightly different condition: how much entity information can a multilingual encoder carry over from a source language to Danish when the target language has no labels, only a few labels, or the full training set. That lets us compare transfer behavior without changing the task itself.
+\subsection{Models and checkpoints}
 
-\subsection{Models}
+We use two multilingual encoders as the base for all token-classification models:
+\begin{itemize}
+  \item \textbf{mBERT}: \texttt{bert-base-multilingual-cased} \citep{devlin2019bert} — 12 layers, 110M parameters, trained on 104 languages.
+  \item \textbf{XLM-R}: \texttt{xlm-roberta-base} \citep{conneau2020xlmr} — 12 layers, 125M parameters, trained on 100 languages with substantially more data than mBERT.
+\end{itemize}
 
-We use two multilingual encoders: mBERT and XLM-R. Both are fine-tuned as token-classification models with a linear output layer for BIO tagging. XLM-R generally provides stronger results because it is trained on more languages and more text, while mBERT remains a useful baseline for checking whether the findings are specific to one encoder family.
+The English monolingual BERT baseline uses \texttt{bert-base-cased} (English-only, not multilingual) to establish a single-language ceiling. All other experiments use one of the two multilingual encoders above with a linear token-classification head for BIO tagging.
 
-\subsection{Data}
+Fine-tuned transfer experiments (EN→DA FT, NO→DA FT) initialize from the best checkpoint of the corresponding zero-shot run and then continue training on Danish data. This two-stage procedure means each fine-tuned model has seen both its source-language and Danish training data.
 
-The experiments use WikiANN-style NER data in English, Norwegian, and Danish. The annotations follow a shared IOB2 format with entity types such as PER, LOC, ORG, and MISC. This shared setup is important because it removes annotation-format differences from the comparison.
+\subsection{Training hyperparameters}
 
-\subsection{Label consistency}
+All runs share the same hyperparameter configuration unless otherwise noted:
 
-Before training, we verified that the languages use the same BIO inventory. That check is important because transfer results are meaningless if the source and target label schemes do not match. In our case, the inventories were aligned, so no mapping or normalization step was required.
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{ll}
+\toprule
+Hyperparameter & Value \\
+\midrule
+Learning rate          & $2\times10^{-5}$ (AdamW) \\
+Train batch size       & 8 \\
+Eval batch size        & 16 \\
+Max sequence length    & 256 tokens \\
+Training epochs        & 4 \\
+Weight decay           & 0.01 \\
+Random seed            & 42 \\
+Early stopping         & Best checkpoint by dev F1 \\
+\bottomrule
+\end{tabular}
+\caption{Shared hyperparameters used across all experiments. All runs used a single seed; multi-seed replication is a known limitation (see Section~\ref{sec:discussion}).}
+\label{tab:hyperparams}
+\end{table}
 
-\subsection{Training and evaluation}
+Hyperparameters were not tuned per source language; the same configuration was used for every run. This is conservative and means results could potentially improve with per-language tuning, but it also means the comparison is fair in the sense that no system received an advantage from hyperparameter search.
 
-All runs use the same general fine-tuning recipe with AdamW optimization, a small learning rate, and early stopping on development performance. Evaluation is performed with strict span-level F1, precision, and recall. We also keep the project scorer \texttt{span\_f1.py} and the saved development metrics from the training pipeline so we can compare strict scoring against the stored evaluation outputs.
+\subsection{Evaluation}
 
-The training pipeline also writes prediction files in IOB2 format. This matters for analysis because the predictions can be re-scored independently and inspected manually. In other words, the logs are not just a number dump; they are a reproducible record of the exact model outputs.
+The primary metric is strict span-level F1 computed by \texttt{span\_f1.py}, which requires exact match on both entity boundaries and type label. We also report unlabeled span F1 (exact boundaries, any label) and loose span F1 (partial boundary overlap with matching label). These three metrics together let us distinguish missed spans from boundary errors from labeling errors.
 
-\subsection{Data budgets}
+The English test set is masked (no gold labels available), so test results are only reported for Danish and Norwegian experiments. All reported test scores use the Danish DDT test split for Danish-target experiments and the NorNE test split for Norwegian source baselines.
 
-To study data efficiency, we fine-tune Danish models with 10\%, 25\%, 50\%, and 100\% of the labeled training data. This mirrors the proposal and lets us see how quickly Danish supervision closes the transfer gap.
+\subsection{Statistical testing}
+
+Because all experiments use a single random seed, we cannot report mean $\pm$ standard deviation. To assess whether the core EN-vs-NO comparison is statistically reliable, we run a paired approximate randomisation test (paired bootstrap with 10{,}000 iterations) on the dev and test prediction files. Results are reported in Section~\ref{sec:results}.

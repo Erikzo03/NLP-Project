@@ -2,38 +2,50 @@
 
 \subsection{Motivation}
 
-The proposal argued that Norwegian should transfer better than English because it is closer to Danish. This report tests that hypothesis directly. Norwegian and Danish are both North Germanic, while English is Germanic but much more distant from Danish in history and structure. If linguistic distance matters, Norwegian should provide a stronger transfer signal.
+The proposal argued that Norwegian should transfer better than English to Danish because it is linguistically closer. This section quantifies that claim with a concrete, reproducible distance measure, then tests whether the observed NER transfer gap is consistent with the measured distance.
 
-\subsection{Computation}
+\subsection{Method}
 
-We use typological feature vectors derived from WALS-style language descriptions and compute cosine distance over aligned features. Missing values are excluded from the comparison. In formula form, the distance between languages $L_1$ and $L_2$ is
+We use \texttt{lang2vec} \citep{littell2017uriel}, which provides language feature vectors derived from the World Atlas of Language Structures (WALS). We use the \texttt{syntax\_wals} feature set, which encodes 103 typological features covering word order, morphological type, and related syntactic properties. Features not available for a given language pair are excluded before computing cosine distance; the distance between $L_1$ and $L_2$ is
 \[
-d(L_1, L_2) = 1 - \frac{\mathbf{v}_1 \cdot \mathbf{v}_2}{\|\mathbf{v}_1\|\,\|\mathbf{v}_2\|}.
+d(L_1, L_2) = 1 - \frac{\mathbf{v}_1 \cdot \mathbf{v}_2}{\|\mathbf{v}_1\|\,\|\mathbf{v}_2\|},
 \]
-
-The purpose of this step is not to claim a perfect theory of similarity, but to get a concrete, measurable proxy that can be compared against observed NER transfer performance.
+where $\mathbf{v}_i$ contains only the features available for both languages.
 
 \subsection{Results}
+
+Table~\ref{tab:language_distance} reports pairwise cosine distances for English, Danish, Norwegian (Bokmål), Swedish, and German. Swedish and German are included as additional reference points: Swedish is the closest North Germanic neighbor of Danish after Norwegian, while German is a West Germanic language at greater distance.
 
 \begin{table}[t]
 \centering
 \small
 \resizebox{\linewidth}{!}{%
-\begin{tabular}{lcc}
+\begin{tabular}{lccccc}
 \toprule
-Language Pair & Typological Distance & Expected Relation \\
+          & English & Danish & Norwegian & Swedish & German \\
 \midrule
-English--Danish & 0.412 & More distant \\
-Norwegian--Danish & 0.189 & Closer \\
+English   & 0.000   & 0.119  & 0.109     & 0.080   & 0.145  \\
+Danish    & 0.119   & 0.000  & \textbf{0.021}     & 0.039   & 0.124  \\
+Norwegian & 0.109   & 0.021  & 0.000     & 0.065   & 0.102  \\
+Swedish   & 0.080   & 0.039  & 0.065     & 0.000   & 0.164  \\
+German    & 0.145   & 0.124  & 0.102     & 0.164   & 0.000  \\
 \bottomrule
 \end{tabular}%
 }
-\caption{Illustrative language-distance comparison. Norwegian is substantially closer to Danish than English is, which predicts better transfer.}
+\caption{Pairwise cosine distances based on WALS syntactic features (lang2vec \texttt{syntax\_wals}). Lower = more similar. Norwegian is the closest language to Danish (0.021), followed by Swedish (0.039); English and German are substantially more distant ($\approx$0.12).}
 \label{tab:language_distance}
 \end{table}
 
-The distance results support the transfer hypothesis. Norwegian is considerably closer to Danish than English, and the observed zero-shot results follow the same pattern. That is the central evidence for the claim that source language choice is not arbitrary: it should be guided by measured similarity whenever possible.
+Key observations:
+\begin{itemize}
+  \item Norwegian is the closest language to Danish (0.021), 5.7$\times$ closer than English (0.119).
+  \item Swedish is the second closest (0.039), confirming the North Germanic cluster.
+  \item English and German are at comparable distances (0.119 and 0.124), placing them both in a clearly more distant tier.
+  \item The gradient Norwegian $<$ Swedish $<$ English $\approx$ German $<$ \dots\ is consistent with historical and genealogical accounts of Germanic language relationships.
+\end{itemize}
 
 \subsection{Interpretation}
 
-The distance analysis does not prove causality by itself, but it does strengthen the empirical story. When a closer source language is also the better transfer source, the simplest explanation is that the multilingual encoder can reuse more of the learned structure for the target language.
+With four reference languages the distance ordering is not fit to a single data point but reflects a consistent pattern. If linguistic distance predicts transfer quality, we expect: NO$\rightarrow$DA $>$ SV$\rightarrow$DA $>$ EN$\rightarrow$DA $\approx$ DE$\rightarrow$DA in zero-shot settings. We do not have Swedish and German transfer experiments, but the NO$\rightarrow$DA $>$ EN$\rightarrow$DA ordering is directionally confirmed by our results, even though the gap is not statistically significant under bootstrap testing (see Section~\ref{sec:results}).
+
+It is important not to over-interpret this analysis. Cosine distance over WALS features is a proxy for structural similarity, not a causal mechanism. The same multilingual encoder processes all four source languages, and encoder-internal effects (training data volume, tokenizer overlap) may be as important as typological distance. The distance numbers strengthen the empirical story but do not prove that structure is the causal driver.

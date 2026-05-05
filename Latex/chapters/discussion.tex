@@ -1,21 +1,27 @@
 \section{Discussion}
+\label{sec:discussion}
 
-\subsection{What the results mean}
+\subsection{The EN vs NO advantage is directional, not established}
 
-The results support the proposal's main hypothesis. Norwegian is more similar to Danish than English is, and that similarity is reflected in transfer behavior. The advantage is not huge, but it is consistent across both mBERT and XLM-R in the zero-shot setting. That consistency matters because it suggests the effect is real rather than a one-off artifact.
+The most important caveat in this paper is that the zero-shot gap between Norwegian and English XLM-R (0.97 dev, 0.60 test) is not statistically significant under paired bootstrap testing ($p=0.58$ dev, $p=0.74$ test). This means we cannot claim with confidence that Norwegian is a better transfer source than English. What we can say is that the directional pattern is consistent across both encoder families and both data splits, and that it is aligned with a 5.7$\times$ difference in typological distance (Section 8). Directional consistency across multiple conditions is meaningful evidence, but it is not the same as statistical significance. The honest summary is: Norwegian is the \emph{expected} better source, and the results are compatible with that expectation, but a 3-seed replication is needed to confirm it.
+
+\subsection{Inconvenient finding: EN mBERT best fine-tuned, DA XLM-R$<$DA BERT}
+
+Two results in Table~\ref{tab:dev_results} cut against the paper's preferred narrative and deserve direct attention.
+
+\textbf{English mBERT fine-tuned on Danish is the best transfer-plus-fine-tuning model in the whole study (89.4 dev, 85.5 test)}, outperforming every Norwegian transfer variant. This directly contradicts a naive reading of the linguistic-distance hypothesis: if proximity predicts transfer quality, the Norwegian fine-tuned models should rank highest. The likely explanation is that mBERT trained on English benefits from \emph{more English training data} (English has 20,142 sentences vs Norwegian's 4,183), which gives it a richer representation before fine-tuning, and that this data-volume advantage outweighs the typological-distance advantage of Norwegian. It also reflects the fact that EN→DA mBERT FT starts from a checkpoint trained on five times as much labeled data. The distance hypothesis operates most cleanly in the \emph{zero-shot} regime, where data volume cannot compensate. Once fine-tuning on Danish is introduced, the data-quality and initialisation effects dominate.
+
+\textbf{Danish XLM-R underperforms Danish BERT on Danish-only training} (88.6 vs 89.0 dev, 84.9 vs 85.3 test). This is unexpected given XLM-R's generally stronger cross-lingual results. A plausible explanation is that \texttt{xlm-roberta-base} allocates vocabulary and attention across 100 languages and may be slightly undertrained on Danish relative to \texttt{bert-base-multilingual-cased}, which uses a shared vocabulary more efficiently for smaller language sets. Another possibility is that the difference is within run-to-run noise, and a multi-seed experiment would show no consistent gap. Either way, the result weakens the blanket claim that XLM-R is the strongest encoder.
 
 \subsection{Encoder choice}
 
-XLM-R is the better general-purpose model for the source-language baselines and the zero-shot comparison. mBERT remains competitive in some fine-tuned settings, but XLM-R gives the most stable transfer performance. This fits the broader literature on multilingual encoders and their cross-lingual capacity.
+XLM-R leads on source-language baselines (92.0 vs 91.2 for Norwegian, 81.7 vs 80.1 for English) and on zero-shot transfer (86.5 vs 83.4 for Norwegian zero-shot). The XLM-R advantage is most consistent in zero-shot settings; it narrows or reverses after fine-tuning on Danish. This suggests that XLM-R's broader coverage helps when the model must generalise without target-language data, but mBERT's more concentrated vocabulary can be competitive once Danish labels are available.
 
 \subsection{Data efficiency}
 
-The Danish learning curve shows that transfer is useful even before any Danish supervision is added, but modest target-language annotation quickly improves performance. In practical terms, this means that a project can start with zero-shot transfer, then gain most of the benefit of a fully supervised model with only a fraction of the Danish labels.
-
-\subsection{Implications for the proposal question}
-
-The central question from the proposal was whether a closer source language should transfer better. The answer is yes, in this setting. Norwegian is both linguistically closer to Danish and empirically stronger as a transfer source. The conclusion is strongest for zero-shot transfer, where source-language choice matters most.
+The Danish learning curve (Figure~\ref{fig:learning_curve}) shows that transfer is useful even before any Danish supervision is added, but a modest amount of target-language annotation quickly recovers most of the full-data performance. The Danish XLM-R model reaches the English zero-shot reference at around 50\% of the training data and approaches the Norwegian zero-shot reference at 50--100\%. In practical terms: for a project with a limited annotation budget, starting with a Norwegian zero-shot model and labeling $\sim$50\% of the Danish training set is a reasonable cost-effective strategy.
 
 \subsection{Limitations}
+\label{sec:limitations}
 
-The study still has limitations. Only English and Norwegian are compared as source languages, the evaluation is based on a single NER benchmark family, and most results come from single runs rather than multi-seed averages. A larger study with more source languages and more seeds would strengthen the statistical evidence. Even with those limitations, the current results are already enough to support the main transfer hypothesis.
+The main limitations are: (1) single-seed experiments, meaning effect sizes are uncertain; (2) only English and Norwegian as source languages, while Swedish or German experiments would strengthen the distance-gradient claim; (3) evaluation on one NER benchmark family, so results may not generalise to other Danish NER datasets or domain-shifted text; (4) no hyperparameter tuning per source language, which may disadvantage some systems.
