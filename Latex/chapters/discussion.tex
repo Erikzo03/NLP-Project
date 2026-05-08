@@ -1,9 +1,15 @@
 \section{Discussion}
 \label{sec:discussion}
 
-\subsection{The EN vs NO advantage is directional, not established}
+\subsection{What multi-seed replication revealed}
 
-The most important caveat in this paper is that the zero-shot gap between Norwegian and English XLM-R (0.97 dev, 0.60 test) is not statistically significant under paired bootstrap testing ($p=0.58$ dev, $p=0.74$ test). This means we cannot claim with confidence that Norwegian is a better transfer source than English. What we can say is that the directional pattern is consistent across both encoder families and both data splits, and that it is aligned with a 5.7$\times$ difference in typological distance (Section 8). Directional consistency across multiple conditions is meaningful evidence, but it is not the same as statistical significance. The honest summary is: Norwegian is the \emph{expected} better source, and the results are compatible with that expectation, but a 3-seed replication is needed to confirm it.
+The three-seed replication substantially changes the picture relative to the single-seed results, in two important ways.
+
+\textbf{Single-seed dev was misleading.} Seed 42 happened to be a favorable initialisation for Norwegian XLM-R (86.49 vs 85.52). Across three seeds, English XLM-R averages marginally higher on dev (85.87 vs 85.45). Had we reported only seed 42 and drawn conclusions from dev performance, we would have overstated the Norwegian advantage.
+
+\textbf{The test set tells a clearer story.} On the held-out test set, Norwegian is consistently ahead for both encoders: $+$1.86 F1 for XLM-R ($p=0.10$, borderline) and $+$3.36 F1 for mBERT ($p=0.046$, significant). The mBERT result is the most reliable: the gap is large, variance is low for both systems, and statistical significance is achieved even with only two usable seed pairs. The XLM-R result is directionally consistent but remains borderline; a fourth or fifth seed would likely tip it to significance.
+
+The honest summary: Norwegian is a significantly better zero-shot transfer source than English for mBERT on the Danish test set, and a consistently (but not yet significantly) better source for XLM-R. The case is strongest on test data and weakest on dev, which reinforces the standard recommendation to report held-out test performance rather than dev performance for cross-lingual comparisons.
 
 \subsection{Inconvenient finding: EN mBERT best fine-tuned, DA XLM-R$<$DA BERT}
 

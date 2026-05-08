@@ -42,54 +42,53 @@
 \@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Pairwise cosine distances based on WALS syntactic features (lang2vec \texttt  {syntax\_wals}). Lower = more similar. Norwegian is the closest language to Danish (0.021), followed by Swedish (0.039); English and German are substantially more distant ($\approx $0.12).}}{5}{table.caption.3}\protected@file@percent }
 \newlabel{tab:language_distance}{{3}{5}{Pairwise cosine distances based on WALS syntactic features (lang2vec \texttt {syntax\_wals}). Lower = more similar. Norwegian is the closest language to Danish (0.021), followed by Swedish (0.039); English and German are substantially more distant ($\approx $0.12)}{table.caption.3}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {8.4}Interpretation}{5}{subsection.8.4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Development-set span F1 scores (\%). Strict = exact span and label; Unlabeled = exact span, any label; Loose = partial overlap with matching label.}}{5}{table.caption.4}\protected@file@percent }
-\newlabel{tab:dev_results}{{4}{5}{Development-set span F1 scores (\%). Strict = exact span and label; Unlabeled = exact span, any label; Loose = partial overlap with matching label}{table.caption.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Multi-seed strict F1 (\%) for zero-shot transfer to Danish. ``---'' marks the EN mBERT seed-42 dev run which is a known artifact (Section~\ref {sec:analysis}) and is excluded. $p$-values from paired $t$-tests (NO vs EN within encoder). * $p<0.05$.}}{5}{table.caption.4}\protected@file@percent }
+\newlabel{tab:multiseed}{{4}{5}{Multi-seed strict F1 (\%) for zero-shot transfer to Danish. ``---'' marks the EN mBERT seed-42 dev run which is a known artifact (Section~\ref {sec:analysis}) and is excluded. $p$-values from paired $t$-tests (NO vs EN within encoder). * $p<0.05$}{table.caption.4}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {9}Results}{5}{section.9}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Development set — span F1 metrics}{5}{subsection.9.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}Test set results}{5}{subsection.9.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Test-set span F1 scores (\%). Danish transfer experiments are evaluated on the Danish DDT test split; Norwegian baselines on the NorNE test split.}}{6}{table.caption.5}\protected@file@percent }
-\newlabel{tab:test_results}{{5}{6}{Test-set span F1 scores (\%). Danish transfer experiments are evaluated on the Danish DDT test split; Norwegian baselines on the NorNE test split}{table.caption.5}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Strict span F1 (\%) for all evaluated runs on the development set. Colors group run types: blue = English baselines, green = Norwegian baselines, red = Danish baselines, purple = zero-shot transfer, yellow = fine-tuned transfer, teal = Danish data efficiency.}}{6}{figure.caption.6}\protected@file@percent }
-\newlabel{fig:strict_comparison}{{1}{6}{Strict span F1 (\%) for all evaluated runs on the development set. Colors group run types: blue = English baselines, green = Norwegian baselines, red = Danish baselines, purple = zero-shot transfer, yellow = fine-tuned transfer, teal = Danish data efficiency}{figure.caption.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}Figures}{6}{subsection.9.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Danish XLM-R learning curve (solid) and zero-shot reference lines (dashed). The learning curve reaches the zero-shot baselines between 25\% and 50\% Danish data.}}{6}{figure.caption.7}\protected@file@percent }
-\newlabel{fig:learning_curve}{{2}{6}{Danish XLM-R learning curve (solid) and zero-shot reference lines (dashed). The learning curve reaches the zero-shot baselines between 25\% and 50\% Danish data}{figure.caption.7}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Strict span F1 vs.\ saved evaluation F1. All runs except the EN$\rightarrow $DA zero-shot artifact cluster near the diagonal.}}{6}{figure.caption.8}\protected@file@percent }
-\newlabel{fig:strict_eval_scatter}{{3}{6}{Strict span F1 vs.\ saved evaluation F1. All runs except the EN$\rightarrow $DA zero-shot artifact cluster near the diagonal}{figure.caption.8}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.4}Statistical significance of the EN vs NO gap}{6}{subsection.9.4}\protected@file@percent }
-\newlabel{sec:results}{{9.4}{6}{Statistical significance of the EN vs NO gap}{subsection.9.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Compact overview of source-language and transfer run results.}}{7}{figure.caption.9}\protected@file@percent }
-\newlabel{fig:transfer_overview}{{4}{7}{Compact overview of source-language and transfer run results}{figure.caption.9}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Paired bootstrap significance test for NO→DA vs EN→DA XLM-R zero-shot. The gap is directionally consistent but not statistically significant at any conventional threshold ($p \gg 0.05$).}}{7}{table.caption.10}\protected@file@percent }
-\newlabel{tab:bootstrap}{{6}{7}{Paired bootstrap significance test for NO→DA vs EN→DA XLM-R zero-shot. The gap is directionally consistent but not statistically significant at any conventional threshold ($p \gg 0.05$)}{table.caption.10}{}}
+\newlabel{sec:results}{{9}{5}{Results}{section.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Multi-seed zero-shot transfer results}{5}{subsection.9.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}Development set — span F1 metrics}{5}{subsection.9.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Development-set span F1 scores (\%). Strict = exact span and label; Unlabeled = exact span, any label; Loose = partial overlap with matching label.}}{6}{table.caption.5}\protected@file@percent }
+\newlabel{tab:dev_results}{{5}{6}{Development-set span F1 scores (\%). Strict = exact span and label; Unlabeled = exact span, any label; Loose = partial overlap with matching label}{table.caption.5}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Test-set span F1 scores (\%). Danish transfer experiments are evaluated on the Danish DDT test split; Norwegian baselines on the NorNE test split.}}{6}{table.caption.6}\protected@file@percent }
+\newlabel{tab:test_results}{{6}{6}{Test-set span F1 scores (\%). Danish transfer experiments are evaluated on the Danish DDT test split; Norwegian baselines on the NorNE test split}{table.caption.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}Test set results}{6}{subsection.9.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Strict span F1 (\%) for all evaluated runs on the development set. Colors group run types: blue = English baselines, green = Norwegian baselines, red = Danish baselines, purple = zero-shot transfer, yellow = fine-tuned transfer, teal = Danish data efficiency.}}{6}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:strict_comparison}{{1}{6}{Strict span F1 (\%) for all evaluated runs on the development set. Colors group run types: blue = English baselines, green = Norwegian baselines, red = Danish baselines, purple = zero-shot transfer, yellow = fine-tuned transfer, teal = Danish data efficiency}{figure.caption.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Danish XLM-R learning curve (solid) and zero-shot reference lines (dashed). The learning curve reaches the zero-shot baselines between 25\% and 50\% Danish data.}}{6}{figure.caption.8}\protected@file@percent }
+\newlabel{fig:learning_curve}{{2}{6}{Danish XLM-R learning curve (solid) and zero-shot reference lines (dashed). The learning curve reaches the zero-shot baselines between 25\% and 50\% Danish data}{figure.caption.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.4}Figures}{6}{subsection.9.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Strict span F1 vs.\ saved evaluation F1. All runs except the EN$\rightarrow $DA zero-shot artifact cluster near the diagonal.}}{7}{figure.caption.9}\protected@file@percent }
+\newlabel{fig:strict_eval_scatter}{{3}{7}{Strict span F1 vs.\ saved evaluation F1. All runs except the EN$\rightarrow $DA zero-shot artifact cluster near the diagonal}{figure.caption.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Compact overview of source-language and transfer run results.}}{7}{figure.caption.10}\protected@file@percent }
+\newlabel{fig:transfer_overview}{{4}{7}{Compact overview of source-language and transfer run results}{figure.caption.10}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {9.5}Per-entity-type F1}{7}{subsection.9.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.6}Distance and gain}{7}{subsection.9.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {10}Logs and Output Analysis}{7}{section.10}\protected@file@percent }
-\newlabel{sec:analysis}{{10}{7}{Logs and Output Analysis}{section.10}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {10.1}The anomalous EN→DA zero-shot prediction file}{7}{subsection.10.1}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Per-entity-type strict F1 (\%) on Danish dev. MISC is excluded: the Danish data encodes MISC labels in a secondary annotation column not read by the evaluation script, so MISC F1 is 0.0 for all systems by construction (see Section~\ref {sec:analysis}).}}{7}{table.caption.11}\protected@file@percent }
 \newlabel{tab:entity_type}{{7}{7}{Per-entity-type strict F1 (\%) on Danish dev. MISC is excluded: the Danish data encodes MISC labels in a secondary annotation column not read by the evaluation script, so MISC F1 is 0.0 for all systems by construction (see Section~\ref {sec:analysis})}{table.caption.11}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces WALS syntactic distance (lang2vec) versus zero-shot transfer performance. Norwegian is 5.7$\times $ closer to Danish than English. The transfer advantage is directionally consistent but not statistically significant (Table~\ref {tab:bootstrap}).}}{7}{table.caption.12}\protected@file@percent }
 \newlabel{tab:distance_gain}{{8}{7}{WALS syntactic distance (lang2vec) versus zero-shot transfer performance. Norwegian is 5.7$\times $ closer to Danish than English. The transfer advantage is directionally consistent but not statistically significant (Table~\ref {tab:bootstrap})}{table.caption.12}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.6}Distance and gain}{7}{subsection.9.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {10}Logs and Output Analysis}{7}{section.10}\protected@file@percent }
+\newlabel{sec:analysis}{{10}{7}{Logs and Output Analysis}{section.10}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.1}The anomalous EN→DA zero-shot prediction file}{7}{subsection.10.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {10.2}MISC entities are absent from evaluation}{8}{subsection.10.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {10.3}Metric consistency for well-behaved runs}{8}{subsection.10.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {11}Discussion}{8}{section.11}\protected@file@percent }
 \newlabel{sec:discussion}{{11}{8}{Discussion}{section.11}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {11.1}The EN vs NO advantage is directional, not established}{8}{subsection.11.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.1}What multi-seed replication revealed}{8}{subsection.11.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {11.2}Inconvenient finding: EN mBERT best fine-tuned, DA XLM-R$<$DA BERT}{8}{subsection.11.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {11.3}Encoder choice}{8}{subsection.11.3}\protected@file@percent }
-\bibdata{references}
-\bibcite{conneau2020xlmr}{{1}{2020}{{Conneau et~al.}}{{Conneau, Khandelwal, Goyal, Chaudhary, Wenzek, Guzman, Grave, Ott, Zettlemoyer, and Stoyanov}}}
-\bibcite{devlin2019bert}{{2}{2019}{{Devlin et~al.}}{{Devlin, Chang, Lee, and Toutanova}}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.3}Encoder choice}{9}{subsection.11.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {11.4}Data efficiency}{9}{subsection.11.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {11.5}Limitations}{9}{subsection.11.5}\protected@file@percent }
 \newlabel{sec:limitations}{{11.5}{9}{Limitations}{subsection.11.5}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {12}Conclusion}{9}{section.12}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{What the results support.}{9}{section*.13}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{What the results do not support.}{9}{section*.14}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Data efficiency.}{9}{section*.15}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Practical recommendation.}{9}{section*.16}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Next steps.}{9}{section*.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Main finding.}{9}{section*.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Why Norwegian transfers better.}{9}{section*.14}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{When English wins.}{9}{section*.15}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Entity-type and metric analysis.}{9}{section*.16}\protected@file@percent }
+\bibdata{references}
+\bibcite{conneau2020xlmr}{{1}{2020}{{Conneau et~al.}}{{Conneau, Khandelwal, Goyal, Chaudhary, Wenzek, Guzman, Grave, Ott, Zettlemoyer, and Stoyanov}}}
+\bibcite{devlin2019bert}{{2}{2019}{{Devlin et~al.}}{{Devlin, Chang, Lee, and Toutanova}}}
 \bibcite{enevoldsen2021dacy}{{3}{2021}{{Enevoldsen et~al.}}{{Enevoldsen, Hansen, and Nielbo}}}
 \bibcite{fu2023heterogeneous}{{4}{2023}{{Fu et~al.}}{{Fu, Lin, Chen, Yang, and Jiang}}}
 \bibcite{hvingelby2020dane}{{5}{2020}{{Hvingelby et~al.}}{{Hvingelby, Pauli, Barrett, Rosted, Lidegaard, and Søgaard}}}
@@ -99,4 +98,6 @@
 \bibcite{plank2020danish}{{9}{2020}{{Plank}}{{}}}
 \bibcite{sohn2024zeroshot}{{10}{2024}{{Sohn et~al.}}{{Sohn, Jung, Cheng, Kang, Du, and Mortensen}}}
 \bibcite{goot2025distals}{{11}{2025}{{Van Der~Goot et~al.}}{{Van Der~Goot, Ploeger, Blaschke, and Samardzic}}}
+\@writefile{toc}{\contentsline {paragraph}{Practical recommendation.}{10}{section*.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Next steps.}{10}{section*.18}\protected@file@percent }
 \gdef \@abspage@last{10}

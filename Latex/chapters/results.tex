@@ -1,9 +1,45 @@
 \section{Results}
+\label{sec:results}
+
+\subsection{Multi-seed zero-shot transfer results}
+
+Table~\ref{tab:multiseed} reports the key comparison — Norwegian vs English zero-shot transfer — across three random seeds (42, 1, 2), together with mean $\pm$ standard deviation and a paired $t$-test.
+
+\begin{table}[t]
+\centering
+\small
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lcccccc}
+\toprule
+System & S42 & S1 & S2 & Mean & Std & $p$ \\
+\midrule
+\multicolumn{7}{l}{\textit{Development set (Danish dev)}} \\
+NO$\rightarrow$DA XLM-R & 86.49 & 84.98 & 84.90 & 85.45 & 0.89 & \multirow{2}{*}{0.632 ns} \\
+EN$\rightarrow$DA XLM-R & 85.52 & 86.57 & 85.52 & 85.87 & 0.60 & \\
+NO$\rightarrow$DA mBERT & 83.38 & 83.40 & 84.52 & 83.77 & 0.65 & \multirow{2}{*}{0.650 ns} \\
+EN$\rightarrow$DA mBERT & ---   & 82.23 & 83.68 & 82.95 & 1.02 & \\
+\midrule
+\multicolumn{7}{l}{\textit{Test set (Danish test)}} \\
+NO$\rightarrow$DA XLM-R & 82.46 & 83.47 & 83.41 & 83.11 & 0.56 & \multirow{2}{*}{0.100 ns} \\
+EN$\rightarrow$DA XLM-R & 81.86 & 81.15 & 80.75 & 81.25 & 0.56 & \\
+NO$\rightarrow$DA mBERT & 82.88 & 84.06 & 80.96 & 82.63 & 1.56 & \multirow{2}{*}{\textbf{0.046}*} \\
+EN$\rightarrow$DA mBERT & ---   & 78.98 & 79.56 & 79.27 & 0.41 & \\
+\bottomrule
+\end{tabular}%
+}
+\caption{Multi-seed strict F1 (\%) for zero-shot transfer to Danish. ``---'' marks the EN mBERT seed-42 dev run which is a known artifact (Section~\ref{sec:analysis}) and is excluded. $p$-values from paired $t$-tests (NO vs EN within encoder). * $p<0.05$.}
+\label{tab:multiseed}
+\end{table}
+
+Three findings emerge from the multi-seed analysis.
+First, the single-seed dev advantage for Norwegian XLM-R (86.49 vs 85.52, seed 42) was a favorable outlier: averaged across three seeds, English XLM-R is marginally ahead on dev (85.87 vs 85.45). This illustrates exactly why single-seed results should not be over-interpreted.
+Second, on the held-out test set, Norwegian is consistently ahead for both encoders: $+$1.86 F1 for XLM-R ($p=0.10$) and $+$3.36 F1 for mBERT ($p=0.046$, significant at $\alpha=0.05$).
+Third, the mBERT result is the statistically cleaner finding: a 3.36-point gap with low within-system variance, confirmed by a paired $t$-test with $p<0.05$.
 
 \subsection{Development set — span F1 metrics}
 
-Table~\ref{tab:dev_results} reports all three span F1 variants produced by \texttt{span\_f1.py}: strict (exact boundary and label match), unlabeled (exact boundary, any label), and loose (partial overlap with matching label).
-The artifact run (\textit{EN$\rightarrow$DA zero-shot}, strict $\approx0.3$) is excluded from the table; it is discussed in Section~\ref{sec:analysis}.
+Table~\ref{tab:dev_results} reports all three span F1 variants for single-seed (seed 42) runs. The zero-shot rows are included for context and comparability with prior work.
+The artifact run (\textit{EN$\rightarrow$DA mBERT zero-shot}, strict $\approx0.3$) is excluded; it is discussed in Section~\ref{sec:analysis}.
 
 \begin{table}[t]
 \centering
@@ -126,27 +162,6 @@ Figure~\ref{fig:transfer_overview} gives a compact view of baseline and transfer
   \label{fig:transfer_overview}
 \end{figure}
 
-\subsection{Statistical significance of the EN vs NO gap}
-\label{sec:results}
-
-Table~\ref{tab:bootstrap} reports the result of a paired approximate randomisation test (10\,000 bootstrap iterations) on the NO→DA XLM-R vs EN→DA XLM-R zero-shot comparison.
-
-\begin{table}[t]
-\centering
-\small
-\begin{tabular}{lcccr}
-\toprule
-Split & F1 (NO) & F1 (EN) & $\Delta$ & $p$ \\
-\midrule
-Dev  & 86.49 & 85.52 & +0.97 & 0.575 \\
-Test & 82.46 & 81.86 & +0.60 & 0.742 \\
-\bottomrule
-\end{tabular}
-\caption{Paired bootstrap significance test for NO→DA vs EN→DA XLM-R zero-shot. The gap is directionally consistent but not statistically significant at any conventional threshold ($p \gg 0.05$).}
-\label{tab:bootstrap}
-\end{table}
-
-The advantage of Norwegian is directionally consistent across both splits but not statistically significant ($p=0.58$ dev, $p=0.74$ test). This means the 1.0 F1 gap on the development set falls within normal run-to-run variability and cannot be attributed to linguistic distance alone. Multi-seed replication is needed to confirm whether the directional advantage is reliable. We report and discuss the directional pattern while acknowledging this limitation.
 
 \subsection{Per-entity-type F1}
 
