@@ -1,21 +1,21 @@
 \section{Conclusion}
 
-This report presents a systematic, multi-seed study of cross-lingual NER transfer to Danish, comparing English and Norwegian as source languages across mBERT and XLM-R. Experiments are evaluated with strict, unlabeled, and loose span F1 on both development and held-out test sets. The headline comparison is replicated across three random seeds and assessed with paired $t$-tests.
+We ran a multi-seed study of cross-lingual NER transfer to Danish, comparing English and Norwegian as source languages under mBERT and XLM-R. Systems are evaluated with strict, unlabeled, and loose span F1 on both development and held-out test sets, and the English--Norwegian contrast is assessed with paired resampling tests.
 
 \paragraph{Main finding.}
-Norwegian is a statistically significantly better zero-shot transfer source than English for mBERT on the Danish test set ($\Delta=+3.36$, $p=0.046$). For XLM-R the advantage is consistent but borderline ($\Delta=+1.86$, $p=0.10$). Critically, the single-seed development result that originally motivated the claim (NO=86.49 vs EN=85.52, seed 42) was a favorable outlier for Norwegian: averaged across three seeds, English XLM-R is marginally ahead on dev. This makes the test-set replication especially important --- it is the evaluation that holds up under multi-seed scrutiny.
+In the zero-shot setting, Norwegian is the better source on the Danish test set for both encoders: a statistically significant gain for mBERT ($\Delta=+3.36$, $p=0.046$) and a smaller, directionally consistent effect for XLM-R ($\Delta=+1.86$, $p=0.10$). One development result — seed 42, which had favored Norwegian XLM-R — turned out to be an outlier, confirming that held-out test replication is necessary before drawing source-language conclusions.
 
-\paragraph{Why Norwegian transfers better.}
-Norwegian is 5.7$\times$ closer to Danish than English in WALS syntactic feature space (0.021 vs 0.119 cosine distance). This distance gap is the largest in the five-language analysis (NO $<$ SV $<$ EN $\approx$ DE), consistent with the genealogical structure of Germanic. The transfer advantage is strongest in the zero-shot regime where source-language choice cannot be compensated by target-language fine-tuning.
+\paragraph{Why Norwegian appears stronger.}
+Norwegian is roughly 5.7$\times$ closer to Danish than English in WALS syntactic-feature space (cosine distance 0.021 vs.\ 0.119). This structural proximity aligns with the zero-shot advantage, though data volume and encoder-level factors also play a role.
 
-\paragraph{When English wins.}
-The best single fine-tuned transfer result is English mBERT + Danish fine-tuning (89.4 dev, 85.5 test), outperforming all Norwegian transfer variants. English has five times more training data than Norwegian, and this volume advantage outweighs typological distance once Danish labels are available. The distance hypothesis applies cleanly only in the zero-shot setting.
+\paragraph{When English outperforms.}
+Once Danish fine-tuning is available, the best result comes from English mBERT (89.4 dev, 85.5 test). English provides roughly five times as many source-language training sentences as Norwegian, and that initialization advantage can outweigh typological proximity when target supervision is available to steer the model. The distance hypothesis is therefore most informative in the pure zero-shot setting.
 
-\paragraph{Entity-type and metric analysis.}
-ORG is the hardest category and shows the most cross-system variation (74.9--83.5 dev strict F1); PER is most consistent (89.6--93.7). MISC scores are zero for all systems due to a data-format artifact: MISC labels reside in a secondary annotation column not read by the evaluation script. Unlabeled and loose F1 are consistently 3--5 points above strict, with the gap largest for low-resource Danish training (10\%), where models detect spans but mislabel them more often.
+\paragraph{Entity-type and metric notes.}
+ORG is the most variable category, spanning nearly nine F1 points across systems (74.9--83.5 on Danish dev), while PER is the most stable (89.6--93.7). MISC F1 is 0.0 across all systems because those annotations reside in a secondary label column not read by the training and evaluation code. Unlabeled and loose F1 consistently exceed strict by 3--5 points, with the largest gaps under low-resource Danish training where the model detects spans but mislabels them.
 
 \paragraph{Practical recommendation.}
-For zero-shot Danish NER, use Norwegian as the source language --- it is both the linguistically motivated choice and the empirically stronger one. If any Danish annotation budget is available, fine-tuning an English mBERT checkpoint on Danish is a competitive and readily available baseline. Full Danish supervision (89.0 BERT, 88.6 XLM-R dev strict F1) remains the ceiling and should be the target when annotation resources permit.
+For zero-shot Danish NER, Norwegian is the linguistically motivated and empirically supported source choice. If any Danish annotation budget is available, fine-tuning an English mBERT checkpoint on Danish is a strong practical baseline. Full Danish supervision remains the performance ceiling.
 
 \paragraph{Next steps.}
-The two most impactful extensions are: (1) running XLM-R with one or two additional seeds to confirm or rule out significance of the $+$1.86 test gap; (2) adding Swedish transfer experiments to test whether the distance gradient (NO $<$ SV $<$ EN) predicts a corresponding F1 gradient, which would turn two data points into a testable trend.
+The most valuable extensions would be: (1) additional seeds for XLM-R to resolve the marginal $p$-value; and (2) transfer experiments from Swedish — and possibly German — to test whether a typological distance gradient produces a corresponding F1 gradient across more than two source languages.

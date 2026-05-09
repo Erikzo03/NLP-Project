@@ -1,11 +1,11 @@
 \section{Research Questions}
 
-The experiments address three research questions.
+Three questions drive the study.
 
 \begin{enumerate}
-  \item \textbf{How do monolingual baselines and cross-lingual transfer routes compare?} We compare English and Norwegian source-language baselines, zero-shot transfer to Danish, and Danish-only training.
-  \item \textbf{How much performance is lost in zero-shot transfer, and how much is recovered by Danish fine-tuning?} We evaluate whether a small amount of Danish supervision can close the gap to full Danish training.
-  \item \textbf{Does lower linguistic distance to Danish align with better transfer?} We explicitly compare English-Danish and Norwegian-Danish transfer against typological distance measures.
+  \item \textbf{How do monolingual baselines compare to cross-lingual transfer routes?} We look at English and Norwegian source baselines, zero-shot transfer to Danish, and Danish-only supervision.
+  \item \textbf{What is lost in zero-shot transfer, and how much does Danish fine-tuning recover?} We measure the extent to which modest Danish annotation closes the gap to fully supervised Danish training.
+  \item \textbf{Does lower typological distance to Danish predict better transfer?} We compare English-source and Norwegian-source transfer against quantified typological distances to test this hypothesis.
 \end{enumerate}
 
-The third question is the most important follow-up to the proposal. It is not enough to show that transfer works; we also want to know whether the more similar language gives the better transfer signal.
+The third question is the real centerpiece of the study. Showing that cross-lingual transfer works is a necessary starting point; understanding whether structural proximity is the active ingredient requires holding architecture, data format, and evaluation protocol constant while varying only the source language.

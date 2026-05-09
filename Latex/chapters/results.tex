@@ -3,7 +3,7 @@
 
 \subsection{Multi-seed zero-shot transfer results}
 
-Table~\ref{tab:multiseed} reports the key comparison — Norwegian vs English zero-shot transfer — across three random seeds (42, 1, 2), together with mean $\pm$ standard deviation and a paired $t$-test.
+Table~\ref{tab:multiseed} reports the core comparison — Norwegian vs.\ English zero-shot transfer — across seeds 42, 1 and 2, with per-system means, standard deviations and paired $t$-test $p$-values.
 
 \begin{table}[t]
 \centering
@@ -31,15 +31,11 @@ EN$\rightarrow$DA mBERT & ---   & 78.98 & 79.56 & 79.27 & 0.41 & \\
 \label{tab:multiseed}
 \end{table}
 
-Three findings emerge from the multi-seed analysis.
-First, the single-seed dev advantage for Norwegian XLM-R (86.49 vs 85.52, seed 42) was a favorable outlier: averaged across three seeds, English XLM-R is marginally ahead on dev (85.87 vs 85.45). This illustrates exactly why single-seed results should not be over-interpreted.
-Second, on the held-out test set, Norwegian is consistently ahead for both encoders: $+$1.86 F1 for XLM-R ($p=0.10$) and $+$3.36 F1 for mBERT ($p=0.046$, significant at $\alpha=0.05$).
-Third, the mBERT result is the statistically cleaner finding: a 3.36-point gap with low within-system variance, confirmed by a paired $t$-test with $p<0.05$.
+Three observations stand out. First, seed 42 made Norwegian XLM-R look clearly better on dev (86.49 vs.\ 85.52) — until you average across seeds, at which point English XLM-R pulls slightly ahead (85.87 vs.\ 85.45). That reversal encapsulates the cautionary message: single-seed development comparisons can mislead. Second, on the held-out test set Norwegian leads for both encoders: +1.86 F1 for XLM-R ($p=0.10$) and +3.36 F1 for mBERT ($p=0.046$). Third, the mBERT result is the more reliable of the two — a larger margin, lower variance, and conventional significance despite the limited number of usable seed pairs.
 
 \subsection{Development set — span F1 metrics}
 
-Table~\ref{tab:dev_results} reports all three span F1 variants for single-seed (seed 42) runs. The zero-shot rows are included for context and comparability with prior work.
-The artifact run (\textit{EN$\rightarrow$DA mBERT zero-shot}, strict $\approx0.3$) is excluded; it is discussed in Section~\ref{sec:analysis}.
+Table~\ref{tab:dev_results} presents strict, unlabeled and loose span F1 for the single-seed (seed 42) runs. The anomalous EN$\rightarrow$DA mBERT zero-shot run (strict $\approx0.3$) is excluded from comparative summaries and examined in Section~\ref{sec:analysis}.
 
 \begin{table}[t]
 \centering
@@ -55,7 +51,6 @@ Norwegian BERT  & 91.2 & 95.1 & 92.1 \\
 Danish BERT     & 89.0 & 93.0 & 92.2 \\
 Danish XLM-R    & 88.6 & 92.6 & 91.8 \\
 English XLM-R   & 81.7 & 86.3 & 85.7 \\
-English BERT    & 80.1 & 85.2 & 83.4 \\
 \midrule
 \multicolumn{4}{l}{\textit{Zero-shot transfer to Danish}} \\
 NO$\rightarrow$DA XLM-R     & 86.5 & 90.3 & 90.7 \\
@@ -79,12 +74,11 @@ Danish XLM-R 10\% & 70.0 & 77.2 & 81.7 \\
 \label{tab:dev_results}
 \end{table}
 
-The unlabeled and loose scores are consistently 3--5 points above strict, which is the expected gap: most errors are label confusions or minor boundary shifts rather than completely missed entities.
-The loose F1 for the 10\% Danish run (81.7) is notably higher than its strict score (70.0), suggesting that the model finds the right spans but mislabels them more often when trained on limited data.
+Unlabeled and loose scores exceed strict by 3--5 points across most systems — most errors are near-misses in boundary or label, not completely missed spans. The largest strict-to-loose gap appears at 10\% Danish data (70.0 vs.\ 81.7), suggesting that with very limited supervision the model often identifies the right span but lacks the signal to assign the correct label reliably.
 
 \subsection{Test set results}
 
-Table~\ref{tab:test_results} shows the same three metrics on the held-out test files (Danish test for all transfer and Danish monolingual runs; Norwegian test for the Norwegian source baselines). English monolingual baselines are excluded because the English test file is masked (no gold labels available).
+Table~\ref{tab:test_results} reports strict, unlabeled and loose F1 on held-out test files. Danish-target experiments are evaluated on the Danish DDT test split; Norwegian source baselines on the NorNE test split. English monolingual test results are omitted because the English test split is masked.
 
 \begin{table}[t]
 \centering
@@ -122,11 +116,11 @@ Danish XLM-R 10\% & 72.8 & 78.2 & 84.4 \\
 \label{tab:test_results}
 \end{table}
 
-Test scores are 3--5 points below dev for most Danish-target experiments, which is a normal train/dev/test gap. The Norwegian source baselines are stable (92.2 BERT, 91.4 XLM-R), consistent with their dev performance. On test, the fine-tuned Norwegian and English transfer models cluster tightly (84.7--86.6), while zero-shot approaches are 2--4 points behind.
+Most Danish-target test scores fall 3--5 points below their dev counterparts, a normal generalization gap. Norwegian source baselines remain high on NorNE (92.2 BERT, 91.4 XLM-R). After Danish fine-tuning, Norwegian and English transfer models converge in a narrow band (approximately 84.7--86.6), while zero-shot systems still trail by 2--4 points.
 
 \subsection{Figures}
 
-Figure~\ref{fig:strict_comparison} shows the full spread of dev strict F1 across all evaluated runs. Norwegian source baselines are the strongest; transfer with Danish fine-tuning closes most of the gap to Danish monolingual baselines.
+Figure~\ref{fig:strict_comparison} shows the distribution of development strict F1 across all runs. Norwegian source baselines rank highest; Danish fine-tuning recovers most of the gap to Danish monolingual baselines.
 
 \begin{figure}[t]
   \centering
@@ -135,7 +129,7 @@ Figure~\ref{fig:strict_comparison} shows the full spread of dev strict F1 across
   \label{fig:strict_comparison}
 \end{figure}
 
-Figure~\ref{fig:learning_curve} shows the Danish data-efficiency curve with zero-shot reference lines. The curve crosses the English zero-shot reference at around 50\% Danish supervision and the Norwegian zero-shot reference just beyond 50\%, showing that zero-shot Norwegian transfer is competitive with moderate Danish supervision.
+Figure~\ref{fig:learning_curve} plots the Danish XLM-R learning curve alongside zero-shot reference lines. The curve crosses the English zero-shot baseline between 25\% and 50\% Danish data and approaches the Norwegian zero-shot line shortly beyond 50\%, indicating that moderate annotation recovers most of the zero-shot advantage quickly.
 
 \begin{figure}[t]
   \centering
@@ -144,16 +138,16 @@ Figure~\ref{fig:learning_curve} shows the Danish data-efficiency curve with zero
   \label{fig:learning_curve}
 \end{figure}
 
-Figure~\ref{fig:strict_eval_scatter} visualizes strict F1 against the saved training-time evaluation F1. All runs except the known artifact cluster tightly near the diagonal, confirming internal consistency of the evaluation pipeline.
+Figure~\ref{fig:strict_eval_scatter} compares strict F1 from saved predictions with training-time evaluation F1. All runs except the known artifact cluster tightly near the diagonal.
 
 \begin{figure}[t]
   \centering
   \includegraphics[width=\linewidth]{strict_vs_eval_scatter.png}
-  \caption{Strict span F1 vs.\ saved evaluation F1. All runs except the EN$\rightarrow$DA zero-shot artifact cluster near the diagonal.}
+  \caption{Strict span F1 vs.\ saved evaluation F1 (zoomed to well-behaved runs). The EN$\rightarrow$DA zero-shot artifact — strict F1 $\approx$0.3\%, saved F1 = 79.3\% — is excluded from the axis range and annotated in the corner.}
   \label{fig:strict_eval_scatter}
 \end{figure}
 
-Figure~\ref{fig:transfer_overview} gives a compact view of baseline and transfer results, making the Norwegian advantage and the EN$\rightarrow$DA zero-shot artifact visible at a glance.
+Figure~\ref{fig:transfer_overview} provides a compact visual summary highlighting the Norwegian advantage and the EN$\rightarrow$DA zero-shot artifact.
 
 \begin{figure}[t]
   \centering
@@ -185,11 +179,11 @@ NO→DA XLM-R + DA FT         & 93.1 & 90.6 & 78.8 \\
 \bottomrule
 \end{tabular}%
 }
-\caption{Per-entity-type strict F1 (\%) on Danish dev. MISC is excluded: the Danish data encodes MISC labels in a secondary annotation column not read by the evaluation script, so MISC F1 is 0.0 for all systems by construction (see Section~\ref{sec:analysis}).}
+\caption{Per-entity-type strict F1 (\%) on Danish dev. MISC is excluded: those annotations appear only in a secondary label column not read by the training and evaluation code, so MISC F1 is 0.0 for all systems by construction (see Section~\ref{sec:analysis}).}
 \label{tab:entity_type}
 \end{table}
 
-ORG is the hardest category, with the most variation across systems (74.9--83.5). The EN→DA mBERT + DA FT model achieves the highest ORG score (83.5), which partly explains why it leads the fine-tuned rankings in Table~\ref{tab:dev_results}. NO→DA XLM-R zero-shot leads on LOC (90.0 vs 86.5 for EN) --- a gap that is consistent with Norwegian having more lexical overlap with Danish for place names. PER is the most consistent category across systems (89.6--93.7).
+ORG is the most variable category across systems, swinging from 74.9 to 83.5 — a spread that far exceeds what either PER or LOC shows. The EN→DA mBERT + DA FT model records the highest ORG score (83.5), which contributes to its strong overall ranking in Table~\ref{tab:dev_results}. LOC shows a notable zero-shot advantage for Norwegian XLM-R (90.0 vs.\ 86.5 for English), plausibly because place names share more lexical surface form between Norwegian and Danish. PER is the most stable category across all systems (89.6--93.7), consistent with the broader finding that person names transfer more reliably across languages.
 
 \subsection{Distance and gain}
 
@@ -207,6 +201,6 @@ English XLM-R   & 0.119 & 85.5 & 81.9 \\
 \bottomrule
 \end{tabular}
 }
-\caption{WALS syntactic distance (lang2vec) versus zero-shot transfer performance. Norwegian is 5.7$\times$ closer to Danish than English. The transfer advantage is directionally consistent but not statistically significant (Table~\ref{tab:bootstrap}).}
+\caption{WALS syntactic distance (lang2vec) versus zero-shot transfer performance. Norwegian is 5.7$\times$ closer to Danish than English. The transfer advantage is directionally consistent but not statistically significant at the dev level (Table~\ref{tab:bootstrap}).}
 \label{tab:distance_gain}
 \end{table}

@@ -110,45 +110,93 @@ with open(OLD_CSV, newline="", encoding="utf-8") as f:
 
 
 def make_scatter():
-    points = []
+    ARTIFACT_KEY = "EN→DA 0-shot (artifact)"
+    main_points = []
+    artifact = None
+
     for exp, label in LABEL_MAP.items():
         if exp not in dev or exp not in old:
             continue
         x = float(dev[exp]["strict_f1"]) * 100
         y = float(old[exp]["eval_f1"]) * 100
-        points.append((x, y, label))
+        if label == ARTIFACT_KEY:
+            artifact = (x, y, label)
+        else:
+            main_points.append((x, y, label))
 
-    fig, ax = plt.subplots(figsize=(8, 7))
+    # ── Layout: zoomed main panel ───────────────────────────────────────────
+    fig, ax = plt.subplots(figsize=(10, 9))
 
-    xs = [p[0] for p in points]
-    ys = [p[1] for p in points]
+    # Data range of well-behaved runs — zoom in to make labels readable
+    LO, HI = 67, 97
+    ax.set_xlim(LO, HI)
+    ax.set_ylim(LO, HI)
 
-    ax.scatter(xs, ys, s=60, color="#1f77b4", zorder=3)
+    # Identity diagonal within the zoomed range
+    ax.plot([LO, HI], [LO, HI], "--", color="gray", linewidth=1.2,
+            alpha=0.6, zorder=1)
 
-    # Diagonal reference line
-    lims = [0, 100]
-    ax.plot(lims, lims, "--", color="gray", linewidth=1, alpha=0.7, zorder=1)
+    xs = [p[0] for p in main_points]
+    ys = [p[1] for p in main_points]
+    ax.scatter(xs, ys, s=80, color="#1f77b4", zorder=3)
 
-    for x, y, label in points:
-        dx, dy = OFFSETS.get(label, (0.3, 0.5))
+    # ── Label offsets tuned for the zoomed [67, 97] coordinate space ────────
+    OFFSETS_ZOOM = {
+        "DA XLM-R 10%":           ( 0.4, -0.9),
+        "EN XLM-R":               ( 0.4,  0.7),
+        "EN BERT":                ( 0.4,  0.7),
+        "EN→DA XLM-R 0-shot":    (-5.5, -1.5),
+        "NO→DA mBERT 0-shot":    (-6.0,  1.0),
+        "NO→DA XLM-R 0-shot":    ( 0.4, -1.2),
+        "DA XLM-R 25%":           (-6.0,  1.2),
+        "DA XLM-R 50%":           ( 0.4, -1.2),
+        "DA BERT":                (-5.0, -1.5),
+        "DA XLM-R":               ( 0.4, -1.0),
+        "EN→DA mBERT FT":         ( 0.4,  0.9),
+        "EN→DA XLM-R FT":         (-5.5, -1.5),
+        "NO→DA mBERT FT":         ( 0.4,  0.8),
+        "NO→DA XLM-R FT":         (-5.5,  1.2),
+        "NO BERT":                ( 0.4,  0.7),
+        "NO XLM-R":               ( 0.4, -0.9),
+    }
+
+    for x, y, label in main_points:
+        dx, dy = OFFSETS_ZOOM.get(label, (0.4, 0.6))
+        needs_arrow = abs(dx) > 0.8 or abs(dy) > 0.7
         ax.annotate(
             label, (x, y),
             xytext=(x + dx, y + dy),
-            fontsize=7.5,
+            fontsize=9,
             ha="left" if dx >= 0 else "right",
-            arrowprops=dict(arrowstyle="-", color="gray", lw=0.5)
-            if abs(dx) > 1 or abs(dy) > 0.5 else None,
+            va="center",
+            arrowprops=dict(arrowstyle="-", color="#888888", lw=0.7)
+            if needs_arrow else None,
         )
 
-    ax.set_xlabel("Strict span F1 (%)", fontsize=12)
-    ax.set_ylabel("Saved evaluation F1 (%)", fontsize=12)
-    ax.set_title("Strict F1 vs saved evaluation F1", fontsize=13)
-    ax.set_xlim(-5, 100)
-    ax.set_ylim(0, 100)
+    # ── Artifact callout box in the lower-left corner ────────────────────────
+    if artifact:
+        ax.text(
+            0.03, 0.04,
+            (f"⚠  {artifact[2]}\n"
+             f"strict F1 = {artifact[0]:.1f}%   saved F1 = {artifact[1]:.1f}%\n"
+             f"(excluded — evaluation path pointed at English dev)"),
+            transform=ax.transAxes,
+            fontsize=8.5,
+            color="#c0392b",
+            va="bottom", ha="left",
+            bbox=dict(boxstyle="round,pad=0.5", fc="white",
+                      ec="#c0392b", alpha=0.9, lw=1.2),
+        )
+
+    ax.set_xlabel("Strict span F1 (%)", fontsize=13)
+    ax.set_ylabel("Saved evaluation F1 (%)", fontsize=13)
+    ax.set_title("Strict F1 vs. saved evaluation F1\n",
+                 fontsize=12)
+    ax.tick_params(labelsize=10)
     ax.grid(True, alpha=0.3)
 
     out = os.path.join(FIG_DIR, "strict_vs_eval_scatter.png")
-    fig.savefig(out, dpi=150, bbox_inches="tight")
+    fig.savefig(out, dpi=180, bbox_inches="tight")
     plt.close(fig)
     print(f"Saved: {out}")
 

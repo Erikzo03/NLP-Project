@@ -1,8 +1,10 @@
 \section{Dataset}
 
-We use the Universal NER benchmark \citep{mayhew2024universal} for English, Norwegian, and Danish. The data is sentence-level and token-aligned in IOB2 format, where each token carries a BIO label (B-TYPE, I-TYPE, or O). The entity types are PER (person), LOC (location), and ORG (organization). MISC entities appear in a second annotation column of the Danish file but are absent from the primary label column that models read and are evaluated on, so MISC F1 is zero for all systems by construction --- not a model failure but a data-format artifact we discuss in Section~\ref{sec:analysis}.
+We use the Universal NER benchmark \citep{mayhew2024universal} for English, Norwegian and Danish. Data are provided sentence-by-sentence in token-aligned IOB2 format (B-TYPE, I-TYPE, O), with three entity types in the primary label column: PER (person), LOC (location) and ORG (organization).
 
-The three languages play different roles in the experiments. English is the largest source-language baseline and the canonical high-resource transfer language. Norwegian is the North Germanic alternative we compare against English. Danish is the target language whose labeled data we treat as scarce in the transfer experiments.
+One detail warrants attention upfront. The Danish file does contain MISC labels, but they reside in a \emph{secondary} annotation column — not the primary column that the training and evaluation scripts read. As a result, MISC F1 is effectively forced to 0.0 for every Danish-target system: not because the model cannot learn MISC, but because the pipeline never sees those labels in the first place (Section~\ref{sec:analysis} provides details).
+
+The three languages play distinct roles. English is the high-resource source; Norwegian is the closely related North Germanic alternative; Danish is the low-resource target whose labels we either restrict or withhold in the transfer scenarios.
 
 \begin{table}[t]
 \centering
@@ -20,6 +22,6 @@ Danish    &  4{,}383 &    588  &    709  \\
 \label{tab:dataset_splits}
 \end{table}
 
-The dataset characteristics are not symmetric. English has roughly five times more training sentences than Danish or Norwegian, which gives it a data-volume advantage in the source-language baselines that is separate from any linguistic-proximity effect. Danish and Norwegian are matched in size, so the Danish data-budget experiments (10\%, 25\%, 50\%) have a clean interpretation.
+The size asymmetry is lopsided in an important way: English provides roughly five times as many training sentences as Danish or Norwegian (Table~\ref{tab:dataset_splits}). That data-volume advantage for the English source is a separate factor from typological proximity, and the fine-tuning experiments are partly about disentangling the two. Danish and Norwegian are closely matched in size, which simplifies interpretation of the Danish data-budget conditions (10\%, 25\%, 50\%).
 
-The label inventory is shared across languages in the primary annotation column, so performance differences reflect language transfer rather than annotation-schema mismatch. We verified this consistency before training using a label-inventory check across all three datasets.
+Because the primary annotation column uses the same label inventory across all three languages, observed performance differences are attributable to language transfer rather than annotation-schema mismatches. We verified this consistency before training.

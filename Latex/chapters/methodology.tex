@@ -2,32 +2,32 @@
 
 \subsection{Experimental design}
 
-We evaluate five families of experiments:
+We run five families of experiments:
 \begin{itemize}
-  \item monolingual baselines for English, Norwegian, and Danish,
+  \item monolingual baselines for English, Norwegian and Danish,
   \item zero-shot transfer to Danish from English and Norwegian,
-  \item transfer fine-tuning where a source-trained model is further fine-tuned on Danish,
+  \item transfer fine-tuning, where a source-trained model is further trained on Danish,
   \item Danish-only supervision at multiple data budgets (10\%, 25\%, 50\%, 100\%), and
   \item linguistic-distance analysis based on WALS typological feature vectors.
 \end{itemize}
 
-The design holds the label space, evaluation metric, and Danish target data fixed, varying only the source language, encoder, and Danish supervision budget. This makes the source-language comparison interpretable without confounds.
+The label space and Danish target splits stay fixed throughout. What varies are source language, encoder, and Danish supervision budget — three clean axes that keep the interpretation tractable.
 
 \subsection{Models and checkpoints}
 
-We use two multilingual encoders as the base for all token-classification models:
+Two multilingual encoders serve as the backbone for token-classification:
 \begin{itemize}
   \item \textbf{mBERT}: \texttt{bert-base-multilingual-cased} \citep{devlin2019bert} — 12 layers, 110M parameters, trained on 104 languages.
-  \item \textbf{XLM-R}: \texttt{xlm-roberta-base} \citep{conneau2020xlmr} — 12 layers, 125M parameters, trained on 100 languages with substantially more data than mBERT.
+  \item \textbf{XLM-R}: \texttt{xlm-roberta-base} \citep{conneau2020xlmr} — 12 layers, 125M parameters, trained on 100 languages with a substantially larger pretraining corpus than mBERT.
 \end{itemize}
 
-The English monolingual BERT baseline uses \texttt{bert-base-cased} (English-only, not multilingual) to establish a single-language ceiling. All other experiments use one of the two multilingual encoders above with a linear token-classification head for BIO tagging.
+An English-only BERT baseline (\texttt{bert-base-cased}) provides a single-language reference point. All other experiments attach a linear token-classification head for BIO tagging on top of the multilingual encoders.
 
-Fine-tuned transfer experiments (EN→DA FT, NO→DA FT) initialize from the best checkpoint of the corresponding zero-shot run and then continue training on Danish data. This two-stage procedure means each fine-tuned model has seen both its source-language and Danish training data.
+For fine-tuned transfer (EN→DA FT, NO→DA FT) we initialize from the best zero-shot checkpoint and continue training on Danish. These models have therefore been exposed to labeled data from both the source and the target language.
 
 \subsection{Training hyperparameters}
 
-All runs share the same hyperparameter configuration unless otherwise noted:
+All runs share the same configuration unless otherwise stated:
 
 \begin{table}[t]
 \centering
@@ -46,18 +46,23 @@ Random seed            & 42 \\
 Early stopping         & Best checkpoint by dev F1 \\
 \bottomrule
 \end{tabular}
-\caption{Shared hyperparameters used across all experiments. All runs used a single seed; multi-seed replication is a known limitation (see Section~\ref{sec:discussion}).}
+\caption{Shared hyperparameters used across all experiments. Multi-seed replication and its implications are discussed in Section~\ref{sec:discussion}.}
 \label{tab:hyperparams}
 \end{table}
 
-Hyperparameters were not tuned per source language; the same configuration was used for every run. This is conservative and means results could potentially improve with per-language tuning, but it also means the comparison is fair in the sense that no system received an advantage from hyperparameter search.
+We deliberately avoided per-language hyperparameter tuning, applying the same configuration to every run. That choice can leave performance on the table for individual systems, but it keeps comparisons interpretable.
 
 \subsection{Evaluation}
 
-The primary metric is strict span-level F1 computed by \texttt{span\_f1.py}, which requires exact match on both entity boundaries and type label. We also report unlabeled span F1 (exact boundaries, any label) and loose span F1 (partial boundary overlap with matching label). These three metrics together let us distinguish missed spans from boundary errors from labeling errors.
+The primary metric is strict span-level F1 as computed by \texttt{span\_f1.py}, requiring an exact match on both entity boundaries and type. We also report:
+\begin{itemize}
+  \item unlabeled span F1 (exact boundaries, any label),
+  \item loose span F1 (partial overlap, matching label).
+\end{itemize}
+These additional views help separate boundary errors from label confusions from entirely missed spans, giving a more complete picture of where each system struggles.
 
-The English test set is masked (no gold labels available), so test results are only reported for Danish and Norwegian experiments. All reported test scores use the Danish DDT test split for Danish-target experiments and the NorNE test split for Norwegian source baselines.
+Because the English test split is masked (no gold labels), test-set comparisons focus on Danish and Norwegian. Danish-target models are evaluated on the Danish DDT test split; Norwegian source baselines on the NorNE test split.
 
 \subsection{Statistical testing}
 
-Because all experiments use a single random seed, we cannot report mean $\pm$ standard deviation. To assess whether the core EN-vs-NO comparison is statistically reliable, we run a paired approximate randomisation test (paired bootstrap with 10{,}000 iterations) on the dev and test prediction files. Results are reported in Section~\ref{sec:results}.
+To assess the English--Norwegian contrast we apply paired resampling tests (paired bootstrap, 10{,}000 iterations) to dev and test prediction files. With only a few seeds, these tests serve as a practical reliability check, not a substitute for broader replication. More seeds would still be preferable.
