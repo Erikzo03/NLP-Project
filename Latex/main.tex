@@ -1,4 +1,5 @@
 \documentclass[11pt]{article}
+\PassOptionsToPackage{hyphens}{url}
 \usepackage{acl}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -12,6 +13,7 @@
 \usepackage{multirow}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
+\PassOptionsToPackage{hyphens}{url}
 \usepackage{url}
 \usepackage{hyperref}
 
@@ -42,7 +44,9 @@ IT University of Copenhagen}
 \input{chapters/discussion}
 \input{chapters/conclusion}
 
+\begin{sloppypar}
 \bibliography{references}
+\end{sloppypar}
 
 \appendix
 \input{chapters/appendix}
