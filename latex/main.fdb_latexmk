@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex main"] 1779194202.40051 "main.aux" "main.bbl" "main" 1779195264.5742 0
+["bibtex main"] 1779195415.41817 "main.aux" "main.bbl" "main" 1779195416.62391 0
   "./acl_natbib.bst" 1777541820.80135 45186 3d1af46d62cc9172ef6e42b56c1cd613 ""
   "./references.bib" 1779194188.81 5299 f10f3df3a5abf8de2d2a3d37b06a8380 ""
-  "main.aux" 1779195264.36405 10456 6852795ec6f40808b75e7d8a500cd2af "pdflatex"
+  "main.aux" 1779195416.42712 10456 6c676232b706122cee5cf95f54f71552 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1779195263.33373 "/Users/erikaymerich/Desktop/Data Science/4 semester/NLP and deep learning/Semester project /NLP-Project/Latex/main.tex" "main.pdf" "main" 1779195264.57433 0
+["pdflatex"] 1779195415.49452 "/Users/erikaymerich/Desktop/Data Science/4 semester/NLP and deep learning/Semester project /NLP-Project/Latex/main.tex" "main.pdf" "main" 1779195416.62402 0
   "/Users/erikaymerich/Desktop/Data Science/4 semester/NLP and deep learning/Semester project /NLP-Project/Latex/main.tex" 1779192536.1738 1037 aeb17f4f923a43d6d431817602615ba8 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -238,7 +238,7 @@
   "/usr/local/texlive/2026/texmf-var/web2c/pdftex/pdflatex.fmt" 1773392685 3636769 9ca43a58a524ecf353589a17e61f4c70 ""
   "/usr/local/texlive/2026/texmf.cnf" 1772409725 577 648cd9f92f9c0eac486f4c71c85cfbbe ""
   "acl.sty" 1777541820.79933 11615 e2c027f483aa40e577ed34264c8b0655 ""
-  "chapters/abstract.tex" 1779195140.16678 1116 f56b7d20c5a24386ec65e9134e93ea79 ""
+  "chapters/abstract.tex" 1779195396.10465 1018 48eee2f1b4fda148a29aea82ea758a1c ""
   "chapters/appendix.tex" 1779195263.19286 2807 82178e041ae45dc52708762ca2ac4481 ""
   "chapters/conclusion.tex" 1779191698.33945 1219 b9aee24a66644a3c6fdde66e26fa4ff8 ""
   "chapters/dataset.tex" 1779195182.52221 2112 4da1a3d59d210ae63164d316039cbea1 ""
@@ -250,9 +250,9 @@
   "figures/danish_learning_curve.png" 1778334364.80744 56506 af553741e6685c57c415ce0e73a78ba6 ""
   "figures/strict_vs_eval_scatter.png" 1778334364.93649 152563 953da4bc4fa293f1b916e812d2230014 ""
   "figures/transfer_overview.png" 1777542416.73854 71273 2c04cd58a400e117d71216d0a76d9cb0 ""
-  "main.aux" 1779195264.36405 10456 6852795ec6f40808b75e7d8a500cd2af "pdflatex"
-  "main.bbl" 1779194213.54849 5701 7e05e6ec4f6d18f0fff1b6566f1e3905 "bibtex main"
-  "main.out" 1779195264.36484 3460 d8e599b4c25f2054e235289b3222f25b "pdflatex"
+  "main.aux" 1779195416.42712 10456 6c676232b706122cee5cf95f54f71552 "pdflatex"
+  "main.bbl" 1779195415.49195 5607 3c86f2166471ed34d6779438b309c51d "bibtex main"
+  "main.out" 1779195416.4279 3460 d8e599b4c25f2054e235289b3222f25b "pdflatex"
   "main.tex" 1779192536.1738 1037 aeb17f4f923a43d6d431817602615ba8 ""
   (generated)
   "main.aux"
