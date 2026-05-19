@@ -1,27 +1,36 @@
 \section{Dataset}
 
-We use the Universal NER benchmark \citep{mayhew2024universal} for English, Norwegian and Danish. Data are provided sentence-by-sentence in token-aligned IOB2 format (B-TYPE, I-TYPE, O), with three entity types in the primary label column: PER (person), LOC (location) and ORG (organization).
+We use the Universal NER benchmark \citep{mayhew2024universal} for English, Norwegian, and Danish, provided sentence-by-sentence in token-aligned IOB2 format with three entity types: PER (person), LOC (location), and ORG (organization).
 
-One detail warrants attention upfront. The Danish file does contain MISC labels, but they reside in a \emph{secondary} annotation column — not the primary column that the training and evaluation scripts read. As a result, MISC F1 is effectively forced to 0.0 for every Danish-target system: not because the model cannot learn MISC, but because the pipeline never sees those labels in the first place (Section~\ref{sec:analysis} provides details).
+Figure~\ref{fig:dataset_splits} illustrates the sentence-count imbalance across splits. English provides roughly five times as many training sentences as Danish or Norwegian---a data-volume advantage that is a separate factor from typological proximity, and one the fine-tuning experiments help disentangle. Danish and Norwegian are closely matched in size, which simplifies interpretation of the data-budget conditions.
 
-The three languages play distinct roles. English is the high-resource source; Norwegian is the closely related North Germanic alternative; Danish is the low-resource target whose labels we either restrict or withhold in the transfer scenarios.
-
-\begin{table}[t]
+\begin{figure}[t]
 \centering
-\small
-\begin{tabular}{lrrr}
-\toprule
-Language & Train & Dev & Test \\
-\midrule
-English   & 20{,}142 & 4{,}713 & 4{,}634 \\
-Norwegian &  4{,}183 &    585  &    719  \\
-Danish    &  4{,}383 &    588  &    709  \\
-\bottomrule
-\end{tabular}
-\caption{Universal NER sentence counts per split. English is substantially larger, making it the natural high-resource source baseline.}
-\label{tab:dataset_splits}
-\end{table}
+\begin{tikzpicture}
+\begin{axis}[
+  ybar,
+  bar width=8pt,
+  width=\linewidth,
+  height=4cm,
+  ylabel={Sentences (k)},
+  xtick={1,2,3},
+  xticklabels={English, Norwegian, Danish},
+  ymin=0,
+  ymajorgrids=true,
+  grid style={dashed,gray!40},
+  legend style={at={(0.98,0.96)}, anchor=north east, font=\small, legend columns=3},
+  tick label style={font=\small},
+  label style={font=\small},
+  enlarge x limits=0.35,
+]
+\addplot[fill=blue!50,  draw=blue!70]   coordinates {(1,20.1) (2,4.2)  (3,4.4)};
+\addplot[fill=orange!50,draw=orange!70] coordinates {(1,4.7)  (2,0.59) (3,0.59)};
+\addplot[fill=green!50, draw=green!70]  coordinates {(1,4.6)  (2,0.72) (3,0.71)};
+\legend{Train, Dev, Test}
+\end{axis}
+\end{tikzpicture}
+\caption{Universal NER sentence counts (thousands) per language and split. English provides $\sim$5$\times$ more training data than Norwegian or Danish.}
+\label{fig:dataset_splits}
+\end{figure}
 
-The size asymmetry is lopsided in an important way: English provides roughly five times as many training sentences as Danish or Norwegian (Table~\ref{tab:dataset_splits}). That data-volume advantage for the English source is a separate factor from typological proximity, and the fine-tuning experiments are partly about disentangling the two. Danish and Norwegian are closely matched in size, which simplifies interpretation of the Danish data-budget conditions (10\%, 25\%, 50\%).
-
-Because the primary annotation column uses the same label inventory across all three languages, observed performance differences are attributable to language transfer rather than annotation-schema mismatches. We verified this consistency before training.
+The Danish data-budget conditions (10\%, 25\%, 50\% of 4{,}383 training sentences) correspond to approximately 440, 1{,}100, and 2{,}200 sentences respectively---each a practically realistic annotation effort that tests how quickly target-language supervision closes the zero-shot gap. Because the primary annotation column uses the same label inventory across all three languages, observed performance differences are attributable to language transfer rather than annotation-schema mismatches.

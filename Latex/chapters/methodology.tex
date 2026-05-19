@@ -11,58 +11,30 @@ We run five families of experiments:
   \item linguistic-distance analysis based on WALS typological feature vectors.
 \end{itemize}
 
-The label space and Danish target splits stay fixed throughout. What varies are source language, encoder, and Danish supervision budget — three clean axes that keep the interpretation tractable.
+The label space and Danish target splits stay fixed throughout. What varies are source language, encoder, and Danish supervision budget.
 
 \subsection{Models and checkpoints}
 
-Two multilingual encoders serve as the backbone for token-classification:
+Two multilingual encoders serve as the backbone for token classification:
 \begin{itemize}
-  \item \textbf{mBERT}: \texttt{bert-base-multilingual-cased} \citep{devlin2019bert} — 12 layers, 110M parameters, trained on 104 languages.
-  \item \textbf{XLM-R}: \texttt{xlm-roberta-base} \citep{conneau2020xlmr} — 12 layers, 125M parameters, trained on 100 languages with a substantially larger pretraining corpus than mBERT.
+  \item \textbf{mBERT}: \texttt{bert-base-multilingual-cased} \citep{devlin2019bert} --- 12 layers, 110M parameters, trained on 104 languages.
+  \item \textbf{XLM-R}: \texttt{xlm-roberta-base} \citep{conneau2020xlmr} --- 12 layers, 125M parameters, larger and more diverse pretraining corpus.
 \end{itemize}
 
-An English-only BERT baseline (\texttt{bert-base-cased}) provides a single-language reference point. All other experiments attach a linear token-classification head for BIO tagging on top of the multilingual encoders.
-
-For fine-tuned transfer (EN→DA FT, NO→DA FT) we initialize from the best zero-shot checkpoint and continue training on Danish. These models have therefore been exposed to labeled data from both the source and the target language.
+Both encoders are fine-tuned for token classification using the Hugging Face Trainer API following standard cross-lingual transfer practice \citep{kdnuggets2023mbert}. For fine-tuned transfer (EN$\rightarrow$DA FT, NO$\rightarrow$DA FT) we initialize from the best zero-shot checkpoint and continue training on Danish.
 
 \subsection{Training hyperparameters}
 
-All runs share the same configuration unless otherwise stated:
-
-\begin{table}[t]
-\centering
-\small
-\begin{tabular}{ll}
-\toprule
-Hyperparameter & Value \\
-\midrule
-Learning rate          & $2\times10^{-5}$ (AdamW) \\
-Train batch size       & 8 \\
-Eval batch size        & 16 \\
-Max sequence length    & 256 tokens \\
-Training epochs        & 4 \\
-Weight decay           & 0.01 \\
-Random seed            & 42 \\
-Early stopping         & Best checkpoint by dev F1 \\
-\bottomrule
-\end{tabular}
-\caption{Shared hyperparameters used across all experiments. Multi-seed replication and its implications are discussed in Section~\ref{sec:discussion}.}
-\label{tab:hyperparams}
-\end{table}
-
-We deliberately avoided per-language hyperparameter tuning, applying the same configuration to every run. That choice can leave performance on the table for individual systems, but it keeps comparisons interpretable.
+All runs share the same configuration: learning rate $2\times10^{-5}$ (AdamW), batch size 8 (train) / 16 (eval), max sequence length 256, 4 epochs, weight decay 0.01, early stopping by dev F1. We deliberately avoided per-language hyperparameter tuning; that choice may leave performance on the table for individual systems, but it reduces degrees of freedom in the source-language comparison (though per-language tuning could alter relative rankings). Multi-seed replication and its implications are discussed in Section~\ref{sec:discussion}.
 
 \subsection{Evaluation}
 
-The primary metric is strict span-level F1 as computed by \texttt{span\_f1.py}, requiring an exact match on both entity boundaries and type. We also report:
-\begin{itemize}
-  \item unlabeled span F1 (exact boundaries, any label),
-  \item loose span F1 (partial overlap, matching label).
-\end{itemize}
-These additional views help separate boundary errors from label confusions from entirely missed spans, giving a more complete picture of where each system struggles.
+The primary metric is strict span-level F1 (\texttt{span\_f1.py}), requiring exact match on both entity boundaries and type. We also report unlabeled span F1 (exact boundaries, any label) and loose span F1 (partial overlap, matching label).
 
-Because the English test split is masked (no gold labels), test-set comparisons focus on Danish and Norwegian. Danish-target models are evaluated on the Danish DDT test split; Norwegian source baselines on the NorNE test split.
+Subword-to-word label alignment follows the standard convention: the entity label is assigned to the first subword token of each word; subsequent subword tokens are masked in the loss, keeping token-level predictions consistent with word-level gold annotations.
+
+Because the English test split is masked, test-set comparisons focus on Danish and Norwegian targets.
 
 \subsection{Statistical testing}
 
-To assess the English--Norwegian contrast we apply paired resampling tests (paired bootstrap, 10{,}000 iterations) to dev and test prediction files. With only a few seeds, these tests serve as a practical reliability check, not a substitute for broader replication. More seeds would still be preferable.
+We apply paired resampling tests (paired bootstrap, 10{,}000 iterations) to dev and test prediction files to assess the English--Norwegian contrast. With only a few seeds, these tests serve as a practical reliability check rather than a substitute for broader replication.

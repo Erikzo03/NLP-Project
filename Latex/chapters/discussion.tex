@@ -1,33 +1,28 @@
 \section{Discussion}
 \label{sec:discussion}
 
-\subsection{What multi-seed replication revealed}
+\subsection{Multi-seed replication}
 
-A single seed can give a misleading picture. Seed 42 made Norwegian XLM-R look clearly better on the development set (86.49 vs.\ 85.52), but once averaged across three seeds, English XLM-R pulls slightly ahead on dev (85.87 vs.\ 85.45). That reversal is the cautionary finding in one line: cross-lingual source-language comparisons based on a single initialization are unreliable.
+Single-seed results mislead. Seed 42 made Norwegian XLM-R look clearly better on dev (86.49 vs.\ 85.52), but averaged across three seeds English XLM-R pulls slightly ahead (85.87 vs.\ 85.45). On the held-out test set the direction reverses in Norwegian's favor for both encoders. The takeaway: held-out test evaluation and multi-seed replication are both essential for source-language claims.
 
-The held-out test set tells a cleaner story. Norwegian leads for both encoders — +1.86 F1 for XLM-R ($p=0.10$, borderline) and +3.36 F1 for mBERT ($p=0.046$, significant). The mBERT result is the more convincing of the two: a larger margin, lower variance, and conventional significance despite the limited number of usable seed pairs. The XLM-R effect is directionally consistent, but additional seeds would be needed to settle its significance. The takeaway is not that development evaluation is useless; it is that held-out test results are essential for source-language claims, and replication should not be optional.
+\subsection{Typological distance in context}
 
+The zero-shot advantage of Norwegian aligns with its 5.7$\times$ lower WALS distance to Danish (Table~\ref{tab:distance_gain}), but two findings complicate a purely distance-based account. First, English mBERT fine-tuned on Danish achieves the best overall result (89.4 dev, 85.5 test), outperforming all Norwegian variants. English provides $\sim$5$\times$ more source-language training sentences; that initialization advantage outweighs typological proximity when target supervision is available to steer the model. The distance hypothesis is most informative in the pure zero-shot setting. Second, XLM-R generally outperforms mBERT on source baselines and zero-shot (e.g.\ 92.0 vs.\ 91.2 on Norwegian), reflecting its larger pretraining corpus, but the gap narrows after Danish fine-tuning. Unlabeled and loose F1 exceed strict by 3--5 points across systems, indicating that errors are mainly boundary or label near-misses rather than entirely missed spans. The largest gap at 10\% Danish data (strict 70.0, loose 81.7) suggests that limited supervision lets the model detect spans but not reliably label them.
 
-\subsection{Inconvenient findings}
+\subsection{Pipeline notes}
+\label{sec:analysis}
 
-Two results complicate a simple distance-based narrative and are worth confronting directly.
+\textbf{MISC F1 = 0.0.} The Universal NER Danish file stores MISC annotations in a secondary column (e.g.\ \texttt{B-MISC\#O}) not read by training or evaluation code---a data-format artifact, not a modeling failure (32 dev and 44 test instances affected).
 
-\textbf{English mBERT wins after fine-tuning.} The best transfer-plus-fine-tune system is English mBERT fine-tuned on Danish (89.4 dev, 85.5 test), outperforming all Norwegian transfer variants. This looks like a contradiction of the typological-distance hypothesis, until you recall that English provides roughly 20,000 training sentences against approximately 4,000 for Norwegian. A larger source initialization can outweigh typological proximity once target-language supervision is available to steer the model. The distance hypothesis is most informative in the pure zero-shot setting, where that data-volume advantage cannot compensate.
+\textbf{Anomalous EN$\rightarrow$DA run.} One seed-42 English-to-Danish dev prediction file contains 2{,}001 sentences against 564 in the gold (strict F1 $\approx$0.3\% vs.\ 79.3 logged during training), caused by an incorrect dev-evaluation path that pointed at the English development split. A blast-radius check over all 17 prediction files found the mismatch isolated to this single file; all other runs are consistent (see Appendix Figure~\ref{fig:strict_eval_scatter}). This run is excluded from seed-42 dev comparisons; its test prediction is unaffected (78.8 test F1).
 
-\textbf{Danish XLM-R underperforms Danish BERT in monolingual training.} Danish XLM-R trails Danish BERT slightly (88.6 vs.\ 89.0 dev; 84.9 vs.\ 85.3 test). XLM-R's broader multilingual capacity allocation may yield slightly less Danish-specific representations compared with mBERT in this fully supervised setting — or the gap may simply fall within run-to-run noise and disappear under multi-seed replication. Either interpretation cautions against assuming XLM-R is uniformly superior.
+\subsection{Future directions}
 
+Figure~\ref{fig:learning_curve} shows that roughly 25--50\% of the Danish training set suffices to match or exceed the zero-shot baselines, suggesting a practical strategy: start with a Norwegian zero-shot model, then annotate a modest fraction of the target domain. The most valuable extension would be adding Swedish as a source language to test whether the WALS distance gradient (NO 0.021 $<$ SV 0.039 $<$ EN 0.119) produces a corresponding F1 gradient across more than two source points.
 
-\subsection{Encoder choice}
-
-XLM-R tends to outperform mBERT in source-language baselines and zero-shot scenarios (e.g.\ 92.0 vs.\ 91.2 for Norwegian baselines), reflecting its larger pretraining corpus. That advantage is most apparent without target-language supervision. After Danish fine-tuning, the gap narrows or sometimes reverses — models with more concentrated vocabulary allocation, such as mBERT, appear to catch up once target labels are available to specialize the representations.
-
-
-\subsection{Data efficiency}
-
-The Danish learning curve (Figure~\ref{fig:learning_curve}) shows that zero-shot transfer provides a reasonable starting point, and that moderate annotation recovers most of the remaining gap to full supervision quickly. Reaching approximately 25--50\% of the Danish training set is enough to match or surpass the zero-shot baselines. In practice, one could start with a Norwegian zero-shot model and label a fraction of a target dataset to reach competitive performance — a practical trade-off when annotation resources are limited.
-
-
-\subsection{Limitations}
-\label{sec:limitations}
-
-Several limitations bound what can be concluded. First, multi-seed replication covers only three seeds for a subset of comparisons, leaving some effect-size estimates uncertain. Second, only English and Norwegian are used as source languages; experiments with Swedish or German would test whether a typological distance gradient corresponds to a measurable F1 gradient. Third, results come from a single NER benchmark family, so generalization to other domains or annotation conventions is untested. Fourth, no per-source hyperparameter tuning was performed, which may have disadvantaged certain configurations.
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=\linewidth]{danish_learning_curve.png}
+  \caption{Danish XLM-R learning curve and zero-shot reference lines. Approximately 25--50\% of Danish training data suffices to match the zero-shot baselines.}
+  \label{fig:learning_curve}
+\end{figure}

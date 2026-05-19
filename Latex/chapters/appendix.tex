@@ -1,0 +1,62 @@
+\section{Development-Set Results}
+
+Table~\ref{tab:dev_results} reports single-seed (seed 42) development span F1 for all evaluated systems. The anomalous EN$\rightarrow$DA mBERT zero-shot run is excluded (see Section~\ref{sec:analysis}).
+
+\begin{table}[h]
+\centering
+\small
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lccc}
+\toprule
+Setup & Strict F1 & Unlabeled F1 & Loose F1 \\
+\midrule
+\multicolumn{4}{l}{\textit{Source-language baselines}} \\
+Norwegian XLM-R & 92.0 & 95.9 & 92.8 \\
+Norwegian BERT  & 91.2 & 95.1 & 92.1 \\
+Danish BERT     & 89.0 & 93.0 & 92.2 \\
+Danish XLM-R    & 88.6 & 92.6 & 91.8 \\
+English XLM-R   & 81.7 & 86.3 & 85.7 \\
+\midrule
+\multicolumn{4}{l}{\textit{Zero-shot transfer to Danish}} \\
+NO$\rightarrow$DA XLM-R     & 86.5 & 90.3 & 90.7 \\
+EN$\rightarrow$DA XLM-R     & 85.5 & 90.7 & 88.5 \\
+NO$\rightarrow$DA mBERT     & 83.4 & 88.2 & 86.6 \\
+\midrule
+\multicolumn{4}{l}{\textit{Fine-tuned on Danish}} \\
+EN$\rightarrow$DA mBERT + DA FT  & 89.4 & 93.4 & 91.7 \\
+NO$\rightarrow$DA XLM-R + DA FT  & 88.4 & 92.7 & 91.5 \\
+NO$\rightarrow$DA mBERT + DA FT  & 87.6 & 92.1 & 90.5 \\
+EN$\rightarrow$DA XLM-R + DA FT  & 87.0 & 90.8 & 90.4 \\
+\midrule
+\multicolumn{4}{l}{\textit{Danish data efficiency}} \\
+Danish XLM-R 50\% & 85.5 & 90.8 & 90.0 \\
+Danish XLM-R 25\% & 82.8 & 88.8 & 88.3 \\
+Danish XLM-R 10\% & 70.0 & 77.2 & 81.7 \\
+\bottomrule
+\end{tabular}%
+}
+\caption{Development-set span F1 scores (\%). Strict = exact span and label; Unlabeled = exact span, any label; Loose = partial overlap with matching label.}
+\label{tab:dev_results}
+\end{table}
+
+\section{Evaluation Consistency Check}
+
+Figure~\ref{fig:strict_eval_scatter} compares strict F1 from saved prediction files with training-time evaluation F1 for all 17 runs. All runs except the known EN$\rightarrow$DA artifact cluster tightly near the diagonal, confirming that the pipeline produced internally consistent results.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{strict_vs_eval_scatter.png}
+  \caption{Strict F1 from saved predictions vs.\ training-time evaluation F1. The EN$\rightarrow$DA zero-shot artifact (strict F1 $\approx$0.3\%) is annotated but excluded from the axis range. All other runs fall within $\sim$1--2 points of the diagonal.}
+  \label{fig:strict_eval_scatter}
+\end{figure}
+
+\section{Group Work and AI Usage}
+
+\subsection*{Group Contributions}
+
+All three group members contributed evenly to the project.
+
+\subsection*{AI Tool Usage}
+
+Perplexity AI was used to identify potentially relevant papers for the Related Work section. All cited papers were subsequently verified and read independently by us.AI tools were used for \LaTeX{} syntax and formatting only (e.g.\ table layout, figure placement). The scientific content, analysis, and conclusions are entirely our own.
+

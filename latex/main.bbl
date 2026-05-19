@@ -1,59 +1,112 @@
-\begin{thebibliography}{11}
+\begin{thebibliography}{12}
 \providecommand{\natexlab}[1]{#1}
 
-\bibitem[{Conneau et~al.(2020)Conneau, Khandelwal, Goyal, Chaudhary, Wenzek, Guzman, Grave, Ott, Zettlemoyer, and Stoyanov}]{conneau2020xlmr}
-Alexis Conneau, Kartikay Khandelwal, Naman Goyal, Vishrav Chaudhary, Guillaume Wenzek, Paco Guzman, Edouard Grave, Myle Ott, Luke Zettlemoyer, and Veselin Stoyanov. 2020.
-\newblock \href {https://aclanthology.org/2020.acl-main.747/} {Unsupervised cross-lingual representation learning at scale}.
-\newblock In \emph{Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics}.
+\bibitem[{Conneau et~al.(2020)Conneau, Khandelwal, Goyal, Chaudhary, Wenzek,
+  Guzman, Grave, Ott, Zettlemoyer, and Stoyanov}]{conneau2020xlmr}
+Alexis Conneau, Kartikay Khandelwal, Naman Goyal, Vishrav Chaudhary, Guillaume
+  Wenzek, Paco Guzman, Edouard Grave, Myle Ott, Luke Zettlemoyer, and Veselin
+  Stoyanov. 2020.
+\newblock \href {https://aclanthology.org/2020.acl-main.747/} {Unsupervised
+  cross-lingual representation learning at scale}.
+\newblock In \emph{Proceedings of the 58th Annual Meeting of the Association
+  for Computational Linguistics}.
 
-\bibitem[{Devlin et~al.(2019)Devlin, Chang, Lee, and Toutanova}]{devlin2019bert}
+\bibitem[{Devlin et~al.(2019)Devlin, Chang, Lee, and
+  Toutanova}]{devlin2019bert}
 Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2019.
-\newblock \href {https://aclanthology.org/N19-1423/} {{BERT}: Pre-training of deep bidirectional transformers for language understanding}.
-\newblock In \emph{Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies}.
+\newblock \href {https://aclanthology.org/N19-1423/} {{BERT}: Pre-training of
+  deep bidirectional transformers for language understanding}.
+\newblock In \emph{Proceedings of the 2019 Conference of the North American
+  Chapter of the Association for Computational Linguistics: Human Language
+  Technologies}.
 
-\bibitem[{Enevoldsen et~al.(2021)Enevoldsen, Hansen, and Nielbo}]{enevoldsen2021dacy}
+\bibitem[{Enevoldsen et~al.(2021)Enevoldsen, Hansen, and
+  Nielbo}]{enevoldsen2021dacy}
 Kenneth Enevoldsen, Lasse Hansen, and Kristoffer~L. Nielbo. 2021.
-\newblock \href {https://aclanthology.org/2021.nodalida-main.22/} {{DaCy}: A unified streamlined {Danish} {NLP} framework}.
-\newblock In \emph{Proceedings of the 23rd Nordic Conference on Computational Linguistics (NoDaLiDa)}, pages 206--216.
+\newblock \href {https://aclanthology.org/2021.nodalida-main.22/} {{DaCy}: A
+  unified streamlined {Danish} {NLP} framework}.
+\newblock In \emph{Proceedings of the 23rd Nordic Conference on Computational
+  Linguistics (NoDaLiDa)}, pages 206--216.
 
 \bibitem[{Fu et~al.(2023)Fu, Lin, Chen, Yang, and Jiang}]{fu2023heterogeneous}
 Yingwen Fu, Nankai Lin, Boyu Chen, Ziyu Yang, and Shengyi Jiang. 2023.
-\newblock \href {https://doi.org/10.1109/TASLP.2022.3212698} {Cross-lingual named entity recognition for heterogenous languages}.
-\newblock \emph{IEEE/ACM Transactions on Audio, Speech, and Language Processing}, 31:371--382.
+\newblock \href {https://doi.org/10.1109/TASLP.2022.3212698} {Cross-lingual
+  named entity recognition for heterogenous languages}.
+\newblock \emph{IEEE/ACM Transactions on Audio, Speech, and Language
+  Processing}, 31:371--382.
 
-\bibitem[{Hvingelby et~al.(2020)Hvingelby, Pauli, Barrett, Rosted, Lidegaard, and Søgaard}]{hvingelby2020dane}
-Rasmus Hvingelby, Amalie~Brogaard Pauli, Maria Barrett, Christina Rosted, Lasse~Malm Lidegaard, and Anders Søgaard. 2020.
-\newblock \href {https://aclanthology.org/2020.coling-main.583/} {{DaN}+: {Danish} nested named entities and lexical normalization}.
-\newblock In \emph{Proceedings of the 28th International Conference on Computational Linguistics}, pages 6649--6662.
+\bibitem[{Hvingelby et~al.(2020)Hvingelby, Pauli, Barrett, Rosted, Lidegaard,
+  and Søgaard}]{hvingelby2020dane}
+Rasmus Hvingelby, Amalie~Brogaard Pauli, Maria Barrett, Christina Rosted,
+  Lasse~Malm Lidegaard, and Anders Søgaard. 2020.
+\newblock \href {https://aclanthology.org/2020.coling-main.583/} {{DaN}+:
+  {Danish} nested named entities and lexical normalization}.
+\newblock In \emph{Proceedings of the 28th International Conference on
+  Computational Linguistics}, pages 6649--6662.
 
-\bibitem[{Khan et~al.(2025)Khan, Shipton, Anugraha, Duan, Hoang, Khiu, Dogruoz, and Lee}]{khan2025urielplus}
-Aditya Khan, Mason Shipton, David Anugraha, Kaiyao Duan, Phuong~H. Hoang, Eric Khiu, A.~Seza Dogruoz, and En-Shiun~Annie Lee. 2025.
-\newblock \href {https://aclanthology.org/2025.coling-main.463/} {{URIEL}+: Enhancing linguistic inclusion and usability in a typological and multilingual knowledge base}.
-\newblock In \emph{Proceedings of the 31st International Conference on Computational Linguistics}, pages 6937--6952.
+\bibitem[{{KDNuggets}(2023)}]{kdnuggets2023mbert}
+{KDNuggets}. 2023.
+\newblock Implement cross-lingual transfer learning with {mBERT} and {Hugging
+  Face} transformers.
+\newblock
+  \url{https://www.kdnuggets.com/implement-cross-lingual-transfer-learning-mbert-hugging-face-transformers}.
+\newblock Online tutorial; accessed May 2025.
 
-\bibitem[{Littell et~al.(2017)Littell, Mortensen, Lin, Kairis, Turner, and Levin}]{littell2017uriel}
-Patrick Littell, David~R. Mortensen, Ke~Lin, Katherine Kairis, Carlisle Turner, and Lori Levin. 2017.
-\newblock \href {https://aclanthology.org/E17-2002/} {{URIEL} and lang2vec: Representing languages as typological, geographical, and phylogenetic vectors}.
-\newblock In \emph{Proceedings of the 15th Conference of the European Chapter of the Association for Computational Linguistics: Volume 2, Short Papers}, pages 8--14.
+\bibitem[{Khan et~al.(2025)Khan, Shipton, Anugraha, Duan, Hoang, Khiu, Dogruoz,
+  and Lee}]{khan2025urielplus}
+Aditya Khan, Mason Shipton, David Anugraha, Kaiyao Duan, Phuong~H. Hoang, Eric
+  Khiu, A.~Seza Dogruoz, and En-Shiun~Annie Lee. 2025.
+\newblock \href {https://aclanthology.org/2025.coling-main.463/} {{URIEL}+:
+  Enhancing linguistic inclusion and usability in a typological and
+  multilingual knowledge base}.
+\newblock In \emph{Proceedings of the 31st International Conference on
+  Computational Linguistics}, pages 6937--6952.
 
-\bibitem[{Mayhew et~al.(2024)Mayhew, Blevins, Liu, Suppa, Gonen, Imperial, Karlsson, Lin, Ljubešic, Miranda, Plank, Riab, and Pinter}]{mayhew2024universal}
-Stephen Mayhew, Terra Blevins, Shuheng Liu, Marek Suppa, Hila Gonen, Joseph~Marvin Imperial, Borje~F. Karlsson, Peiqin Lin, Nikola Ljubešic, LJ~Miranda, Barbara Plank, Arij Riab, and Yuval Pinter. 2024.
-\newblock \href {https://aclanthology.org/2024.naacl-long.243/} {Universal {NER}: A gold-standard multilingual named entity recognition benchmark}.
-\newblock In \emph{Proceedings of the 2024 Conference of the North American Chapter of the Association for Computational Linguistics}.
+\bibitem[{Littell et~al.(2017)Littell, Mortensen, Lin, Kairis, Turner, and
+  Levin}]{littell2017uriel}
+Patrick Littell, David~R. Mortensen, Ke~Lin, Katherine Kairis, Carlisle Turner,
+  and Lori Levin. 2017.
+\newblock \href {https://aclanthology.org/E17-2002/} {{URIEL} and lang2vec:
+  Representing languages as typological, geographical, and phylogenetic
+  vectors}.
+\newblock In \emph{Proceedings of the 15th Conference of the European Chapter
+  of the Association for Computational Linguistics: Volume 2, Short Papers},
+  pages 8--14.
+
+\bibitem[{Mayhew et~al.(2024)Mayhew, Blevins, Liu, Suppa, Gonen, Imperial,
+  Karlsson, Lin, Ljubešic, Miranda, Plank, Riab, and
+  Pinter}]{mayhew2024universal}
+Stephen Mayhew, Terra Blevins, Shuheng Liu, Marek Suppa, Hila Gonen,
+  Joseph~Marvin Imperial, Borje~F. Karlsson, Peiqin Lin, Nikola Ljubešic,
+  LJ~Miranda, Barbara Plank, Arij Riab, and Yuval Pinter. 2024.
+\newblock \href {https://aclanthology.org/2024.naacl-long.243/} {Universal
+  {NER}: A gold-standard multilingual named entity recognition benchmark}.
+\newblock In \emph{Proceedings of the 2024 Conference of the North American
+  Chapter of the Association for Computational Linguistics}.
 
 \bibitem[{Plank(2020)}]{plank2020danish}
 Barbara Plank. 2020.
-\newblock \href {https://arxiv.org/abs/2003.02931} {Neural cross-lingual transfer and limited annotated data for named entity recognition in {Danish}}.
-\newblock In \emph{Proceedings of the 23rd Nordic Conference on Computational Linguistics (NoDaLiDa)}, pages 344--349.
+\newblock \href {https://arxiv.org/abs/2003.02931} {Neural cross-lingual
+  transfer and limited annotated data for named entity recognition in
+  {Danish}}.
+\newblock In \emph{Proceedings of the 23rd Nordic Conference on Computational
+  Linguistics (NoDaLiDa)}, pages 344--349.
 
-\bibitem[{Sohn et~al.(2024)Sohn, Jung, Cheng, Kang, Du, and Mortensen}]{sohn2024zeroshot}
-Jimin Sohn, Haeji Jung, Alex Cheng, Jooeon Kang, Yilin Du, and David~R. Mortensen. 2024.
-\newblock \href {https://arxiv.org/abs/2406.16030} {Zero-shot cross-lingual {NER} using phonemic representations for low-resource languages}.
-\newblock In \emph{Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing}.
+\bibitem[{Sohn et~al.(2024)Sohn, Jung, Cheng, Kang, Du, and
+  Mortensen}]{sohn2024zeroshot}
+Jimin Sohn, Haeji Jung, Alex Cheng, Jooeon Kang, Yilin Du, and David~R.
+  Mortensen. 2024.
+\newblock \href {https://arxiv.org/abs/2406.16030} {Zero-shot cross-lingual
+  {NER} using phonemic representations for low-resource languages}.
+\newblock In \emph{Proceedings of the 2024 Conference on Empirical Methods in
+  Natural Language Processing}.
 
-\bibitem[{Van Der~Goot et~al.(2025)Van Der~Goot, Ploeger, Blaschke, and Samardzic}]{goot2025distals}
+\bibitem[{Van Der~Goot et~al.(2025)Van Der~Goot, Ploeger, Blaschke, and
+  Samardzic}]{goot2025distals}
 Rob Van Der~Goot, Esther Ploeger, Verena Blaschke, and Tanja Samardzic. 2025.
-\newblock \href {https://aclanthology.org/2025.emnlp-demos.23/} {{DistaLs}: a comprehensive collection of language distance measures}.
-\newblock In \emph{Proceedings of the 2025 Conference on Empirical Methods in Natural Language Processing: System Demonstrations}, pages 307--318.
+\newblock \href {https://aclanthology.org/2025.emnlp-demos.23/} {{DistaLs}: a
+  comprehensive collection of language distance measures}.
+\newblock In \emph{Proceedings of the 2025 Conference on Empirical Methods in
+  Natural Language Processing: System Demonstrations}, pages 307--318.
 
 \end{thebibliography}
