@@ -12,7 +12,7 @@ The zero-shot advantage of Norwegian aligns with its 5.7$\times$ lower WALS dist
 \subsection{Pipeline notes}
 \label{sec:analysis}
 
-\textbf{MISC F1 = 0.0.} The Universal NER Danish file stores MISC annotations in a secondary column (e.g.\ \texttt{B-MISC\#O}) not read by training or evaluation code---a data-format artifact, not a modeling failure (32 dev and 44 test instances affected).
+\textbf{MISC F1 = 0.0.} The Universal NER Danish file stores MISC annotations in a secondary column (e.g.\ \texttt{B-MISC\#O}) not read by training or evaluation code, a data-format artifact rather than a modeling failure (32 dev and 44 test instances affected).
 
 \textbf{Anomalous EN$\rightarrow$DA run.} One seed-42 English-to-Danish dev prediction file contains 2{,}001 sentences against 564 in the gold (strict F1 $\approx$0.3\% vs.\ 79.3 logged during training), caused by an incorrect dev-evaluation path that pointed at the English development split. A blast-radius check over all 17 prediction files found the mismatch isolated to this single file; all other runs are consistent (see Appendix Figure~\ref{fig:strict_eval_scatter}). This run is excluded from seed-42 dev comparisons; its test prediction is unaffected (78.8 test F1).
 

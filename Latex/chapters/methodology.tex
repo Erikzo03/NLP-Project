@@ -17,8 +17,8 @@ The label space and Danish target splits stay fixed throughout. What varies are 
 
 Two multilingual encoders serve as the backbone for token classification:
 \begin{itemize}
-  \item \textbf{mBERT}: \texttt{bert-base-multilingual-cased} \citep{devlin2019bert} --- 12 layers, 110M parameters, trained on 104 languages.
-  \item \textbf{XLM-R}: \texttt{xlm-roberta-base} \citep{conneau2020xlmr} --- 12 layers, 125M parameters, larger and more diverse pretraining corpus.
+  \item \textbf{mBERT}: \texttt{bert-base-multilingual-cased} \citep{devlin2019bert}, 12 layers, 110M parameters, trained on 104 languages.
+  \item \textbf{XLM-R}: \texttt{xlm-roberta-base} \citep{conneau2020xlmr}, 12 layers, 125M parameters, larger and more diverse pretraining corpus.
 \end{itemize}
 
 Both encoders are fine-tuned for token classification using the Hugging Face Trainer API following standard cross-lingual transfer practice \citep{kdnuggets2023mbert}. For fine-tuned transfer (EN$\rightarrow$DA FT, NO$\rightarrow$DA FT) we initialize from the best zero-shot checkpoint and continue training on Danish.

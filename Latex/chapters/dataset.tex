@@ -2,7 +2,7 @@
 
 We use the Universal NER benchmark \citep{mayhew2024universal} for English, Norwegian, and Danish, provided sentence-by-sentence in token-aligned IOB2 format with three entity types: PER (person), LOC (location), and ORG (organization).
 
-Figure~\ref{fig:dataset_splits} illustrates the sentence-count imbalance across splits. English provides roughly five times as many training sentences as Danish or Norwegian---a data-volume advantage that is a separate factor from typological proximity, and one the fine-tuning experiments help disentangle. Danish and Norwegian are closely matched in size, which simplifies interpretation of the data-budget conditions.
+Figure~\ref{fig:dataset_splits} illustrates the sentence-count imbalance across splits. English provides roughly five times as many training sentences as Danish or Norwegian, a data-volume advantage that is a separate factor from typological proximity, and one the fine-tuning experiments help disentangle. Danish and Norwegian are closely matched in size, which simplifies interpretation of the data-budget conditions.
 
 \begin{figure}[t]
 \centering
@@ -33,4 +33,4 @@ Figure~\ref{fig:dataset_splits} illustrates the sentence-count imbalance across 
 \label{fig:dataset_splits}
 \end{figure}
 
-The Danish data-budget conditions (10\%, 25\%, 50\% of 4{,}383 training sentences) correspond to approximately 440, 1{,}100, and 2{,}200 sentences respectively---each a practically realistic annotation effort that tests how quickly target-language supervision closes the zero-shot gap. Because the primary annotation column uses the same label inventory across all three languages, observed performance differences are attributable to language transfer rather than annotation-schema mismatches.
+The Danish data-budget conditions (10\%, 25\%, 50\% of 4{,}383 training sentences) correspond to approximately 440, 1{,}100, and 2{,}200 sentences respectively, each a practically realistic annotation effort that tests how quickly target-language supervision closes the zero-shot gap. Because the primary annotation column uses the same label inventory across all three languages, observed performance differences are attributable to language transfer rather than annotation-schema mismatches.

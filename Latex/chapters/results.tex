@@ -3,7 +3,7 @@
 
 \subsection{Multi-seed zero-shot results}
 
-Table~\ref{tab:multiseed} reports the core comparison --- Norwegian vs.\ English zero-shot transfer --- across seeds 42, 1, and 2, with per-system means, standard deviations, and paired $t$-test $p$-values.
+Table~\ref{tab:multiseed} reports the core comparison (Norwegian vs.\ English zero-shot transfer) across seeds 42, 1, and 2, with per-system means, standard deviations, and paired $t$-test $p$-values.
 
 \begin{table}[t]
 \centering
@@ -31,7 +31,7 @@ EN$\rightarrow$DA mBERT & ---   & 78.98 & 79.56 & 79.27 & 0.41 & \\
 \label{tab:multiseed}
 \end{table}
 
-Seed 42 made Norwegian XLM-R look clearly better on dev (86.49 vs.\ 85.52)---until averaging across seeds, at which point English XLM-R pulls slightly ahead (85.87 vs.\ 85.45). That reversal is the cautionary finding: single-seed development comparisons can mislead. On the held-out test set Norwegian leads for both encoders: +1.86 F1 for XLM-R ($p=0.10$) and +3.36 F1 for mBERT ($p=0.046$). The mBERT result is the more reliable: larger margin, lower variance, and conventional significance.
+Seed 42 made Norwegian XLM-R look clearly better on dev (86.49 vs.\ 85.52), until averaging across seeds, at which point English XLM-R pulls slightly ahead (85.87 vs.\ 85.45). That reversal is the cautionary finding: single-seed development comparisons can mislead. On the held-out test set Norwegian leads for both encoders: +1.86 F1 for XLM-R ($p=0.10$) and +3.36 F1 for mBERT ($p=0.046$). The mBERT result is the more reliable: larger margin, lower variance, and conventional significance.
 
 \subsection{Transfer and fine-tuning results}
 
@@ -82,7 +82,7 @@ Danish XLM-R 10\% & 72.8 & 78.2 & 84.4 \\
 
 \subsection{Per-entity-type F1}
 
-Table~\ref{tab:entity_type} shows per-type strict F1 for key systems on the Danish development set. ORG is the most variable category, swinging from 74.9 to 83.5 across systems---a spread far exceeding PER or LOC. The EN$\rightarrow$DA mBERT + DA FT model records the highest ORG score (83.5), contributing to its strong overall ranking. LOC shows a notable zero-shot advantage for Norwegian XLM-R (90.0 vs.\ 86.5 for English), plausibly because place names share more lexical surface form between Norwegian and Danish. PER is the most stable category (89.6--93.7), consistent with person names transferring reliably across languages.
+Table~\ref{tab:entity_type} shows per-type strict F1 for key systems on the Danish development set. ORG is the most variable category, swinging from 74.9 to 83.5 across systems, a spread far exceeding PER or LOC. The EN$\rightarrow$DA mBERT + DA FT model records the highest ORG score (83.5), contributing to its strong overall ranking. LOC shows a notable zero-shot advantage for Norwegian XLM-R (90.0 vs.\ 86.5 for English), plausibly because place names share more lexical surface form between Norwegian and Danish. PER is the most stable category (89.6--93.7), consistent with person names transferring reliably across languages.
 
 \begin{table}[t]
 \centering
@@ -108,7 +108,7 @@ NO$\rightarrow$DA XLM-R + DA FT    & 93.1 & 90.6 & 78.8 \\
 
 \subsection{Typological distance and transfer gain}
 
-Table~\ref{tab:distance_gain} places WALS distances alongside the corresponding zero-shot transfer scores. The ordering is directionally consistent: Norwegian's 5.7$\times$ proximity advantage (0.021 vs.\ 0.119) aligns with its test-set lead for both encoders. The effect is modest in magnitude and falls short of significance for XLM-R, suggesting that structural proximity is a contributing factor rather than the sole determinant---encoder capacity and pretraining data volume also play a role.
+Table~\ref{tab:distance_gain} places WALS distances alongside the corresponding zero-shot transfer scores. The ordering is directionally consistent: Norwegian's 5.7$\times$ proximity advantage (0.021 vs.\ 0.119) aligns with its test-set lead for both encoders. The effect is modest in magnitude and falls short of significance for XLM-R, suggesting that structural proximity is a contributing factor rather than the sole determinant; encoder capacity and pretraining data volume also play a role.
 
 \begin{table}[t]
 \centering
